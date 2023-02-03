@@ -10,5 +10,13 @@ public class TestCharacter
         Assert.IsAssignableFrom<Entity>(character_);
     }
 
+    [Fact]
+    public void HasHealth()
+    {
+        Assert.IsType<Health>(character_.Health);
+    }
+
+
+
     private readonly Character character_ = new();
 }
