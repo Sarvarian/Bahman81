@@ -16,6 +16,12 @@ public class TestCharacter
         Assert.IsType<Health>(character_.Health);
     }
 
+    [Fact]
+    public void HasHunger()
+    {
+        Assert.IsType<Hunger>(character_.Hunger);
+    }
+
 
 
     private readonly Character character_ = new();
