@@ -2,7 +2,7 @@
 
 namespace CoreGameTest;
 
-public class EntityTest
+public class TestEntity
 {
     [Fact]
     public void NotNull()
@@ -10,5 +10,5 @@ public class EntityTest
         Assert.NotNull(entity_);
     }
 
-    private readonly Entity entity_ = new EntityDummy();
+    private readonly Entity entity_ = new DummyEntity();
 }

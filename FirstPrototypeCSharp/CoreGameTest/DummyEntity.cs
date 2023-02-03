@@ -2,7 +2,7 @@
 
 namespace CoreGameTest;
 
-public class EntityDummy : Entity
+public class DummyEntity : Entity
 {
     
 }
