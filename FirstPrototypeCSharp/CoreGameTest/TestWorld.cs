@@ -7,7 +7,7 @@ public class TestWorld
     [Fact]
     public void HasEntityList()
     {
-        Assert.Equal(typeof(List<Entity>), world_.Entities.GetType());
+        Assert.IsType<List<Entity>>(world_.Entities);
     }
 
     [Fact]
