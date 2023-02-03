@@ -2,19 +2,19 @@
 
 namespace CoreGameTest;
 
-public class TestEntity : ClassTestBase
+public class TestEntity : ClassTestDummyEntity
 {
     [Fact]
     public void NotNull()
     {
-        Assert.NotNull(entity_);
+        Assert.NotNull(Entity);
     }
 
     [Fact]
     public void HasTickFunction()
     {
-        entity_.Tick();
-        Assert.Equal(1, tickCallCounter_);
+        Entity.Tick();
+        Assert.Equal(1, TickCallCounter);
     }
 
     [Fact]
@@ -23,22 +23,9 @@ public class TestEntity : ClassTestBase
         var reach = Rng.Next(5, 10);
         for (var i = 1; i < reach; i++)
         {
-            entity_.Tick();
-            Assert.Equal(i, tickCallCounter_);
+            Entity.Tick();
+            Assert.Equal(i, TickCallCounter);
         }
-    }
-
-    public TestEntity()
-    {
-        entity_ = new DummyEntity(DummyTickFunction);
-    }
-    
-    private readonly Entity entity_;
-    private int tickCallCounter_;
-
-    private void DummyTickFunction()
-    {
-        tickCallCounter_ += 1;
     }
 
 }
