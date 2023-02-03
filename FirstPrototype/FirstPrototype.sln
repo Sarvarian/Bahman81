@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstPrototype", "FirstProt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreGame", "..\FirstPrototypeCSharp\CoreGame\CoreGame.csproj", "{C3AB1023-B8AF-49D3-A6E6-195EB7C7D868}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreGameTest", "..\FirstPrototypeCSharp\CoreGameTest\CoreGameTest.csproj", "{E6395CCE-1EF2-47FA-9A8A-5877EFACCD6F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 	Debug|Any CPU = Debug|Any CPU
@@ -25,11 +23,5 @@ Global
 		{C3AB1023-B8AF-49D3-A6E6-195EB7C7D868}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
 		{C3AB1023-B8AF-49D3-A6E6-195EB7C7D868}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
 		{C3AB1023-B8AF-49D3-A6E6-195EB7C7D868}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
-		{E6395CCE-1EF2-47FA-9A8A-5877EFACCD6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6395CCE-1EF2-47FA-9A8A-5877EFACCD6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E6395CCE-1EF2-47FA-9A8A-5877EFACCD6F}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6395CCE-1EF2-47FA-9A8A-5877EFACCD6F}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
-		{E6395CCE-1EF2-47FA-9A8A-5877EFACCD6F}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6395CCE-1EF2-47FA-9A8A-5877EFACCD6F}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal
