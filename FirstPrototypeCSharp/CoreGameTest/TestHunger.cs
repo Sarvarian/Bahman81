@@ -2,7 +2,7 @@
 
 namespace CoreGameTest;
 
-public class TestHunger
+public class TestHunger : BaseTestClass
 {
     [Fact]
     public void InitialValue()
@@ -57,11 +57,10 @@ public class TestHunger
     }
 
     private readonly Hunger hunger_ = new();
-    private readonly Random rnd_ = new(DateTime.Now.Millisecond);
 
     private void CostNoZero()
     {
-        var i = rnd_.Next(1, Hunger.Max - 1);
+        var i = Rng.Next(1, Hunger.Max - 1);
         for (; i > 0; i--)
         {
             hunger_.Cost();
@@ -78,7 +77,7 @@ public class TestHunger
 
     private void CostOverZero()
     {
-        var i = rnd_.Next(Hunger.Max + 1, Hunger.Max + 5);
+        var i = Rng.Next(Hunger.Max + 1, Hunger.Max + 5);
         for (; i > 0; i--)
         {
             hunger_.Cost();
@@ -87,7 +86,7 @@ public class TestHunger
 
     private void ChargeOverMax()
     {
-        var i = rnd_.Next(Hunger.Max + 1, Hunger.Max + 5);
+        var i = Rng.Next(Hunger.Max + 1, Hunger.Max + 5);
         for (; i > 0; i--)
         {
             hunger_.Charge();

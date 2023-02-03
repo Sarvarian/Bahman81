@@ -2,7 +2,7 @@ using CoreGame;
 
 namespace CoreGameTest;
 
-public class TestHealth
+public class TestHealth : BaseTestClass
 {
     [Fact]
     public void InitialValue()
@@ -57,11 +57,10 @@ public class TestHealth
     }
 
     private readonly Health health_ = new();
-    private readonly Random rng_ = new(DateTime.Now.Millisecond);
 
     private void DamageNoDeath()
     {
-        var i = rng_.Next(1, Health.Max - 1);
+        var i = Rng.Next(1, Health.Max - 1);
         for (; i > 0; i--)
         {
             health_.Damage();
@@ -78,7 +77,7 @@ public class TestHealth
 
     private void DamageOverDeath()
     {
-        var i = rng_.Next(Health.Max + 1, Health.Max + 5);
+        var i = Rng.Next(Health.Max + 1, Health.Max + 5);
         for (; i > 0; i--)
         {
             health_.Damage();
@@ -87,7 +86,7 @@ public class TestHealth
 
     private void RecoverOverMax()
     {
-        var i = rng_.Next(Health.Max + 1, Health.Max + 5);
+        var i = Rng.Next(Health.Max + 1, Health.Max + 5);
         for (; i > 0; i--)
         {
             health_.Recover();

@@ -2,7 +2,7 @@
 
 namespace CoreGameTest;
 
-public class TestCharacter
+public class TestCharacter : BaseTestClass
 {
     [Fact]
     public void CharacterIsAnEntity()
