@@ -2,7 +2,7 @@
 
 namespace CoreGameTest;
 
-public class TestHunger : BaseTestClass
+public class TestHunger : ClassTestBase
 {
     [Fact]
     public void InitialValue()

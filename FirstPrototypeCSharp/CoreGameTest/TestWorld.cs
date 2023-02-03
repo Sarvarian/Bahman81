@@ -2,7 +2,7 @@
 
 namespace CoreGameTest;
 
-public class TestWorld : BaseTestClass
+public class TestWorld : ClassTestBase
 {
     [Fact]
     public void HasEntityList()

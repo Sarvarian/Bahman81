@@ -2,7 +2,7 @@ using CoreGame;
 
 namespace CoreGameTest;
 
-public class TestHealth : BaseTestClass
+public class TestHealth : ClassTestBase
 {
     [Fact]
     public void InitialValue()

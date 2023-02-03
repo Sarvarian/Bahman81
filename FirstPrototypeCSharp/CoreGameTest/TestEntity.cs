@@ -2,7 +2,7 @@
 
 namespace CoreGameTest;
 
-public class TestEntity : BaseTestClass
+public class TestEntity : ClassTestBase
 {
     [Fact]
     public void NotNull()
