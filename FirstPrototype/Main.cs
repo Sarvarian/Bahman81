@@ -2,7 +2,7 @@ using Godot;
 
 namespace FirstPrototype;
 
-public partial class Main : Node
+public partial class Main : Node2D
 {
     public override void _Ready()
     {
