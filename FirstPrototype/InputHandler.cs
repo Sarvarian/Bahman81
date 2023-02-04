@@ -25,6 +25,11 @@ public class InputHandler
         }
     }
 
+    public void NewMousePosition(Vector2 globalMousePosition)
+    {
+        
+    }
+
     private readonly StringName moveRight_ = "move_right";
     private readonly StringName moveLeft_ = "move_left";
     private readonly StringName attack_ = "attack";

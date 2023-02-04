@@ -27,6 +27,9 @@ public partial class Main : Node2D
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
+        
+        inputHandler_.NewMousePosition(GetGlobalMousePosition());
+        
         if (player_!.IsGotInputEvent)
         {
             world_.Tick();
