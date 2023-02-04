@@ -27,7 +27,7 @@ public partial class Main : Node2D
     {
         player_ = characterScene_.Instantiate<Character>();
         AddChild(player_);
-        player_.Position = new Vector2(50, 50);
+        player_.Position = new Vector2(screen_.CenterX, screen_.CenterY);
     }
 
     private void ConnectSignals()
