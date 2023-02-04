@@ -34,16 +34,8 @@ public partial class Main : Node2D
         base._PhysicsProcess(delta);
 
         inputHandler_.NewMousePosition(GetGlobalMousePosition());
-
         UpdateHighlighterPosition();
-
-        // TODO: Extract a method out of this if block.
-        if (player_!.IsGotInputEvent)
-        {
-            world_.Tick();
-            UpdatePlayerLocation();
-            player_.IsGotInputEvent = false;
-        }
+        DoTheTick();
     }
 
     public override void _UnhandledKeyInput(InputEvent @event)
@@ -141,6 +133,16 @@ public partial class Main : Node2D
         num.Position += new Vector2(location * pixelPerGroundRulerStep_, 0);
         num.SetText($"{location}");
         AddChild(num);
+    }
+
+    private void DoTheTick()
+    {
+        if (player_!.IsGotInputEvent)
+        {
+            world_.Tick();
+            UpdatePlayerLocation();
+            player_.IsGotInputEvent = false;
+        }
     }
 
     private void UpdatePlayerLocation()
