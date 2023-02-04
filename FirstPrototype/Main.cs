@@ -10,7 +10,6 @@ public partial class Main : Node2D
     [Export] private PackedScene? numberLabelScene_;
     [Export] private PackedScene? characterScene_;
     [Export] private PackedScene? blockScene_;
-    [Export] private int pixelPerGroundRulerStep_;
 
     public override void _Ready()
     {
@@ -56,6 +55,7 @@ public partial class Main : Node2D
     private readonly CoreGame.Screen screen_ = new(0, 0);
     private Character? player_;
     private Highlighter? highlighter_;
+    private int pixelPerGroundRulerStep_;
 
     private void InstantiatePlayer()
     {
