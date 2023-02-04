@@ -27,6 +27,7 @@ public partial class Main : Node2D
     public override void _UnhandledKeyInput(InputEvent @event)
     {
         base._UnhandledKeyInput(@event);
+        @event.AssertType<InputEventKey>();
         inputHandler_.NewKeyInput((InputEventKey)@event);
     }
 
