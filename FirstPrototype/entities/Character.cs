@@ -29,6 +29,16 @@ public partial class Character : Node2D
         coreCharacter_ = character;
     }
 
+    public void UpdateLocation(Vector2 centerPoint, int pixelPerStep)
+    {
+        var newPos = new Vector2
+        {
+            Y = Position.Y,
+            X = centerPoint.X + (coreCharacter_!.Location * pixelPerStep)
+        };
+        Position = newPos;
+    }
+
     private CoreGame.Character? coreCharacter_;
 
     private void MoveRight()

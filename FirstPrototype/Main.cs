@@ -132,12 +132,7 @@ public partial class Main : Node2D
 
     private void UpdatePlayerLocation()
     {
-        var newPos = new Vector2
-        {
-            Y = player_!.Position.Y,
-            X = screen_.CenterX + (world_.Player.Location * pixelPerGroundRulerStep_)
-        };
-        player_!.Position = newPos;
+        player_!.UpdateLocation(ScreenCenterPointAsVector2I(), pixelPerGroundRulerStep_);
     }
 
 }
