@@ -5,7 +5,7 @@ namespace FirstPrototype.entities;
 
 public partial class Number : Control
 {
-    [Export] private Label label_;
+    [Export] private Label? label_;
 
     public override void _Ready()
     {
@@ -14,7 +14,7 @@ public partial class Number : Control
 
     public void SetText(string text)
     {
-        label_.Text = text;
+        label_!.Text = text;
     }
 
 }

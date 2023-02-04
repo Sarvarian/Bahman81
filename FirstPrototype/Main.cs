@@ -6,8 +6,8 @@ namespace FirstPrototype;
 
 public partial class Main : Node2D
 {
-    [Export] private PackedScene characterScene_;
-    [Export] private PackedScene numberLabelScene_;
+    [Export] private PackedScene? characterScene_;
+    [Export] private PackedScene? numberLabelScene_;
     [Export] private int pixelPerGroundRulerStep_ = 40;
 
     public override void _Ready()
@@ -34,11 +34,11 @@ public partial class Main : Node2D
     private readonly InputHandler inputHandler_ = new();
     private readonly CoreGame.World world_ = new();
     private readonly CoreGame.Screen screen_ = new(0, 0);
-    private Character player_;
+    private Character? player_;
 
     private void InstantiatePlayer()
     {
-        player_ = characterScene_.Instantiate<Character>();
+        player_ = characterScene_!.Instantiate<Character>();
         AddChild(player_);
         player_.Position = new Vector2(screen_.CenterX, screen_.CenterY);
         player_.ConnectSignals(inputHandler_);
@@ -111,7 +111,7 @@ public partial class Main : Node2D
 
     private void InstantiateANumberLabel(int location)
     {
-        var num = numberLabelScene_.Instantiate<Number>();
+        var num = numberLabelScene_!.Instantiate<Number>();
         num.Position = ScreenCenterPointAsVector2I();
         num.Position += new Vector2(location * pixelPerGroundRulerStep_, 0);
         num.SetText($"{location}");
