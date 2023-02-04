@@ -15,9 +15,9 @@ public class World
         Entities.ForEach(e => e.Tick());
     }
 
-    public IEnumerable<Entity> EntitiesAtLocation(int location)
+    public Entity[] EntitiesAtLocation(int location)
     {
-        return Entities.Where(e => e.Location == location).ToList();
+        return Entities.Where(e => e.Location == location).ToArray();
     }
 
 }
