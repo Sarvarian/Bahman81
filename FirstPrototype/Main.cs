@@ -24,6 +24,16 @@ public partial class Main : Node2D
         InstantiatePlayer();
     }
 
+    public override void _PhysicsProcess(double delta)
+    {
+        base._PhysicsProcess(delta);
+        if (player_!.IsGotInputEvent)
+        {
+            world_.Tick();
+            player_.IsGotInputEvent = false;
+        }
+    }
+
     public override void _UnhandledKeyInput(InputEvent @event)
     {
         base._UnhandledKeyInput(@event);
@@ -42,9 +52,7 @@ public partial class Main : Node2D
         AddChild(player_);
         player_.Position = new Vector2(screen_.CenterX, screen_.CenterY);
         player_.ConnectSignals(inputHandler_);
-        player_.MoveRightCommand = MoveRightCommand;
-        player_.MoveLeftCommand = MoveLeftCommand;
-        player_.AttackCommand = AttackCommand;
+        player_.SetCoreCharacter(world_.Player);
     }
 
     private void ConnectSignals()
@@ -119,21 +127,6 @@ public partial class Main : Node2D
         num.Position += new Vector2(location * pixelPerGroundRulerStep_, 0);
         num.SetText($"{location}");
         AddChild(num);
-    }
-
-    private void MoveRightCommand()
-    {
-        world_.TickMoveRight();
-    }
-
-    private void MoveLeftCommand()
-    {
-        world_.TickMoveLeft();
-    }
-
-    private void AttackCommand()
-    {
-        // TODO: To be implemented.
     }
 
 }

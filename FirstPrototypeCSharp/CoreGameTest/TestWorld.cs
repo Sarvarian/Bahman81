@@ -43,29 +43,5 @@ public class TestWorld : ClassTestDummyEntity
         Assert.Equal(world_.Entities[0], world_.Player);
     }
 
-    [Fact]
-    public void TickMoveRight()
-    {
-        world_.TickMoveRight();
-        Assert.Equal(1, world_.Player.Location);
-
-        world_.Entities.Add(Dummy);
-        world_.TickMoveRight();
-        Assert.Equal(2, world_.Player.Location);
-        Assert.Equal(0, Dummy.Location);
-    }
-
-    [Fact]
-    public void TickMoveLeft()
-    {
-        world_.TickMoveLeft();
-        Assert.Equal(-1, world_.Player.Location);
-
-        world_.Entities.Add(Dummy);
-        world_.TickMoveLeft();
-        Assert.Equal(-2, world_.Player.Location);
-        Assert.Equal(0, Dummy.Location);
-    }
-
     private readonly World world_ = new();
 }

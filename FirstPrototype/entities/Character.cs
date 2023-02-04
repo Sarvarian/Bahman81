@@ -1,15 +1,12 @@
 using FirstPrototype.extensions;
 using Godot;
-using System;
 
 namespace FirstPrototype.entities;
 
 public partial class Character : Node2D
 {
     [Export] private Sprite2D? sprite2D_;
-    public Action? MoveRightCommand = null;
-    public Action? MoveLeftCommand = null;
-    public Action? AttackCommand = null;
+    public bool IsGotInputEvent;
 
     public override void _Ready()
     {
@@ -27,19 +24,29 @@ public partial class Character : Node2D
         // We remove and then add signals just to prevent duplication.
     }
 
+    public void SetCoreCharacter(CoreGame.Character character)
+    {
+        coreCharacter_ = character;
+    }
+
+    private CoreGame.Character? coreCharacter_;
+
     private void MoveRight()
     {
-        MoveRightCommand?.Invoke();
+        coreCharacter_!.SetToMoveRight();
+        IsGotInputEvent = true;
     }
 
     private void MoveLeft()
     {
-        MoveLeftCommand?.Invoke();
+        coreCharacter_!.SetToMoveLeft();
+        IsGotInputEvent = true;
     }
 
     private void Attack()
     {
-        AttackCommand?.Invoke();
+        // IsGotInputEvent = true;
+        // TODO: To Be Implemented.
     }
 
 }

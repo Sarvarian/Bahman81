@@ -14,17 +14,4 @@ public class World
     {
         Entities.ForEach(e => e.Tick());
     }
-
-    public void TickMoveRight()
-    {
-        Player.SetToMoveRight();
-        Tick();
-    }
-
-    public void TickMoveLeft()
-    {
-        Player.SetToMoveLeft();
-        Tick();
-    }
-
 }
