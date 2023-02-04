@@ -23,6 +23,14 @@ public class ScreenTest : ClassTestBase
         Assert.Equal(newHeight_, screen_.Height);
     }
 
+    [Fact]
+    public void CenterPoint()
+    {
+        Assert.Equal(initWidth_ / 2, screen_.CenterX);
+        Assert.Equal(initHeight_ / 2, screen_.CenterY);
+    }
+
+
     public ScreenTest()
     {
         initWidth_ = Rng.Next(1, 100);
