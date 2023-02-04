@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bny3v64lwhstk"]
+
+[ext_resource type="Script" path="res://entities/Highlighter.cs" id="1_0flv7"]
+[ext_resource type="Texture2D" uid="uid://ebkbfry5s1h5" path="res://assets/highlighter.svg" id="1_sig8l"]
+
+[node name="Highlighter" type="Node2D" node_paths=PackedStringArray("sprite2D_")]
+script = ExtResource("1_0flv7")
+sprite2D_ = NodePath("Highlighter")
+
+[node name="Highlighter" type="Sprite2D" parent="."]
+position = Vector2(0, -30)
+texture = ExtResource("1_sig8l")

@@ -6,9 +6,11 @@ namespace FirstPrototype;
 
 public partial class Main : Node2D
 {
-    [Export] private PackedScene? characterScene_;
+    [Export] private PackedScene? highlighterScene_;
     [Export] private PackedScene? numberLabelScene_;
-    [Export] private int pixelPerGroundRulerStep_ = 40;
+    [Export] private PackedScene? characterScene_;
+    [Export] private PackedScene? blockScene_;
+    [Export] private int pixelPerGroundRulerStep_;
 
     public override void _Ready()
     {
@@ -16,10 +18,14 @@ public partial class Main : Node2D
 
         Position = Vector2.Zero;
 
+        this.AssertFiledSet(nameof(highlighterScene_));
+        this.AssertFiledSet(nameof(numberLabelScene_));
         this.AssertFiledSet(nameof(characterScene_));
+        this.AssertFiledSet(nameof(blockScene_));
 
         ConnectSignals();
         InitializeScreen();
+        InstantiateHighlighter();
         CreateGroundRuler();
         InstantiatePlayer();
     }
@@ -49,6 +55,7 @@ public partial class Main : Node2D
     private readonly CoreGame.World world_ = new();
     private readonly CoreGame.Screen screen_ = new(0, 0);
     private Character? player_;
+    private Highlighter? highlighter_;
 
     private void InstantiatePlayer()
     {
@@ -136,6 +143,14 @@ public partial class Main : Node2D
     private void UpdatePlayerLocation()
     {
         player_!.UpdateLocation(ScreenCenterPointAsVector2I(), pixelPerGroundRulerStep_);
+    }
+
+    private void InstantiateHighlighter()
+    {
+        highlighter_ = highlighterScene_!.Instantiate<Highlighter>();
+        pixelPerGroundRulerStep_ = highlighter_.GetWidth() * 2;
+        AddChild(highlighter_);
+        highlighter_.Position = Vector2.Zero;
     }
 
 }

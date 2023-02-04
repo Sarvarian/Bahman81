@@ -24,9 +24,9 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="px"
      showgrid="false"
-     inkscape:zoom="7.9999999"
-     inkscape:cx="63.187501"
-     inkscape:cy="3.375"
+     inkscape:zoom="11.313708"
+     inkscape:cx="46.536465"
+     inkscape:cy="9.899495"
      inkscape:window-width="1920"
      inkscape:window-height="986"
      inkscape:window-x="-11"
@@ -40,14 +40,20 @@
        height="10.583333"
        id="page262" />
     <inkscape:page
-       x="15.291666"
-       y="-5.291666"
-       width="5.2916665"
+       x="7.9016638"
+       y="-5.2916651"
+       width="5.291666"
        height="15.874998"
        id="page264"
        inkscape:export-filename="Block.svg"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
+    <inkscape:page
+       x="15.55738"
+       y="-5.2916651"
+       width="5.2916679"
+       height="15.874998"
+       id="page1532" />
   </sodipodi:namedview>
   <defs
      id="defs2" />
@@ -98,7 +104,7 @@
          inkscape:rounded="0"
          inkscape:randomized="0"
          d="m 60.811376,9.9836208 17.377248,-3e-7 L 69.5,25.032759 Z"
-         transform="matrix(0.30451694,0,0,0.35162587,-3.226428,1.781167)"
+         transform="matrix(0.30451694,0,0,0.35162587,-10.61643,1.7811679)"
          inkscape:transform-center-y="0.88194414" />
     </g>
     <g
@@ -121,8 +127,15 @@
          inkscape:rounded="0"
          inkscape:randomized="0"
          d="m 60.811376,9.9836208 17.377248,-3e-7 L 69.5,25.032759 Z"
-         transform="matrix(0.25883941,0,0,0.3164633,-0.05183866,2.3968)"
+         transform="matrix(0.25883941,0,0,0.3164633,-7.441841,2.3968009)"
          inkscape:transform-center-y="0.79374991" />
     </g>
+    <rect
+       style="fill:#ffffff;stroke:#ffffff;stroke-width:0.264583;fill-opacity:0.5"
+       id="rect1586"
+       width="5.2916689"
+       height="15.874999"
+       x="15.55738"
+       y="-5.2916651" />
   </g>
 </svg>

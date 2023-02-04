@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://xwul4bmpjhw5"]
+[gd_scene load_steps=3 format=3 uid="uid://cuu814ifntb5m"]
 
 [ext_resource type="Script" path="res://entities/Block.cs" id="1_0fpqk"]
-[ext_resource type="Texture2D" uid="uid://bnfxv55nig2h3" path="res://assets/Block.svg" id="1_u6v5r"]
+[ext_resource type="Texture2D" uid="uid://bnfxv55nig2h3" path="res://assets/block.svg" id="2_q6ldb"]
 
 [node name="block" type="Node2D" node_paths=PackedStringArray("sprite2D_")]
 script = ExtResource("1_0fpqk")
@@ -9,4 +9,4 @@ sprite2D_ = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -27)
-texture = ExtResource("1_u6v5r")
+texture = ExtResource("2_q6ldb")
