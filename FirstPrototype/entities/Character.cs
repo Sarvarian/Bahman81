@@ -11,8 +11,4 @@ public partial class Character : Node2D
     {
         this.AssertFiledSet(nameof(sprite2D_));
     }
-
-    public override void _PhysicsProcess(double delta)
-    {
-    }
 }
