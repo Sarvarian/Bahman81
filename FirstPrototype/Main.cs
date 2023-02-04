@@ -162,8 +162,8 @@ public partial class Main : Node2D
     {
         var mousePos = GetGlobalMousePosition();
         var mouseY = mousePos.Y;
-        var maxY = screen_.CenterY;
-        var minY = maxY - highlighter_!.GetHeight();
+        var minY = screen_.CenterY - highlighter_!.GetHeight();
+        var maxY = screen_.CenterY + highlighter_!.GetHeight();
         return mouseY > minY && mouseY < maxY;
     }
 
