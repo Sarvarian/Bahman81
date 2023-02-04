@@ -5,6 +5,4 @@
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_qft8f")
-
-[node name="Character" parent="." instance=ExtResource("2_x7qws")]
-position = Vector2(358, 316)
+characterScene_ = ExtResource("2_x7qws")
