@@ -190,7 +190,15 @@ public partial class Main : Node2D
     private void UpdateHighlighter()
     {
         highlighter_!.Position = WhereToPutHighlighter();
-        highlighter_.GoFreeColor();
+        var highlighterLocation = ((int)highlighter_.Position.X - screen_.CenterX) / pixelPerGroundRulerStep_;
+        if (world_.EntitiesAtLocation(highlighterLocation).Length == 0)
+        {
+            highlighter_.GoFreeColor();
+        }
+        else
+        {
+            highlighter_.GoOccupiedColor();
+        }
     }
 
     public override void _Draw()

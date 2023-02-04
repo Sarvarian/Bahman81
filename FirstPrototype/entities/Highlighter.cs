@@ -7,7 +7,7 @@ public partial class Highlighter : Node2D
 {
     [Export] private Sprite2D? sprite2D_;
     [Export] private Color freePlaceColor_ = Colors.SteelBlue;
-    [Export] private Color occupiedPlaceColor_ = Colors.Red;
+    [Export] private Color occupiedPlaceColor_ = Colors.DarkRed;
 
     public override void _Ready()
     {
