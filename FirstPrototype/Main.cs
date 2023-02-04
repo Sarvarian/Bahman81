@@ -35,6 +35,9 @@ public partial class Main : Node2D
 
         inputHandler_.NewMousePosition(GetGlobalMousePosition());
 
+        UpdateHighlighterPosition();
+
+        // TODO: Extract a method out of this if block.
         if (player_!.IsGotInputEvent)
         {
             world_.Tick();
@@ -148,9 +151,78 @@ public partial class Main : Node2D
     private void InstantiateHighlighter()
     {
         highlighter_ = highlighterScene_!.Instantiate<Highlighter>();
-        pixelPerGroundRulerStep_ = highlighter_.GetWidth() * 2;
+        pixelPerGroundRulerStep_ = highlighter_.GetWidth();
         AddChild(highlighter_);
         highlighter_.Position = Vector2.Zero;
     }
 
+    private bool IsMouseCloseAndAboveGround()
+    {
+        var mousePos = GetGlobalMousePosition();
+        var mouseY = mousePos.Y;
+        var maxY = screen_.CenterY;
+        var minY = maxY - highlighter_!.GetHeight();
+        return mouseY > minY && mouseY < maxY;
+    }
+
+    private Vector2 WhereToPutHighlighter()
+    {
+        if (IsMouseCloseAndAboveGround() == false)
+        {
+            return Vector2.Zero;
+        }
+
+        var res = Vector2.Zero;
+        res.Y = screen_.CenterY;
+
+        var mousePos = GetGlobalMousePosition();
+        var mouseX = Mathf.RoundToInt(mousePos.X);
+        var distanceToCenter = mouseX - screen_.CenterX;
+        var rulerPoint =
+            Mathf.RoundToInt((float)distanceToCenter / (float)pixelPerGroundRulerStep_);
+        res.X = screen_.CenterX + (rulerPoint * pixelPerGroundRulerStep_);
+
+        return res;
+    }
+
+    private void UpdateHighlighterPosition()
+    {
+        highlighter_!.Position = WhereToPutHighlighter();
+    }
+
+    public override void _Draw()
+    {
+        base._Draw();
+
+        var color = Colors.DarkRed;
+
+        DrawLine(
+            new Vector2(0, screen_.CenterY),
+            new Vector2(screen_.Width, screen_.CenterY),
+            color
+        );
+
+        DrawLine(
+            new Vector2(screen_.CenterX, screen_.CenterY),
+            new Vector2(screen_.CenterX, screen_.CenterY + 10),
+            color
+        );
+
+        var maxStep = screen_.CenterX / pixelPerGroundRulerStep_;
+        for (var i = 1; i < maxStep; i++)
+        {
+            var xp = screen_.CenterX + (i * 1 * pixelPerGroundRulerStep_);
+            DrawLine(
+                new Vector2(xp, screen_.CenterY),
+                new Vector2(xp, screen_.CenterY + 10),
+                color
+            );
+            var xn = screen_.CenterX + (i * -1 * pixelPerGroundRulerStep_);
+            DrawLine(
+                new Vector2(xn, screen_.CenterY),
+                new Vector2(xn, screen_.CenterY + 10),
+                color
+            );
+        }
+    }
 }
