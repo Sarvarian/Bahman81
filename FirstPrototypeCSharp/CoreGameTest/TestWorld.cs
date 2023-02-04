@@ -26,7 +26,7 @@ public class TestWorld : ClassTestDummyEntity
     [Fact]
     public void HasTick()
     {
-        world_.Entities.Add(Entity);
+        world_.Entities.Add(Dummy);
 
         var reach = Rng.Next(5, 10);
         for (var i = 1; i < reach; i++)
@@ -41,6 +41,30 @@ public class TestWorld : ClassTestDummyEntity
     {
         Assert.Equal(0, world_.Entities[0].Location);
         Assert.Equal(world_.Entities[0], world_.Player);
+    }
+
+    [Fact]
+    public void TickMoveRight()
+    {
+        world_.TickMoveRight();
+        Assert.Equal(1, world_.Player.Location);
+
+        world_.Entities.Add(Dummy);
+        world_.TickMoveRight();
+        Assert.Equal(2, world_.Player.Location);
+        Assert.Equal(0, Dummy.Location);
+    }
+
+    [Fact]
+    public void TickMoveLeft()
+    {
+        world_.TickMoveLeft();
+        Assert.Equal(-1, world_.Player.Location);
+
+        world_.Entities.Add(Dummy);
+        world_.TickMoveLeft();
+        Assert.Equal(-2, world_.Player.Location);
+        Assert.Equal(0, Dummy.Location);
     }
 
     private readonly World world_ = new();

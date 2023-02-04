@@ -6,10 +6,10 @@ public class ClassTestDummyEntity : ClassTestBase
 {
     protected ClassTestDummyEntity()
     {
-        Entity = new DummyEntity(DummyTickFunction);
+        Dummy = new DummyEntity(DummyTickFunction);
     }
 
-    protected readonly Entity Entity;
+    protected readonly Entity Dummy;
     protected int TickCallCounter { get; private set; }
 
     private void DummyTickFunction()

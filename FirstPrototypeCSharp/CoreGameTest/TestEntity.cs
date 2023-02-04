@@ -5,13 +5,13 @@ public class TestEntity : ClassTestDummyEntity
     [Fact]
     public void NotNull()
     {
-        Assert.NotNull(Entity);
+        Assert.NotNull(Dummy);
     }
 
     [Fact]
     public void HasTickFunction()
     {
-        Entity.Tick();
+        Dummy.Tick();
         Assert.Equal(1, TickCallCounter);
     }
 
@@ -21,7 +21,7 @@ public class TestEntity : ClassTestDummyEntity
         var reach = Rng.Next(5, 10);
         for (var i = 1; i < reach; i++)
         {
-            Entity.Tick();
+            Dummy.Tick();
             Assert.Equal(i, TickCallCounter);
         }
     }
