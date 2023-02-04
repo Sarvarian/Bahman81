@@ -47,8 +47,30 @@ public partial class Main : Node2D
 
     private void ResetScreenSize()
     {
-        var newSize = GetTree().Root.GetVisibleRect().Size;
-        screen_.NewSize((int)newSize.X, (int)newSize.Y);
-        GD.Print($"W: {screen_.Width}, H: {screen_.Height}");
+        var oldSize = ScreenSizeAsVector2I();
+        var newSize = ViewportSizeAsVector2I();
+        if (oldSize != newSize)
+        {
+            screen_.NewSize(newSize.X, newSize.Y);
+        }
+    }
+
+    private Vector2I ViewportSizeAsVector2I()
+    {
+        var res = new Vector2I();
+        var size = GetTree().Root.GetVisibleRect().Size;
+        res.X = (int)size.X;
+        res.Y = (int)size.Y;
+        return res;
+    }
+
+    private Vector2I ScreenSizeAsVector2I()
+    {
+        var res = new Vector2I
+        {
+            X = screen_.Width,
+            Y = screen_.Height
+        };
+        return res;
     }
 }
