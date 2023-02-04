@@ -42,6 +42,6 @@ public class TestWorld : ClassTestDummyEntity
         Assert.Equal(0, world_.Entities[0].Location);
         Assert.Equal(world_.Entities[0], world_.Player);
     }
-    
+
     private readonly World world_ = new();
 }

@@ -9,7 +9,7 @@ public class World
     {
         Entities.Add(Player);
     }
-    
+
     public void Tick()
     {
         Entities.ForEach(e => e.Tick());

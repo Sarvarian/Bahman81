@@ -8,7 +8,7 @@ public class ClassTestDummyEntity : ClassTestBase
     {
         Entity = new DummyEntity(DummyTickFunction);
     }
-    
+
     protected readonly Entity Entity;
     protected int TickCallCounter { get; private set; }
 

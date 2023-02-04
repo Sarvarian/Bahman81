@@ -13,7 +13,7 @@ public partial class Main : Node2D
     public override void _Ready()
     {
         base._Ready();
-        
+
         Position = Vector2.Zero;
 
         this.AssertFiledSet(nameof(characterScene_));
@@ -41,7 +41,7 @@ public partial class Main : Node2D
         player_ = characterScene_.Instantiate<Character>();
         AddChild(player_);
         player_.Position = new Vector2(screen_.CenterX, screen_.CenterY);
-        player_.ConnectSignals(inputHandler_);  
+        player_.ConnectSignals(inputHandler_);
     }
 
     private void ConnectSignals()
@@ -97,7 +97,7 @@ public partial class Main : Node2D
         };
         return res;
     }
-    
+
     private void CreateGroundRuler()
     {
         InstantiateANumberLabel(0);
@@ -117,5 +117,5 @@ public partial class Main : Node2D
         num.SetText($"{location}");
         AddChild(num);
     }
-    
+
 }

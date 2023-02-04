@@ -39,7 +39,7 @@ public class ScreenTest : ClassTestBase
         newHeight_ = Rng.Next(401, 500);
         screen_ = new(initWidth_, initHeight_);
     }
-    
+
     private readonly int initWidth_;
     private readonly int initHeight_;
     private readonly int newWidth_;

@@ -37,5 +37,5 @@ public partial class Character : Node2D
     {
         GD.Print("Attack");
     }
-    
+
 }

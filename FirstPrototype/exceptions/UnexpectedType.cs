@@ -9,5 +9,5 @@ public class UnexpectedType : Exception
                $" but got type {actualTypeName}.")
     {
     }
-    
+
 }
