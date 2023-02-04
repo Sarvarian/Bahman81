@@ -12,6 +12,8 @@ public partial class Main : Node2D
 
     public override void _Ready()
     {
+        base._Ready();
+        
         Position = Vector2.Zero;
 
         this.AssertFiledSet(nameof(characterScene_));
@@ -22,6 +24,13 @@ public partial class Main : Node2D
         InstantiatePlayer();
     }
 
+    public override void _UnhandledKeyInput(InputEvent @event)
+    {
+        base._UnhandledKeyInput(@event);
+        inputHandler_.NewKeyInput((InputEventKey)@event);
+    }
+
+    private readonly InputHandler inputHandler_ = new();
     private readonly CoreGame.World world_ = new();
     private readonly CoreGame.Screen screen_ = new(0, 0);
     private Character player_;
