@@ -8,6 +8,7 @@ public partial class Main : Node2D
 {
     [Export] private PackedScene characterScene_;
     [Export] private PackedScene numberLabelScene_;
+    [Export] private int pixelPerGroundRulerStep_ = 40;
 
     public override void _Ready()
     {
@@ -89,13 +90,19 @@ public partial class Main : Node2D
     private void CreateGroundRuler()
     {
         InstantiateANumberLabel(0);
+        var maxStep = screen_.CenterX / pixelPerGroundRulerStep_;
+        for (var i = 1; i < maxStep; i++)
+        {
+            InstantiateANumberLabel(i * 1);
+            InstantiateANumberLabel(i * -1);
+        }
     }
 
     private void InstantiateANumberLabel(int location)
     {
         var num = numberLabelScene_.Instantiate<Number>();
         num.Position = ScreenCenterPointAsVector2I();
-        num.Position += new Vector2(location, 0);
+        num.Position += new Vector2(location * pixelPerGroundRulerStep_, 0);
         num.SetText($"{location}");
         AddChild(num);
     }
