@@ -5,8 +5,8 @@
 
 [node name="Highlighter" type="Node2D" node_paths=PackedStringArray("sprite2D_")]
 script = ExtResource("1_0flv7")
-sprite2D_ = NodePath("Highlighter")
+sprite2D_ = NodePath("Sprite2D")
 
-[node name="Highlighter" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -30)
 texture = ExtResource("1_sig8l")

@@ -34,7 +34,7 @@ public partial class Main : Node2D
         base._PhysicsProcess(delta);
 
         inputHandler_.NewMousePosition(GetGlobalMousePosition());
-        UpdateHighlighterPosition();
+        UpdateHighlighter();
         DoTheTick();
     }
 
@@ -187,9 +187,10 @@ public partial class Main : Node2D
         return res;
     }
 
-    private void UpdateHighlighterPosition()
+    private void UpdateHighlighter()
     {
         highlighter_!.Position = WhereToPutHighlighter();
+        highlighter_.GoFreeColor();
     }
 
     public override void _Draw()

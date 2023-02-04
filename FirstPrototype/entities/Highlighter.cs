@@ -6,6 +6,8 @@ namespace FirstPrototype.entities;
 public partial class Highlighter : Node2D
 {
     [Export] private Sprite2D? sprite2D_;
+    [Export] private Color freePlaceColor_ = Colors.SteelBlue;
+    [Export] private Color occupiedPlaceColor_ = Colors.Red;
 
     public override void _Ready()
     {
@@ -20,6 +22,16 @@ public partial class Highlighter : Node2D
     public int GetHeight()
     {
         return (int)sprite2D_!.GetRect().Size.Y;
+    }
+
+    public void GoFreeColor()
+    {
+        sprite2D_!.Modulate = freePlaceColor_;
+    }
+
+    public void GoOccupiedColor()
+    {
+        sprite2D_!.Modulate = occupiedPlaceColor_;
     }
 
 }
