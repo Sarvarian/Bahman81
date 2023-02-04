@@ -26,7 +26,7 @@ public class TestWorld : ClassTestDummyEntity
     [Fact]
     public void HasTick()
     {
-        world_.Entities.Add(Dummy);
+        AddDummyToWorld();
 
         var reach = Rng.Next(5, 10);
         for (var i = 1; i < reach; i++)
@@ -43,5 +43,20 @@ public class TestWorld : ClassTestDummyEntity
         Assert.Equal(world_.Entities[0], world_.Player);
     }
 
+    [Fact]
+    public void EntitiesInLocation()
+    {
+        AddDummyToWorld();
+        var expected = new[] { world_.Player, Dummy };
+        Assert.Equal(expected, world_.EntitiesAtLocation(0));
+    }
+
+
     private readonly World world_ = new();
+
+    private void AddDummyToWorld()
+    {
+        world_.Entities.Add(Dummy);
+    }
+
 }
