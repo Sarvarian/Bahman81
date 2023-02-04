@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" path="res://entities/Number.cs" id="1_rvds5"]
 
-[node name="Number" type="Control"]
+[node name="Number" type="Control" node_paths=PackedStringArray("label_")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_rvds5")
+label_ = NodePath("Label")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -23.0

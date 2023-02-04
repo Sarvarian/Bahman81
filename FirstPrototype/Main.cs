@@ -7,6 +7,7 @@ namespace FirstPrototype;
 public partial class Main : Node2D
 {
     [Export] private PackedScene characterScene_;
+    [Export] private PackedScene numberLabelScene_;
 
     public override void _Ready()
     {
@@ -16,6 +17,7 @@ public partial class Main : Node2D
 
         ConnectSignals();
         InitializeScreen();
+        CreateGroundRuler();
         InstantiatePlayer();
     }
 
@@ -73,4 +75,29 @@ public partial class Main : Node2D
         };
         return res;
     }
+
+    private Vector2I ScreenCenterPointAsVector2I()
+    {
+        var res = new Vector2I
+        {
+            X = screen_.CenterX,
+            Y = screen_.CenterY
+        };
+        return res;
+    }
+    
+    private void CreateGroundRuler()
+    {
+        InstantiateANumberLabel(0);
+    }
+
+    private void InstantiateANumberLabel(int location)
+    {
+        var num = numberLabelScene_.Instantiate<Number>();
+        num.Position = ScreenCenterPointAsVector2I();
+        num.Position += new Vector2(location, 0);
+        num.SetText($"{location}");
+        AddChild(num);
+    }
+    
 }

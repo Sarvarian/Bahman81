@@ -12,4 +12,9 @@ public partial class Number : Control
         this.AssertFiledSet(nameof(label_));
     }
 
+    public void SetText(string text)
+    {
+        label_.Text = text;
+    }
+
 }
