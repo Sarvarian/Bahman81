@@ -8,6 +8,7 @@ public static class NodeExtension
 {
     public static void AssertFiledSet(this Node node, string propertyName)
     {
+#if DEBUG
         var type = node.GetType();
         const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
         var property = type.GetField(propertyName, flags)!;
@@ -16,5 +17,6 @@ public static class NodeExtension
         {
             throw new PropertyIsNotSet(propertyName, type.Name);
         }
+#endif
     }
 }
