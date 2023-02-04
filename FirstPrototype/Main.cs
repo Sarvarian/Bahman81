@@ -30,6 +30,7 @@ public partial class Main : Node2D
         if (player_!.IsGotInputEvent)
         {
             world_.Tick();
+            UpdatePlayerLocation();
             player_.IsGotInputEvent = false;
         }
     }
@@ -127,6 +128,16 @@ public partial class Main : Node2D
         num.Position += new Vector2(location * pixelPerGroundRulerStep_, 0);
         num.SetText($"{location}");
         AddChild(num);
+    }
+
+    private void UpdatePlayerLocation()
+    {
+        var newPos = new Vector2
+        {
+            Y = player_!.Position.Y,
+            X = screen_.CenterX + (world_.Player.Location * pixelPerGroundRulerStep_)
+        };
+        player_!.Position = newPos;
     }
 
 }
