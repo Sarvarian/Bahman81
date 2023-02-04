@@ -1,6 +1,4 @@
-﻿using CoreGame;
-
-namespace CoreGameTest;
+﻿namespace CoreGameTest;
 
 public class TestEntity : ClassTestDummyEntity
 {
