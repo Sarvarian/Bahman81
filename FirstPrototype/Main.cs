@@ -179,7 +179,7 @@ public partial class Main : Node2D
         var mouseX = Mathf.RoundToInt(mousePos.X);
         var distanceToCenter = mouseX - screen_.CenterX;
         var rulerPoint =
-            Mathf.RoundToInt((float)distanceToCenter / (float)pixelPerGroundRulerStep_);
+            Mathf.RoundToInt(distanceToCenter / (float)pixelPerGroundRulerStep_);
         res.X = screen_.CenterX + (rulerPoint * pixelPerGroundRulerStep_);
 
         return res;
