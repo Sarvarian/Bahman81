@@ -4,6 +4,7 @@ public class Screen
 {
     public Vector2I Size { get; private set; }
     public Vector2I Center { get; private set; }
+    public Vector2I Highlighter { get; private set; }
 
     public Screen(Vector2I initSize)
     {
@@ -19,5 +20,17 @@ public class Screen
     public static bool IsInsideAreaY(int upper, int lower, int point)
     {
         return point > upper && point < lower;
+    }
+
+    public void SetHighlighter(Vector2I highlighter)
+    {
+        Highlighter = highlighter;
+    }
+
+    public bool IsInsideHighlighterAreaDoubleSide(int point)
+    {
+        var upper = Center.Y - Highlighter.Y;
+        var lower = Center.Y + Highlighter.Y;
+        return IsInsideAreaY(upper, lower, point);
     }
 }

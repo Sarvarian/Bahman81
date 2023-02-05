@@ -52,6 +52,37 @@ public class TestScreen : ClassTestBase
         Assert.False(Screen.IsInsideAreaY(upper, lower, point3));
     }
 
+    [Fact]
+    public void SetHighlighter()
+    {
+        var highlighter = CreateHighlighter();
+        screen_.SetHighlighter(highlighter);
+        Assert.Equal(highlighter, screen_.Highlighter);
+    }
+
+    [Fact]
+    public void IsInsideHighlighterAreaDoubleSide()
+    {
+        CreateAndSetHighlighter();
+
+        var upper = screen_.Center.Y - screen_.Highlighter.Y;
+        var lower = screen_.Center.Y + screen_.Highlighter.Y;
+
+        var point1 = Rng.Next(upper + 1, lower - 1);
+        var point2 = Rng.Next(1, upper - 1);
+        var point3 = Rng.Next(lower + 1, screen_.Size.Y);
+
+        Assert.True(screen_.IsInsideHighlighterAreaDoubleSide(point1));
+        Assert.False(screen_.IsInsideHighlighterAreaDoubleSide(point2));
+        Assert.False(screen_.IsInsideHighlighterAreaDoubleSide(point3));
+    }
+
+    private void CreateAndSetHighlighter()
+    {
+        var highlighter = CreateHighlighter();
+        screen_.SetHighlighter(highlighter);
+    }
+
 
     public TestScreen()
     {
@@ -63,4 +94,13 @@ public class TestScreen : ClassTestBase
     private readonly Vector2I initSize_;
     private readonly Vector2I newSize_;
     private readonly Screen screen_;
+
+    private Vector2I CreateHighlighter()
+    {
+        var width = Rng.Next(5, 10);
+        var height = Rng.Next(11, 20);
+        var highlighter = new Vector2I(width, height);
+        return highlighter;
+    }
+
 }

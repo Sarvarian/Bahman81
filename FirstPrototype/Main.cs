@@ -23,7 +23,7 @@ public partial class Main : Node2D
         this.AssertFiledSet(nameof(blockScene_));
 
         ConnectSignals();
-        InitializeScreen();
+        ResetScreenSize();
         InstantiateHighlighter();
         CreateGroundRuler();
         InstantiatePlayer();
@@ -52,7 +52,7 @@ public partial class Main : Node2D
 
     private readonly InputHandler inputHandler_ = new();
     private readonly CoreGame.World world_ = new();
-    private readonly CoreGame.Screen screen_ = new(Vector2I.Zero.To());
+    private readonly CoreGame.Screen screen_ = new(Vector2I.Zero.IntoCoreVector2I());
     private Character? player_;
     private Highlighter? highlighter_;
     private DebugDrawGroundRuler? debugDrawGroundRuler_;
@@ -62,35 +62,25 @@ public partial class Main : Node2D
     {
         player_ = characterScene_!.Instantiate<Character>();
         AddChild(player_);
-        player_.Position = screen_.Center.To();
+        player_.Position = screen_.Center.IntoGodotVector2I();
         player_.ConnectSignals(inputHandler_);
         player_.SetCoreCharacter(world_.Player);
     }
 
     private void ConnectSignals()
     {
-        GetTree().Root.SizeChanged += OnRootSizeChanged;
+        GetTree().Root.SizeChanged += ResetScreenSize;
         inputHandler_.ImplantEntitySignal += OnInputHandlerImplantEntitySignal;
         inputHandler_.RemoveEntitySignal += OnInputHandlerRemoveEntitySignal;
     }
 
-    private void InitializeScreen()
-    {
-        ResetScreenSize();
-    }
-
-    private void OnRootSizeChanged()
-    {
-        ResetScreenSize();
-    }
-
     private void ResetScreenSize()
     {
-        var oldSize = screen_.Size.To();
-        var newSize = GetTree().Root.GetVisibleRect().Size.To();
+        var oldSize = screen_.Size.IntoGodotVector2I();
+        var newSize = GetTree().Root.GetVisibleRect().Size.IntoGodotVector2I();
         if (oldSize != newSize)
         {
-            screen_.NewSize(newSize.To());
+            screen_.NewSize(newSize.IntoCoreVector2I());
         }
     }
 
@@ -108,7 +98,7 @@ public partial class Main : Node2D
     private void InstantiateANumberLabel(int location)
     {
         var num = numberLabelScene_!.Instantiate<Number>();
-        num.Position = screen_.Center.To();
+        num.Position = screen_.Center.IntoGodotVector2I();
         num.Position += new Vector2(location * pixelPerGroundRulerStep_, 0);
         num.SetText($"{location}");
         AddChild(num);
@@ -126,7 +116,7 @@ public partial class Main : Node2D
 
     private void UpdatePlayerLocation()
     {
-        player_!.UpdateLocation(screen_.Center.To(), pixelPerGroundRulerStep_);
+        player_!.UpdateLocation(screen_.Center.IntoGodotVector2I(), pixelPerGroundRulerStep_);
     }
 
     private void InstantiateHighlighter()
@@ -135,14 +125,14 @@ public partial class Main : Node2D
         pixelPerGroundRulerStep_ = highlighter_.GetWidth();
         AddChild(highlighter_);
         highlighter_.Position = Vector2.Zero;
+
+        screen_.SetHighlighter(highlighter_.GetSize().IntoCoreVector2I());
     }
 
     private bool IsMouseCloseAndAboveGround()
     {
         var mouseY = (int)GetGlobalMousePosition().Y;
-        var minY = screen_.Center.Y - highlighter_!.GetHeight();
-        var maxY = screen_.Center.Y + highlighter_!.GetHeight();
-        return CoreGame.Screen.IsInsideAreaY(minY, maxY, mouseY);
+        return screen_.IsInsideHighlighterAreaDoubleSide(mouseY);
     }
 
     private Vector2 WhereToPutHighlighter()

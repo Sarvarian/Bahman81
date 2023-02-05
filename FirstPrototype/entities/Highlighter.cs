@@ -24,6 +24,11 @@ public partial class Highlighter : Node2D
         return (int)sprite2D_!.GetRect().Size.Y;
     }
 
+    public Vector2I GetSize()
+    {
+        return sprite2D_!.GetRect().Size.IntoGodotVector2I();
+    }
+
     public void GoFreeColor()
     {
         sprite2D_!.Modulate = freePlaceColor_;
