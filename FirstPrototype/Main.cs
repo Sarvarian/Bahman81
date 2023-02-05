@@ -139,11 +139,10 @@ public partial class Main : Node2D
 
     private bool IsMouseCloseAndAboveGround()
     {
-        var mousePos = GetGlobalMousePosition();
-        var mouseY = mousePos.Y;
+        var mouseY = (int)GetGlobalMousePosition().Y;
         var minY = screen_.Center.Y - highlighter_!.GetHeight();
         var maxY = screen_.Center.Y + highlighter_!.GetHeight();
-        return mouseY > minY && mouseY < maxY;
+        return CoreGame.Screen.IsInsideAreaY(minY, maxY, mouseY);
     }
 
     private Vector2 WhereToPutHighlighter()

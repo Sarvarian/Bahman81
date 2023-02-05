@@ -16,4 +16,8 @@ public class Screen
         Center = Size / 2;
     }
 
+    public static bool IsInsideAreaY(int upper, int lower, int point)
+    {
+        return point > upper && point < lower;
+    }
 }
