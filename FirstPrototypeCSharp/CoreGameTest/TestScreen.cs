@@ -34,7 +34,7 @@ public class TestScreen : ClassTestBase
         var lowerMin = ySize - (yDividedBy10 * 2);
         var lowerMax = ySize - yDividedBy10;
         var lower = Rng.Next(lowerMin, lowerMax);
-        
+
         var point1 = Rng.Next(upper + 1, lower - 1);
         Assert.True(point1 > upper);
         Assert.True(point1 < lower);
@@ -42,11 +42,11 @@ public class TestScreen : ClassTestBase
         var point2 = Rng.Next(1, upper - 1);
         Assert.True(point2 < upper);
         Assert.True(point2 < lower);
-        
+
         var point3 = Rng.Next(lower + 1, ySize - 1);
         Assert.True(point3 > upper);
         Assert.True(point3 > lower);
-        
+
         Assert.True(Screen.IsInsideAreaY(upper, lower, point1));
         Assert.False(Screen.IsInsideAreaY(upper, lower, point2));
         Assert.False(Screen.IsInsideAreaY(upper, lower, point3));
