@@ -95,7 +95,7 @@ public class TestScreen : ClassTestBase
         var highlighter = new Vector2I(width, height);
         return highlighter;
     }
-    
+
     private void CreateAndSetHighlighter()
     {
         var highlighter = CreateHighlighter();
