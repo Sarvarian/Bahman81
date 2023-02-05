@@ -77,13 +77,6 @@ public class TestScreen : ClassTestBase
         Assert.False(screen_.IsInsideHighlighterAreaDoubleSide(point3));
     }
 
-    private void CreateAndSetHighlighter()
-    {
-        var highlighter = CreateHighlighter();
-        screen_.SetHighlighter(highlighter);
-    }
-
-
     public TestScreen()
     {
         initSize_ = new Vector2I(Rng.Next(100, 101), Rng.Next(201, 300));
@@ -101,6 +94,12 @@ public class TestScreen : ClassTestBase
         var height = Rng.Next(11, 20);
         var highlighter = new Vector2I(width, height);
         return highlighter;
+    }
+    
+    private void CreateAndSetHighlighter()
+    {
+        var highlighter = CreateHighlighter();
+        screen_.SetHighlighter(highlighter);
     }
 
 }
