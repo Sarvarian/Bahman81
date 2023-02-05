@@ -12,4 +12,15 @@ public partial class Block : Node2D
         this.AssertFiledSet(nameof(sprite2D_));
     }
 
+    public void SetCoreBlock(CoreGame.Block block)
+    {
+        coreBlock_ = block;
+    }
+
+    public CoreGame.Block GetCoreBlock()
+    {
+        return coreBlock_!;
+    }
+
+    private CoreGame.Block? coreBlock_;
 }

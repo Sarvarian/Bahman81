@@ -8,20 +8,30 @@ public class InputHandler
     public event Action? MoveRightSignal;
     public event Action? MoveLeftSignal;
     public event Action? AttackSignal;
+    public event Action? ImplantEntitySignal;
+    public event Action? RemoveEntitySignal;
 
-    public void NewKeyInput(InputEventKey key)
+    public void NewInput(InputEvent inputEvent)
     {
-        if (key.IsActionPressed(moveRight_))
+        if (inputEvent.IsActionPressed(MoveRight))
         {
             MoveRightSignal?.Invoke();
         }
-        else if (key.IsActionPressed(moveLeft_))
+        else if (inputEvent.IsActionPressed(MoveLeft))
         {
             MoveLeftSignal?.Invoke();
         }
-        else if (key.IsActionPressed(attack_))
+        else if (inputEvent.IsActionPressed(Attack))
         {
             AttackSignal?.Invoke();
+        }
+        else if (inputEvent.IsActionPressed(ImplantEntity))
+        {
+            ImplantEntitySignal?.Invoke();
+        }
+        else if (inputEvent.IsActionPressed(RemoveEntity))
+        {
+            RemoveEntitySignal?.Invoke();
         }
     }
 
@@ -30,7 +40,9 @@ public class InputHandler
 
     }
 
-    private readonly StringName moveRight_ = "move_right";
-    private readonly StringName moveLeft_ = "move_left";
-    private readonly StringName attack_ = "attack";
+    private static readonly StringName MoveRight = "move_right";
+    private static readonly StringName MoveLeft = "move_left";
+    private static readonly StringName Attack = "attack";
+    private static readonly StringName ImplantEntity = "implant_entity";
+    private static readonly StringName RemoveEntity = "remove_entity";
 }

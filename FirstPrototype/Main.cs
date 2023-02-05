@@ -38,11 +38,10 @@ public partial class Main : Node2D
         DoTheTick();
     }
 
-    public override void _UnhandledKeyInput(InputEvent @event)
+    public override void _UnhandledInput(InputEvent @event)
     {
         base._UnhandledKeyInput(@event);
-        @event.AssertType<InputEventKey>();
-        inputHandler_.NewKeyInput((InputEventKey)@event);
+        inputHandler_.NewInput(@event);
     }
 
     private readonly InputHandler inputHandler_ = new();
@@ -64,6 +63,8 @@ public partial class Main : Node2D
     private void ConnectSignals()
     {
         GetTree().Root.SizeChanged += OnRootSizeChanged;
+        inputHandler_.ImplantEntitySignal += OnInputHandlerImplantEntitySignal;
+        inputHandler_.RemoveEntitySignal += OnInputHandlerRemoveEntitySignal;
     }
 
     private void InitializeScreen()
@@ -187,11 +188,20 @@ public partial class Main : Node2D
         return res;
     }
 
+    private bool IsHighlighterInactive()
+    {
+        return highlighter_!.Position == Vector2.Zero;
+    }
+
+    private int HighlighterLocation()
+    {
+        return ((int)highlighter_!.Position.X - screen_.CenterX) / pixelPerGroundRulerStep_;
+    }
+
     private void UpdateHighlighter()
     {
         highlighter_!.Position = WhereToPutHighlighter();
-        var highlighterLocation = ((int)highlighter_.Position.X - screen_.CenterX) / pixelPerGroundRulerStep_;
-        if (world_.EntitiesAtLocation(highlighterLocation).Length == 0)
+        if (world_.EntitiesAt(HighlighterLocation()).Length == 0)
         {
             highlighter_.GoFreeColor();
         }
@@ -236,4 +246,62 @@ public partial class Main : Node2D
             );
         }
     }
+
+    private void OnInputHandlerImplantEntitySignal()
+    {
+        if (IsHighlighterInactive()) { return; }
+
+        var location = HighlighterLocation();
+        if (world_.EntitiesAt(location).Length == 0)
+        {
+            InstantiateBlockAt(location);
+        }
+    }
+
+    private void OnInputHandlerRemoveEntitySignal()
+    {
+        if (IsHighlighterInactive()) { return; }
+
+        var location = HighlighterLocation();
+        foreach (var entity in world_.EntitiesAt(location))
+        {
+            if (entity is CoreGame.Block)
+            {
+                RemoveBlockEntityAt(location);
+            }
+        }
+    }
+
+    private void InstantiateBlockAt(int location)
+    {
+        var block = blockScene_!.Instantiate<Block>();
+        var pos = new Vector2
+        {
+            Y = screen_.CenterY,
+            X = screen_.CenterX + (location * pixelPerGroundRulerStep_)
+        };
+        AddChild(block);
+        block.GlobalPosition = pos;
+        var coreBlock = new CoreGame.Block(location);
+        world_.Entities.Add(coreBlock);
+        block.SetCoreBlock(coreBlock);
+    }
+
+    private void RemoveBlockEntityAt(int location)
+    {
+        foreach (var child in GetChildren())
+        {
+            if (child is Block block)
+            {
+                var coreBlock = block.GetCoreBlock();
+                if (coreBlock.Location == location)
+                {
+                    RemoveChild(block);
+                    block.QueueFree();
+                    world_.Entities.Remove(coreBlock);
+                }
+            }
+        }
+    }
+
 }

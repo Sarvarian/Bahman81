@@ -4,7 +4,8 @@ namespace CoreGameTest;
 
 public class DummyEntity : Entity
 {
-    public DummyEntity(Action tickFunction)
+    public DummyEntity(Action tickFunction, int location = 0)
+        : base(location)
     {
         tickFunction_ = tickFunction;
     }

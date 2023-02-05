@@ -48,7 +48,7 @@ public class TestWorld : ClassTestDummyEntity
     {
         AddDummyToWorld();
         var expected = new[] { world_.Player, Dummy };
-        Assert.Equal(expected, world_.EntitiesAtLocation(0));
+        Assert.Equal(expected, world_.EntitiesAt(0));
     }
 
 

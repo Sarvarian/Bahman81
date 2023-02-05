@@ -1,4 +1,6 @@
-﻿namespace CoreGameTest;
+﻿using CoreGame;
+
+namespace CoreGameTest;
 
 public class TestEntity : ClassTestDummyEntity
 {
@@ -25,5 +27,14 @@ public class TestEntity : ClassTestDummyEntity
             Assert.Equal(i, TickCallCounter);
         }
     }
+
+    [Fact]
+    public void InitializeLocation()
+    {
+        var location = Rng.Next(1, 10);
+        Entity newEntity = new DummyEntity(DummyTickFunction, location);
+        Assert.Equal(location, newEntity.Location);
+    }
+
 
 }

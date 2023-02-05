@@ -12,7 +12,7 @@ public class ClassTestDummyEntity : ClassTestBase
     protected readonly Entity Dummy;
     protected int TickCallCounter { get; private set; }
 
-    private void DummyTickFunction()
+    protected void DummyTickFunction()
     {
         TickCallCounter += 1;
     }
