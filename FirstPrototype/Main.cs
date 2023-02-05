@@ -125,19 +125,12 @@ public partial class Main : Node2D
         pixelPerGroundRulerStep_ = highlighter_.GetWidth();
         AddChild(highlighter_);
         highlighter_.Position = Vector2.Zero;
-
-        screen_.SetHighlighter(highlighter_.GetSize().IntoCoreVector2I());
-    }
-
-    private bool IsMouseCloseAndAboveGround()
-    {
-        var mouseY = (int)GetGlobalMousePosition().Y;
-        return screen_.IsInsideHighlighterAreaDoubleSide(mouseY);
+        highlighter_.SetScreen(screen_);
     }
 
     private Vector2 WhereToPutHighlighter()
     {
-        if (IsMouseCloseAndAboveGround() == false)
+        if (highlighter_!.IsMouseCloseAndAboveGround() == false)
         {
             return Vector2.Zero;
         }

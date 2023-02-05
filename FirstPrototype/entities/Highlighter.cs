@@ -39,4 +39,18 @@ public partial class Highlighter : Node2D
         sprite2D_!.Modulate = occupiedPlaceColor_;
     }
 
+    public void SetScreen(CoreGame.Screen screen)
+    {
+        screen_ = screen;
+        screen_.SetHighlighter(GetSize().IntoCoreVector2I());
+    }
+
+    public bool IsMouseCloseAndAboveGround()
+    {
+        var mouseY = (int)GetGlobalMousePosition().Y;
+        return screen_!.IsInsideHighlighterAreaDoubleSide(mouseY);
+    }
+
+    private CoreGame.Screen? screen_;
+
 }
