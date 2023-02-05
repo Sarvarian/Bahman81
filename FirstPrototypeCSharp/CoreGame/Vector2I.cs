@@ -4,7 +4,7 @@ public readonly record struct Vector2I
 {
     public readonly int X;
     public readonly int Y;
-    
+
     public Vector2I(int x, int y)
     {
         X = x;
@@ -15,5 +15,5 @@ public readonly record struct Vector2I
     {
         return new Vector2I(dividend.X / divisor, dividend.Y / divisor);
     }
-    
+
 }
