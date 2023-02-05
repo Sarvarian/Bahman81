@@ -2,22 +2,18 @@
 
 public class Screen
 {
-    public int Width { get; private set; }
-    public int Height { get; private set; }
-    public int CenterX { get; private set; }
-    public int CenterY { get; private set; }
+    public Vector2I Size { get; private set; }
+    public Vector2I Center { get; private set; }
 
-    public Screen(int initialWidth, int initialHeight)
+    public Screen(Vector2I initSize)
     {
-        NewSize(initialWidth, initialHeight);
+        NewSize(initSize);
     }
 
-    public void NewSize(int newWidth, int newHeight)
+    public void NewSize(Vector2I newSize)
     {
-        Width = newWidth;
-        Height = newHeight;
-        CenterX = Width / 2;
-        CenterY = Height / 2;
+        Size = newSize;
+        Center = Size / 2;
     }
 
 }

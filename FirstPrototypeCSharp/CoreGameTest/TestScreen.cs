@@ -7,42 +7,31 @@ public class TestScreen : ClassTestBase
     [Fact]
     public void ScreenSizeInitialized()
     {
-        Assert.Equal(initWidth_, screen_.Width);
-        Assert.Equal(initHeight_, screen_.Height);
+        Assert.Equal(initSize_, screen_.Size);
     }
 
     [Fact]
     public void NewSize()
     {
-        Assert.Equal(initWidth_, screen_.Width);
-        Assert.Equal(initHeight_, screen_.Height);
-
-        screen_.NewSize(newWidth_, newHeight_);
-
-        Assert.Equal(newWidth_, screen_.Width);
-        Assert.Equal(newHeight_, screen_.Height);
+        Assert.Equal(initSize_, screen_.Size);
+        screen_.NewSize(newSize_);
+        Assert.Equal(newSize_, screen_.Size);
     }
 
     [Fact]
     public void CenterPoint()
     {
-        Assert.Equal(initWidth_ / 2, screen_.CenterX);
-        Assert.Equal(initHeight_ / 2, screen_.CenterY);
+        Assert.Equal(initSize_ / 2, screen_.Center);
     }
-
 
     public TestScreen()
     {
-        initWidth_ = Rng.Next(1, 100);
-        initHeight_ = Rng.Next(101, 200);
-        newWidth_ = Rng.Next(301, 400);
-        newHeight_ = Rng.Next(401, 500);
-        screen_ = new(initWidth_, initHeight_);
+        initSize_ = new Vector2I(Rng.Next(1, 100), Rng.Next(101, 200));
+        screen_ = new(initSize_);
+        newSize_ = new Vector2I(Rng.Next(301, 400), Rng.Next(401, 500));
     }
 
-    private readonly int initWidth_;
-    private readonly int initHeight_;
-    private readonly int newWidth_;
-    private readonly int newHeight_;
+    private readonly Vector2I initSize_;
+    private readonly Vector2I newSize_;
     private readonly Screen screen_;
 }

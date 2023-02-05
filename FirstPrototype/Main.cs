@@ -46,7 +46,7 @@ public partial class Main : Node2D
 
     private readonly InputHandler inputHandler_ = new();
     private readonly CoreGame.World world_ = new();
-    private readonly CoreGame.Screen screen_ = new(0, 0);
+    private readonly CoreGame.Screen screen_ = new(Vector2I.Zero.To());
     private Character? player_;
     private Highlighter? highlighter_;
     private int pixelPerGroundRulerStep_;
@@ -55,7 +55,7 @@ public partial class Main : Node2D
     {
         player_ = characterScene_!.Instantiate<Character>();
         AddChild(player_);
-        player_.Position = new Vector2(screen_.CenterX, screen_.CenterY);
+        player_.Position = screen_.Center.To();
         player_.ConnectSignals(inputHandler_);
         player_.SetCoreCharacter(world_.Player);
     }
@@ -79,47 +79,18 @@ public partial class Main : Node2D
 
     private void ResetScreenSize()
     {
-        var oldSize = ScreenSizeAsVector2I();
-        var newSize = ViewportSizeAsVector2I();
+        var oldSize = screen_.Size.To();
+        var newSize = GetTree().Root.GetVisibleRect().Size.To();
         if (oldSize != newSize)
         {
-            screen_.NewSize(newSize.X, newSize.Y);
+            screen_.NewSize(newSize.To());
         }
-    }
-
-    private Vector2I ViewportSizeAsVector2I()
-    {
-        var res = new Vector2I();
-        var size = GetTree().Root.GetVisibleRect().Size;
-        res.X = (int)size.X;
-        res.Y = (int)size.Y;
-        return res;
-    }
-
-    private Vector2I ScreenSizeAsVector2I()
-    {
-        var res = new Vector2I
-        {
-            X = screen_.Width,
-            Y = screen_.Height
-        };
-        return res;
-    }
-
-    private Vector2I ScreenCenterPointAsVector2I()
-    {
-        var res = new Vector2I
-        {
-            X = screen_.CenterX,
-            Y = screen_.CenterY
-        };
-        return res;
     }
 
     private void CreateGroundRuler()
     {
         InstantiateANumberLabel(0);
-        var maxStep = screen_.CenterX / pixelPerGroundRulerStep_;
+        var maxStep = screen_.Center.X / pixelPerGroundRulerStep_;
         for (var i = 1; i < maxStep; i++)
         {
             InstantiateANumberLabel(i * 1);
@@ -130,7 +101,7 @@ public partial class Main : Node2D
     private void InstantiateANumberLabel(int location)
     {
         var num = numberLabelScene_!.Instantiate<Number>();
-        num.Position = ScreenCenterPointAsVector2I();
+        num.Position = screen_.Center.To();
         num.Position += new Vector2(location * pixelPerGroundRulerStep_, 0);
         num.SetText($"{location}");
         AddChild(num);
@@ -148,7 +119,7 @@ public partial class Main : Node2D
 
     private void UpdatePlayerLocation()
     {
-        player_!.UpdateLocation(ScreenCenterPointAsVector2I(), pixelPerGroundRulerStep_);
+        player_!.UpdateLocation(screen_.Center.To(), pixelPerGroundRulerStep_);
     }
 
     private void InstantiateHighlighter()
@@ -163,8 +134,8 @@ public partial class Main : Node2D
     {
         var mousePos = GetGlobalMousePosition();
         var mouseY = mousePos.Y;
-        var minY = screen_.CenterY - highlighter_!.GetHeight();
-        var maxY = screen_.CenterY + highlighter_!.GetHeight();
+        var minY = screen_.Center.Y - highlighter_!.GetHeight();
+        var maxY = screen_.Center.Y + highlighter_!.GetHeight();
         return mouseY > minY && mouseY < maxY;
     }
 
@@ -176,14 +147,14 @@ public partial class Main : Node2D
         }
 
         var res = Vector2.Zero;
-        res.Y = screen_.CenterY;
+        res.Y = screen_.Center.Y;
 
         var mousePos = GetGlobalMousePosition();
         var mouseX = Mathf.RoundToInt(mousePos.X);
-        var distanceToCenter = mouseX - screen_.CenterX;
+        var distanceToCenter = mouseX - screen_.Center.X;
         var rulerPoint =
             Mathf.RoundToInt(distanceToCenter / (float)pixelPerGroundRulerStep_);
-        res.X = screen_.CenterX + (rulerPoint * pixelPerGroundRulerStep_);
+        res.X = screen_.Center.X + (rulerPoint * pixelPerGroundRulerStep_);
 
         return res;
     }
@@ -195,7 +166,7 @@ public partial class Main : Node2D
 
     private int HighlighterLocation()
     {
-        return ((int)highlighter_!.Position.X - screen_.CenterX) / pixelPerGroundRulerStep_;
+        return ((int)highlighter_!.Position.X - screen_.Center.X) / pixelPerGroundRulerStep_;
     }
 
     private void UpdateHighlighter()
@@ -218,30 +189,30 @@ public partial class Main : Node2D
         var color = Colors.DarkRed;
 
         DrawLine(
-            new Vector2(0, screen_.CenterY),
-            new Vector2(screen_.Width, screen_.CenterY),
+            new Vector2(0, screen_.Center.Y),
+            new Vector2(screen_.Size.X, screen_.Center.Y),
             color
         );
 
         DrawLine(
-            new Vector2(screen_.CenterX, screen_.CenterY),
-            new Vector2(screen_.CenterX, screen_.CenterY + 10),
+            screen_.Center.To(),
+            new Vector2(screen_.Center.X, screen_.Center.Y + 10),
             color
         );
 
-        var maxStep = screen_.CenterX / pixelPerGroundRulerStep_;
+        var maxStep = screen_.Center.X / pixelPerGroundRulerStep_;
         for (var i = 1; i < maxStep; i++)
         {
-            var xp = screen_.CenterX + (i * 1 * pixelPerGroundRulerStep_);
+            var xp = screen_.Center.X + (i * 1 * pixelPerGroundRulerStep_);
             DrawLine(
-                new Vector2(xp, screen_.CenterY),
-                new Vector2(xp, screen_.CenterY + 10),
+                new Vector2(xp, screen_.Center.Y),
+                new Vector2(xp, screen_.Center.Y + 10),
                 color
             );
-            var xn = screen_.CenterX + (i * -1 * pixelPerGroundRulerStep_);
+            var xn = screen_.Center.X + (i * -1 * pixelPerGroundRulerStep_);
             DrawLine(
-                new Vector2(xn, screen_.CenterY),
-                new Vector2(xn, screen_.CenterY + 10),
+                new Vector2(xn, screen_.Center.Y),
+                new Vector2(xn, screen_.Center.Y + 10),
                 color
             );
         }
@@ -277,8 +248,8 @@ public partial class Main : Node2D
         var block = blockScene_!.Instantiate<Block>();
         var pos = new Vector2
         {
-            Y = screen_.CenterY,
-            X = screen_.CenterX + (location * pixelPerGroundRulerStep_)
+            Y = screen_.Center.Y,
+            X = screen_.Center.X + (location * pixelPerGroundRulerStep_)
         };
         AddChild(block);
         block.GlobalPosition = pos;
