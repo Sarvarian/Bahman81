@@ -27,12 +27,12 @@ public partial class Main : Node2D
         InstantiateHighlighter();
         CreateGroundRuler();
         InstantiatePlayer();
+        InitializeDebugDrawGroundRuler();
     }
 
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-
         inputHandler_.NewMousePosition(GetGlobalMousePosition());
         UpdateHighlighter();
         DoTheTick();
@@ -44,11 +44,18 @@ public partial class Main : Node2D
         inputHandler_.NewInput(@event);
     }
 
+    public override void _Draw()
+    {
+        base._Draw();
+        debugDrawGroundRuler_!.Draw();
+    }
+
     private readonly InputHandler inputHandler_ = new();
     private readonly CoreGame.World world_ = new();
     private readonly CoreGame.Screen screen_ = new(Vector2I.Zero.To());
     private Character? player_;
     private Highlighter? highlighter_;
+    private DebugDrawGroundRuler? debugDrawGroundRuler_;
     private int pixelPerGroundRulerStep_;
 
     private void InstantiatePlayer()
@@ -182,42 +189,6 @@ public partial class Main : Node2D
         }
     }
 
-    public override void _Draw()
-    {
-        base._Draw();
-
-        var color = Colors.DarkRed;
-
-        DrawLine(
-            new Vector2(0, screen_.Center.Y),
-            new Vector2(screen_.Size.X, screen_.Center.Y),
-            color
-        );
-
-        DrawLine(
-            screen_.Center.To(),
-            new Vector2(screen_.Center.X, screen_.Center.Y + 10),
-            color
-        );
-
-        var maxStep = screen_.Center.X / pixelPerGroundRulerStep_;
-        for (var i = 1; i < maxStep; i++)
-        {
-            var xp = screen_.Center.X + (i * 1 * pixelPerGroundRulerStep_);
-            DrawLine(
-                new Vector2(xp, screen_.Center.Y),
-                new Vector2(xp, screen_.Center.Y + 10),
-                color
-            );
-            var xn = screen_.Center.X + (i * -1 * pixelPerGroundRulerStep_);
-            DrawLine(
-                new Vector2(xn, screen_.Center.Y),
-                new Vector2(xn, screen_.Center.Y + 10),
-                color
-            );
-        }
-    }
-
     private void OnInputHandlerImplantEntitySignal()
     {
         if (IsHighlighterInactive()) { return; }
@@ -273,6 +244,11 @@ public partial class Main : Node2D
                 }
             }
         }
+    }
+
+    private void InitializeDebugDrawGroundRuler()
+    {
+        debugDrawGroundRuler_ = new(this, screen_, pixelPerGroundRulerStep_);
     }
 
 }
