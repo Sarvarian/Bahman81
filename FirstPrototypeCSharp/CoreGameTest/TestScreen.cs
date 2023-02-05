@@ -2,7 +2,7 @@
 
 namespace CoreGameTest;
 
-public class ScreenTest : ClassTestBase
+public class TestScreen : ClassTestBase
 {
     [Fact]
     public void ScreenSizeInitialized()
@@ -31,7 +31,7 @@ public class ScreenTest : ClassTestBase
     }
 
 
-    public ScreenTest()
+    public TestScreen()
     {
         initWidth_ = Rng.Next(1, 100);
         initHeight_ = Rng.Next(101, 200);
