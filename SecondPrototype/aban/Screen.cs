@@ -2,7 +2,7 @@
 
 namespace SecondPrototype.aban;
 
-public record struct Screen(Vector2I Size)
+public readonly record struct Screen(Vector2I Size)
 {
 
 }
