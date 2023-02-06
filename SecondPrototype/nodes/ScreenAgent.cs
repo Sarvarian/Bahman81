@@ -1,5 +1,5 @@
 ﻿using Godot;
-using SecondPrototype.aban;
+using System;
 
 namespace SecondPrototype.nodes;
 
@@ -17,15 +17,38 @@ public partial class ScreenAgent : Node2D
     public override void _Ready()
     {
         base._Ready();
-        GetTree().Root.SizeChanged += ResetScreen;
+        GetRootViewport().SizeChanged += ResetScreen;
         ResetScreen();
     }
 
-    private aban.Screen screen_ = new();
+    public event Action? ScreenUpdatedSignal;
+
+    private aban.Screen screen_;
 
     private void ResetScreen()
     {
-        var size = GetTree().Root.Size;
-        screen_ = new Screen(size);
+        var newScreen = CreateNewScreen();
+        if (screen_ != newScreen)
+        {
+            screen_ = newScreen;
+            ScreenUpdatedSignal?.Invoke();
+            GD.Print(screen_.Size);
+        }
+    }
+
+    private aban.Screen CreateNewScreen()
+    {
+        var size = GetRootViewportSize();
+        return new aban.Screen(size);
+    }
+
+    private Viewport GetRootViewport()
+    {
+        return GetTree().Root.GetViewport();
+    }
+
+    private Vector2I GetRootViewportSize()
+    {
+        return (Vector2I)GetRootViewport().GetVisibleRect().Size;
     }
 }
