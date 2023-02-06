@@ -1,4 +1,5 @@
 ﻿using Godot;
+using SecondPrototype.extensions;
 using System;
 
 namespace SecondPrototype.nodes;
@@ -32,7 +33,7 @@ public partial class ScreenAgent : Node2D
         {
             screen_ = newScreen;
             ScreenUpdatedSignal?.Invoke();
-            GD.Print(screen_.Size);
+            GD.Print($"screen_.Size");
         }
     }
 
@@ -49,6 +50,6 @@ public partial class ScreenAgent : Node2D
 
     private Vector2I GetRootViewportSize()
     {
-        return (Vector2I)GetRootViewport().GetVisibleRect().Size;
+        return GetRootViewport().GetVisibleRect().Size.ToVec2I();
     }
 }
