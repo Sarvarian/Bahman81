@@ -1,4 +1,5 @@
 ﻿using CoreGame;
+using CoreGame.exceptions;
 
 namespace CoreGameTest;
 
@@ -75,6 +76,42 @@ public class TestScreen : ClassTestBase
         Assert.True(screen_.IsInsideHighlighterAreaDoubleSide(point1));
         Assert.False(screen_.IsInsideHighlighterAreaDoubleSide(point2));
         Assert.False(screen_.IsInsideHighlighterAreaDoubleSide(point3));
+    }
+
+    [Fact]
+    public void ExceptionOnLocationOfPointInGroundRulerIfPixelPerGroundRulerStepIsZero()
+    {
+        var point = Rng.Next(1, screen_.Size.X - 1);
+        Assert.Throws<PixelPerGroundRulerStepIsZero>(() =>
+            screen_.LocationOfPointInGroundRuler(point)
+        );
+        var pps = Rng.Next(1, 10);
+        screen_.SetPixelPerGroundRulerStep(pps);
+        screen_.LocationOfPointInGroundRuler(point);
+    }
+
+
+    [Fact]
+    public void SetPixelPerGroundRulerStep()
+    {
+        var pps = Rng.Next(1, 10);
+        screen_.SetPixelPerGroundRulerStep(pps);
+        Assert.Equal(pps, screen_.PixelPerGroundRulerStep);
+    }
+
+    [Fact]
+    public void LocationOfPointInGroundRuler()
+    {
+        CreateAndSetHighlighter();
+        SetPixelPerGroundRulerStep();
+
+        var point1 = Rng.Next(1, screen_.Size.X - 1);
+        var expected = (int)Math.Round(
+            (point1 - screen_.Center.X)
+            / (float)screen_.PixelPerGroundRulerStep
+        );
+
+        Assert.Equal(expected, screen_.LocationOfPointInGroundRuler(point1));
     }
 
     public TestScreen()

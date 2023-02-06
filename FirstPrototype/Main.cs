@@ -126,6 +126,7 @@ public partial class Main : Node2D
         AddChild(highlighter_);
         highlighter_.Position = Vector2.Zero;
         highlighter_.SetScreen(screen_);
+        screen_.SetPixelPerGroundRulerStep(pixelPerGroundRulerStep_);
     }
 
     private Vector2 WhereToPutHighlighter()
@@ -138,11 +139,8 @@ public partial class Main : Node2D
         var res = Vector2.Zero;
         res.Y = screen_.Center.Y;
 
-        var mousePos = GetGlobalMousePosition();
-        var mouseX = Mathf.RoundToInt(mousePos.X);
-        var distanceToCenter = mouseX - screen_.Center.X;
-        var rulerPoint =
-            Mathf.RoundToInt(distanceToCenter / (float)pixelPerGroundRulerStep_);
+        var mouseX = Mathf.RoundToInt(GetGlobalMousePosition().X);
+        var rulerPoint = screen_.LocationOfPointInGroundRuler(mouseX);
         res.X = screen_.Center.X + (rulerPoint * pixelPerGroundRulerStep_);
 
         return res;

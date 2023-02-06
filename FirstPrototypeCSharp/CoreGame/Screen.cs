@@ -5,6 +5,7 @@ public class Screen
     public Vector2I Size { get; private set; }
     public Vector2I Center { get; private set; }
     public Vector2I Highlighter { get; private set; }
+    public int PixelPerGroundRulerStep { get; private set; }
 
     public Screen(Vector2I initSize)
     {
@@ -32,5 +33,24 @@ public class Screen
         var upper = Center.Y - Highlighter.Y;
         var lower = Center.Y + Highlighter.Y;
         return IsInsideAreaY(upper, lower, point);
+    }
+
+    public void SetPixelPerGroundRulerStep(int pixelPerStep)
+    {
+        PixelPerGroundRulerStep = pixelPerStep;
+    }
+
+    public int LocationOfPointInGroundRuler(int point)
+    {
+#if DEBUG
+        if (PixelPerGroundRulerStep == 0)
+        {
+            throw new exceptions.PixelPerGroundRulerStepIsZero();
+        }
+#endif
+        var distanceToCenter = point - Center.X;
+        var floatPositionOnRuler = distanceToCenter / (float)PixelPerGroundRulerStep;
+        var location = Convert.ToInt32(floatPositionOnRuler);
+        return location;
     }
 }
