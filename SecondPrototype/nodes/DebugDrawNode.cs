@@ -6,9 +6,17 @@ public partial class DebugDrawNode : Node2D
 {
     public static DebugDrawNode Instantiate(Node parent, aban.Grid2D grid, CameraNode camera)
     {
-        var node = new DebugDrawNode(grid, camera);
-        parent.AddChild(node);
+        var layer = new CanvasLayer();
+        parent.AddChild(layer, true);
+        var node = new DebugDrawNode(grid, camera, layer);
+        layer.AddChild(node);
         return node;
+    }
+
+    public override void _EnterTree()
+    {
+        base._EnterTree();
+        layer_.Offset = GetViewportRect().Size / 2;
     }
 
     public override void _Draw()
@@ -22,23 +30,33 @@ public partial class DebugDrawNode : Node2D
     private readonly Color color_ = Colors.DarkRed;
     private readonly aban.Grid2D grid_;
     private readonly CameraNode camera_;
-    private Vector2 cameraScreenCenterPos_;
+    private readonly CanvasLayer layer_;
+    private Vector2 cameraOffset_;
+    private Vector2 cameraZoom_;
 
-    private void ConnectSignals(CameraNode camera)
-    {
-        camera.PositionChangedSignal -= QueueRedraw;
-        camera.PositionChangedSignal += QueueRedraw;
-        camera.ZoomChangedSignal -= QueueRedraw;
-        camera.ZoomChangedSignal += QueueRedraw;
-        // We remove and then add signals just to prevent duplication.
-    }
-
-    private DebugDrawNode(aban.Grid2D grid, CameraNode camera)
+    private DebugDrawNode(aban.Grid2D grid, CameraNode camera, CanvasLayer layer)
     {
         Name = nameof(DebugDrawNode);
         grid_ = grid;
         camera_ = camera;
+        layer_ = layer;
         ConnectSignals(camera);
+    }
+
+    private void ConnectSignals(CameraNode camera)
+    {
+        camera.PositionChangedSignal -= OnCameraUpdate;
+        camera.PositionChangedSignal += OnCameraUpdate;
+        camera.ZoomChangedSignal -= OnCameraUpdate;
+        camera.ZoomChangedSignal += OnCameraUpdate;
+        // We remove and then add signals just to prevent duplication.
+    }
+
+    private void OnCameraUpdate()
+    {
+        cameraOffset_ = camera_.GetScreenCenterPosition() * -1;
+        cameraZoom_ = camera_.Zoom;
+        QueueRedraw();
     }
 
     private void DrawScalar()
@@ -49,10 +67,13 @@ public partial class DebugDrawNode : Node2D
 
     private void DrawGroundLine()
     {
-        var viewportWidth = GetViewportRect().Size.X;
-        var start = camera_.GetScreenCenterPosition().X - (viewportWidth / 2);
-        var end = start + viewportWidth;
-        DrawLine(start, end);
+        var halfViewportWidth = GetViewportRect().Size.X / 2;
+        var start = 0 - halfViewportWidth;
+        var end = halfViewportWidth;
+        DrawLine(
+            new Vector2(start, cameraOffset_.Y * cameraZoom_.Y),
+            new Vector2(end, cameraOffset_.Y * cameraZoom_.Y)
+        );
     }
 
     private void DrawNumberLines()
@@ -80,14 +101,6 @@ public partial class DebugDrawNode : Node2D
             end,
             color_,
             LineWidth
-        );
-    }
-
-    private void DrawLine(float start, float end)
-    {
-        DrawLine(
-            new Vector2(start, 0),
-            new Vector2(end, 0)
         );
     }
 
