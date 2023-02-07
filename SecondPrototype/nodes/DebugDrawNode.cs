@@ -7,8 +7,6 @@ public partial class DebugDrawNode : Node2D
     public static DebugDrawNode Instantiate(Node parent, aban.Grid2D grid, CameraNode camera)
     {
         var node = new DebugDrawNode(grid, camera);
-        node.ConnectSignals(camera);
-        node.Name = nameof(DebugDrawNode);
         parent.AddChild(node);
         return node;
     }
@@ -23,22 +21,24 @@ public partial class DebugDrawNode : Node2D
     private const float LineWidth = 2.0f;
     private readonly Color color_ = Colors.DarkRed;
     private readonly aban.Grid2D grid_;
-    private readonly Camera2D camera_;
+    private readonly CameraNode camera_;
     private Vector2 cameraScreenCenterPos_;
 
     private void ConnectSignals(CameraNode camera)
     {
         camera.PositionChangedSignal -= QueueRedraw;
         camera.PositionChangedSignal += QueueRedraw;
-        // camera.ZoomChangedSignal -= QueueRedraw;
-        // camera.ZoomChangedSignal += QueueRedraw;
+        camera.ZoomChangedSignal -= QueueRedraw;
+        camera.ZoomChangedSignal += QueueRedraw;
         // We remove and then add signals just to prevent duplication.
     }
 
-    private DebugDrawNode(aban.Grid2D grid, Camera2D camera)
+    private DebugDrawNode(aban.Grid2D grid, CameraNode camera)
     {
+        Name = nameof(DebugDrawNode);
         grid_ = grid;
         camera_ = camera;
+        ConnectSignals(camera);
     }
 
     private void DrawScalar()

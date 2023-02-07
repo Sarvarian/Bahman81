@@ -39,18 +39,13 @@ public partial class CameraHandlerNode : Node2D
         inputHandler.DropCameraSignal += DropCamera;
         inputHandler.MouseMovedSignal -= OnMouseMotion;
         inputHandler.MouseMovedSignal += OnMouseMotion;
-        inputHandler.CameraZoomInSignal -= ZoomIn;
-        inputHandler.CameraZoomInSignal += ZoomIn;
-        inputHandler.CameraZoomOutSignal -= ZoomOut;
-        inputHandler.CameraZoomOutSignal += ZoomOut;
+        inputHandler.CameraZoomInSignal -= Camera.ZoomIn;
+        inputHandler.CameraZoomInSignal += Camera.ZoomIn;
+        inputHandler.CameraZoomOutSignal -= Camera.ZoomOut;
+        inputHandler.CameraZoomOutSignal += Camera.ZoomOut;
         // We remove and then add signals just to prevent duplication.
     }
 
-    private const double ZoomDuration = 0.2d;
-    private static readonly Vector2 MinZoom = new Vector2(0.4f, 0.4f);
-    private static readonly Vector2 MaxZoom = new Vector2(2.0f, 2.0f);
-    private static readonly Vector2 ZoomStep = new Vector2(0.1f, 0.1f);
-    private Vector2 targetZoom_ = Vector2.One;
     private bool onPan_ = false;
 
     private void GrabCamera()
@@ -69,25 +64,6 @@ public partial class CameraHandlerNode : Node2D
         {
             Position -= mouse.Relative;
         }
-    }
-
-    private void ZoomIn()
-    {
-        targetZoom_ += ZoomStep;
-        ActZoom();
-    }
-
-    private void ZoomOut()
-    {
-        targetZoom_ -= ZoomStep;
-        ActZoom();
-    }
-
-    private void ActZoom()
-    {
-        targetZoom_ = targetZoom_.Clamp(MinZoom, MaxZoom);
-        var tween = GetTree().CreateTween();
-        tween.TweenProperty(Camera, "zoom", targetZoom_, ZoomDuration);
     }
 
 }

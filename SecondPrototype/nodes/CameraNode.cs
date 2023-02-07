@@ -5,7 +5,7 @@ namespace SecondPrototype.nodes;
 
 public partial class CameraNode : Camera2D
 {
-
+    public Vector2 TargetZoom { get; private set; } = Vector2.One;
     public event Action? PositionChangedSignal;
     public event Action? ZoomChangedSignal;
 
@@ -16,6 +16,22 @@ public partial class CameraNode : Camera2D
         CheckZoom();
     }
 
+    public void ZoomIn()
+    {
+        TargetZoom += ZoomStep;
+        ActZoom();
+    }
+
+    public void ZoomOut()
+    {
+        TargetZoom -= ZoomStep;
+        ActZoom();
+    }
+
+    private const double ZoomDuration = 0.2d;
+    private static readonly Vector2 MinZoom = new Vector2(0.4f, 0.4f);
+    private static readonly Vector2 MaxZoom = new Vector2(2.0f, 2.0f);
+    private static readonly Vector2 ZoomStep = new Vector2(0.1f, 0.1f);
     private Vector2 previousPosition_;
     private Vector2 previousZoom_;
 
@@ -36,6 +52,13 @@ public partial class CameraNode : Camera2D
             ZoomChangedSignal?.Invoke();
             previousZoom_ = Zoom;
         }
+    }
+
+    private void ActZoom()
+    {
+        TargetZoom = TargetZoom.Clamp(MinZoom, MaxZoom);
+        var tween = GetTree().CreateTween();
+        tween.TweenProperty(this, "zoom", TargetZoom, ZoomDuration);
     }
 
 }
