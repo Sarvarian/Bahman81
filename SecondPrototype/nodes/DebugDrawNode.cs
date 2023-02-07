@@ -53,7 +53,7 @@ public partial class DebugDrawNode : Node2D
 
     private void OnCameraUpdate()
     {
-        cameraOffset_ = camera_.Offset();
+        cameraOffset_ = camera_.OffsetFromGlobalWorldCenter();
         QueueRedraw();
     }
 

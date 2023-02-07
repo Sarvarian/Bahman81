@@ -28,7 +28,7 @@ public partial class CameraNode : Camera2D
         ActZoom();
     }
 
-    public Vector2 Offset()
+    public Vector2 OffsetFromGlobalWorldCenter()
     {
         return GetScreenCenterPosition() * -1 * TargetZoom;
     }
