@@ -23,4 +23,7 @@ public partial class CharacterNode : Node2D
         this.AssertFiledSet(nameof(sprite2D_));
     }
 
+    public CharacterNode()
+    {
+    }
 }
