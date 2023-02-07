@@ -21,6 +21,7 @@ public partial class CharacterNode : Node2D
     }
 
     [Export] private Sprite2D? sprite2D_;
+    public bool IsGotInputEvent;
 
     public override void _Ready()
     {
@@ -59,15 +60,18 @@ public partial class CharacterNode : Node2D
     private void MoveRight()
     {
         character_.SetToMoveRight();
+        IsGotInputEvent = true;
     }
 
     private void MoveLeft()
     {
         character_.SetToMoveLeft();
+        IsGotInputEvent = true;
     }
 
     private void Attack()
     {
+        IsGotInputEvent = true;
         // TODO: To Be Implemented.
     }
 

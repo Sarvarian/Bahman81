@@ -24,7 +24,7 @@ public partial class GridHandlerNode : Node2D
 
     private Vector2I CalculateCellSize()
     {
-        var width = Highlighter.GetSize().Y;
+        var width = Highlighter.GetSize().X;
         return new Vector2I(width, width);
     }
 }
