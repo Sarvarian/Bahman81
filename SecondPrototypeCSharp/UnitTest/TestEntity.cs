@@ -36,4 +36,34 @@ public class TestEntity : ClassTestDummyEntity
         Assert.Equal(location, newEntity.Location);
     }
 
+    [Fact]
+    public void LocationChangedSignal()
+    {
+        var newLocation = Rng.Next(5, 10);
+        var counter = 0;
+        Dummy.LocationChangedSignal += () =>
+        {
+            Assert.Equal(newLocation, Dummy.Location);
+            counter += 1;
+        };
+
+        // Entity has initial location of 0.
+        Assert.Equal(0, Dummy.Location);
+        
+        // We give it the same location of 0 and nothing
+        // will change. Signal should not called and
+        // counter will now increase.
+        ((DummyEntity)Dummy).NewLocation(0);
+        Assert.Equal(0, counter);
+        Assert.Equal(0, Dummy.Location);
+
+        // We give it a new location and signal should
+        // called called and make counter increase and
+        // entity should have the new location.
+        ((DummyEntity)Dummy).NewLocation(newLocation);
+        Assert.Equal(1, counter);
+        Assert.Equal(newLocation, Dummy.Location);
+    }
+
+
 }

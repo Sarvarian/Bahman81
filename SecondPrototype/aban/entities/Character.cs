@@ -39,11 +39,11 @@ public class Character : Entity
 
     private void MoveRight()
     {
-        Location += 1;
+        NewLocation(Location + 1);
     }
 
     private void MoveLeft()
     {
-        Location -= 1;
+        NewLocation(Location - 1);
     }
 }
