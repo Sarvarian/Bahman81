@@ -28,14 +28,14 @@ public partial class CharacterNode : Node2D
         this.AssertFiledSet(nameof(sprite2D_));
     }
 
-    public void ConnectSignals(InputHandler handler)
+    public void ConnectSignals(InputHandlerNode handlerNode)
     {
-        handler.MoveRightSignal -= MoveRight;
-        handler.MoveRightSignal += MoveRight;
-        handler.MoveLeftSignal -= MoveLeft;
-        handler.MoveLeftSignal += MoveLeft;
-        handler.AttackSignal -= Attack;
-        handler.AttackSignal += Attack;
+        handlerNode.MoveRightSignal -= MoveRight;
+        handlerNode.MoveRightSignal += MoveRight;
+        handlerNode.MoveLeftSignal -= MoveLeft;
+        handlerNode.MoveLeftSignal += MoveLeft;
+        handlerNode.AttackSignal -= Attack;
+        handlerNode.AttackSignal += Attack;
         // We remove and then add signals just to prevent duplication.
     }
 

@@ -8,7 +8,7 @@ public partial class Main : Node2D
     public override void _Ready()
     {
         Position = Vector2.Zero;
-        var inputHandler = InputHandler.Instantiate(this);
+        var inputHandler = InputHandlerNode.Instantiate(this);
         var gridHandler = GridHandlerNode.Instantiate(this);
         var cameraHandler = CameraHandlerNode.Instantiate(this, gridHandler.Grid);
         var debugDraw = DebugDrawNode.Instantiate(this);
