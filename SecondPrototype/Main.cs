@@ -10,5 +10,6 @@ public partial class Main : Node2D
 		Position = Vector2.Zero;
 		var screen = ScreenNode.Instantiate(this);
 		var highlighter = HighlighterNode.Instantiate(this);
+		var player = CharacterNode.Instantiate(this, screen.Center);
 	}
 }
