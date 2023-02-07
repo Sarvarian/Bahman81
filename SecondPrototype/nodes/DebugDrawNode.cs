@@ -81,7 +81,7 @@ public partial class DebugDrawNode : Node2D
     private void DrawNumberLines()
     {
         DrawSingleNumberLine(0);
-        var maxStep = GetViewportRect().Size.X / grid_.CellSize.X / 2;
+        var maxStep = (GetViewportRect().Size.X / grid_.CellSize.X / 2) + 1;
         for (var i = 1; i < maxStep; i++)
         {
             DrawSingleNumberLine(i * 1);
@@ -92,6 +92,8 @@ public partial class DebugDrawNode : Node2D
     private void DrawSingleNumberLine(int location)
     {
         var start = grid_.LocationToPosition(location);
+        start.X += (cameraOffset_.X / cameraZoom_.X) % grid_.CellSize.X;
+        start.X *= cameraZoom_.X;
         start.Y += cameraOffset_.Y;
         var end = start + (Vector2.Down * NumberLineLength);
         DrawLine(start, end);
