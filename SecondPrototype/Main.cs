@@ -11,6 +11,7 @@ public partial class Main : Node2D
         var inputHandler = InputHandler.Instantiate(this);
         var gridHandler = GridHandlerNode.Instantiate(this);
         var cameraHandler = CameraHandlerNode.Instantiate(this, gridHandler.Grid);
+        var debugDraw = DebugDrawNode.Instantiate(this);
         player_ = CharacterNode.Instantiate(
             this,
             Vector2I.Zero,
