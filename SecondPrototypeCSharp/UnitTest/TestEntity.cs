@@ -49,7 +49,7 @@ public class TestEntity : ClassTestDummyEntity
 
         // Entity has initial location of 0.
         Assert.Equal(0, Dummy.Location);
-        
+
         // We give it the same location of 0 and nothing
         // will change. Signal should not called and
         // counter will now increase.
