@@ -8,8 +8,8 @@ public partial class Main : Node2D
 	public override void _Ready()
 	{
 		Position = Vector2.Zero;
-		var screen = ScreenNode.Instantiate(this);
+		var screen = ScreenAgent.Instantiate(this);
 		var highlighter = HighlighterNode.Instantiate(this);
-		var player = CharacterNode.Instantiate(this, screen.Center);
+		var player = CharacterNode.Instantiate(this, screen.Screen.Center);
 	}
 }
