@@ -57,12 +57,7 @@ public partial class DebugDrawNode : Node2D
         var viewportWidth = GetViewportRect().Size.X;
         var start = camera_.GetScreenCenterPosition().X - (viewportWidth / 2);
         var end = start + viewportWidth;
-        DrawLine(
-            new Vector2(start, 0),
-            new Vector2(end, 0),
-            color_,
-            LineWidth
-        );
+        DrawLine(start, end);
     }
 
     private void DrawScalarNumberLines()
@@ -80,6 +75,11 @@ public partial class DebugDrawNode : Node2D
     {
         var start = grid_.LocationToPosition(location);
         var end = start + (Vector2.Down * NumberLineLength);
+        DrawLine(start, end);
+    }
+
+    private void DrawLine(Vector2 start, Vector2 end)
+    {
         DrawLine(
             start,
             end,
@@ -87,4 +87,13 @@ public partial class DebugDrawNode : Node2D
             LineWidth
         );
     }
+
+    private void DrawLine(float start, float end)
+    {
+        DrawLine(
+            new Vector2(start, 0),
+            new Vector2(end, 0)
+        );
+    }
+
 }
