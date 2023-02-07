@@ -4,13 +4,13 @@ using System;
 
 namespace SecondPrototype.nodes;
 
-public partial class ScreenAgent : Node2D
+public partial class ScreenNode : Node2D
 {
     private static readonly StringName NodeName = "ScreenAgent";
 
-    public static ScreenAgent Instantiate(Node parent)
+    public static ScreenNode Instantiate(Node parent)
     {
-        var node = new ScreenAgent();
+        var node = new ScreenNode();
         parent.AddChild(node);
         node.Name = NodeName;
         return node;

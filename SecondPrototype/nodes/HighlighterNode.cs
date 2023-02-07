@@ -3,14 +3,14 @@ using SecondPrototype.extensions;
 
 namespace SecondPrototype.nodes;
 
-public partial class Highlighter : Node2D
+public partial class HighlighterNode : Node2D
 {
     private static readonly StringName ScenePath = "res://scenes/highlighter.tscn";
     private static readonly PackedScene Scene = GD.Load<PackedScene>(ScenePath);
 
-    public static Highlighter Instantiate(Node parent)
+    public static HighlighterNode Instantiate(Node parent)
     {
-        var node = Scene.Instantiate<Highlighter>();
+        var node = Scene.Instantiate<HighlighterNode>();
         parent.AddChild(node);
         node.Position = Vector2.Zero;
         return node;
