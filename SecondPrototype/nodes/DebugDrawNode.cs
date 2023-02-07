@@ -63,7 +63,7 @@ public partial class DebugDrawNode : Node2D
     private void DrawScalarNumberLines()
     {
         DrawScalarSingleNumberLine(0);
-        var maxStep = GetViewportRect().Size.X / grid_.CellSize.X;
+        var maxStep = GetViewportRect().Size.X / grid_.CellSize.X / 2;
         for (var i = 1; i < maxStep; i++)
         {
             DrawScalarSingleNumberLine(i * 1);
