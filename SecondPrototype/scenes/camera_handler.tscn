@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cp3bnllni548o"]
+
+[ext_resource type="Script" path="res://nodes/CameraHandlerNode.cs" id="1_bxkfo"]
+
+[node name="CameraHandler" type="Node2D" node_paths=PackedStringArray("camera2D_")]
+script = ExtResource("1_bxkfo")
+camera2D_ = NodePath("Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
