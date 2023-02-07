@@ -1,25 +1,27 @@
 ﻿using Godot;
-using SecondPrototype.extensions;
 
 namespace SecondPrototype.nodes;
 
 public partial class CameraHandlerNode : Node2D
 {
-    private static readonly StringName ScenePath = "res://scenes/camera_handler.tscn";
+    private static readonly StringName ScenePath = "res://scenes/camera.tscn";
     private static readonly PackedScene Scene = GD.Load<PackedScene>(ScenePath);
 
-    public static CameraHandlerNode Instantiate(Node parent)
+    public static CameraHandlerNode Instantiate(Node parent, aban.Grid2D grid)
     {
-        var node = Scene.Instantiate<CameraHandlerNode>();
+        var node = new CameraHandlerNode(grid);
+        node.Name = nameof(CameraHandlerNode);
         parent.AddChild(node);
         return node;
     }
 
-    [Export] private Camera2D? camera2D_;
+    private Camera2D camera_;
+    private aban.Grid2D grid_;
 
-    public override void _Ready()
+    private CameraHandlerNode(aban.Grid2D grid)
     {
-        base._Ready();
-        this.AssertFiledSet(nameof(camera2D_));
+        grid_ = grid;
+        camera_ = Scene.Instantiate<Camera2D>();
+        AddChild(camera_);
     }
 }
