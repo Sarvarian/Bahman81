@@ -28,6 +28,11 @@ public partial class CameraNode : Camera2D
         ActZoom();
     }
 
+    public Vector2 Offset()
+    {
+        return GetScreenCenterPosition() * -1 * TargetZoom;
+    }
+
     private const double ZoomDuration = 0.2d;
     private static readonly Vector2 MinZoom = new Vector2(0.4f, 0.4f);
     private static readonly Vector2 MaxZoom = new Vector2(2.0f, 2.0f);

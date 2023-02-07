@@ -32,7 +32,6 @@ public partial class DebugDrawNode : Node2D
     private readonly CameraNode camera_;
     private readonly CanvasLayer layer_;
     private Vector2 cameraOffset_;
-    private Vector2 cameraZoom_;
 
     private DebugDrawNode(aban.Grid2D grid, CameraNode camera, CanvasLayer layer)
     {
@@ -54,8 +53,7 @@ public partial class DebugDrawNode : Node2D
 
     private void OnCameraUpdate()
     {
-        cameraOffset_ = camera_.GetScreenCenterPosition() * -1;
-        cameraZoom_ = camera_.Zoom;
+        cameraOffset_ = camera_.Offset();
         QueueRedraw();
     }
 
@@ -71,8 +69,8 @@ public partial class DebugDrawNode : Node2D
         var start = 0 - halfViewportWidth;
         var end = halfViewportWidth;
         DrawLine(
-            new Vector2(start, cameraOffset_.Y * cameraZoom_.Y),
-            new Vector2(end, cameraOffset_.Y * cameraZoom_.Y)
+            new Vector2(start, cameraOffset_.Y),
+            new Vector2(end, cameraOffset_.Y)
         );
     }
 
