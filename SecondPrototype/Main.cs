@@ -9,7 +9,7 @@ public partial class Main : Node2D
 	{
 		Position = Vector2.Zero;
 		var cameraHandler = CameraHandlerNode.Instantiate(this);
-		var highlighter = HighlighterNode.Instantiate(this);
+		var gridHandler = GridHandlerNode.Instantiate(this);
 		var player = CharacterNode.Instantiate(this, Vector2I.Zero);
 	}
 }
