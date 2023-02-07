@@ -12,11 +12,18 @@ public partial class GridHandlerNode : Node2D
         return node;
     }
 
-    private readonly HighlighterNode highlighter_;
+    public readonly HighlighterNode Highlighter;
+    public readonly aban.Grid2D Grid;
 
     private GridHandlerNode()
     {
-        highlighter_ = HighlighterNode.Instantiate(this);
+        Highlighter = HighlighterNode.Instantiate(this);
+        Grid = new(CalculateCellSize());
     }
 
+    private Vector2I CalculateCellSize()
+    {
+        var width = Highlighter.GetSize().Y;
+        return new Vector2I(width, width);
+    }
 }
