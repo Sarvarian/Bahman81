@@ -20,14 +20,14 @@ public partial class CameraHandlerNode : Node2D
         return node;
     }
 
-    public readonly Camera2D Camera;
+    public readonly CameraNode Camera;
 
     private aban.Grid2D grid_;
 
     private CameraHandlerNode(aban.Grid2D grid)
     {
         grid_ = grid;
-        Camera = Scene.Instantiate<Camera2D>();
+        Camera = Scene.Instantiate<CameraNode>();
         AddChild(Camera);
     }
 

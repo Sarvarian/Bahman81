@@ -4,18 +4,13 @@ namespace SecondPrototype.nodes;
 
 public partial class DebugDrawNode : Node2D
 {
-    public static DebugDrawNode Instantiate(Node parent, aban.Grid2D grid, Camera2D camera)
+    public static DebugDrawNode Instantiate(Node parent, aban.Grid2D grid, CameraNode camera)
     {
         var node = new DebugDrawNode(grid, camera);
+        node.ConnectSignals(camera);
         node.Name = nameof(DebugDrawNode);
         parent.AddChild(node);
         return node;
-    }
-
-    public override void _PhysicsProcess(double delta)
-    {
-        base._PhysicsProcess(delta);
-        OrderRedrawIfCameraMoved();
     }
 
     public override void _Draw()
@@ -31,19 +26,19 @@ public partial class DebugDrawNode : Node2D
     private readonly Camera2D camera_;
     private Vector2 cameraScreenCenterPos_;
 
+    private void ConnectSignals(CameraNode camera)
+    {
+        camera.PositionChangedSignal -= QueueRedraw;
+        camera.PositionChangedSignal += QueueRedraw;
+        // camera.ZoomChangedSignal -= QueueRedraw;
+        // camera.ZoomChangedSignal += QueueRedraw;
+        // We remove and then add signals just to prevent duplication.
+    }
+
     private DebugDrawNode(aban.Grid2D grid, Camera2D camera)
     {
         grid_ = grid;
         camera_ = camera;
-    }
-
-    private void OrderRedrawIfCameraMoved()
-    {
-        if (camera_.GetScreenCenterPosition() != cameraScreenCenterPos_)
-        {
-            QueueRedraw();
-            cameraScreenCenterPos_ = camera_.GlobalPosition;
-        }
     }
 
     private void DrawScalar()
