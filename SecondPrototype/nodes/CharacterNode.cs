@@ -11,12 +11,11 @@ public partial class CharacterNode : Node2D
     public static CharacterNode Instantiate(Node parent,
         Vector2I position,
         aban.TheScalar scalar,
-        aban.Grid2D grid,
-        InputHandler input
+        aban.Grid2D grid
     )
     {
         var node = Scene.Instantiate<CharacterNode>();
-        node.Prepare(position, scalar, grid, input);
+        node.Prepare(position, scalar, grid);
         parent.AddChild(node);
         return node;
     }
@@ -28,22 +27,7 @@ public partial class CharacterNode : Node2D
         this.AssertFiledSet(nameof(sprite2D_));
     }
 
-    private readonly aban.entities.Character character_ = new();
-
-    private void Prepare(
-        Vector2I position,
-        aban.TheScalar scalar,
-        aban.Grid2D grid,
-        InputHandler inputHandler
-    )
-    {
-        scalar.Entities.Add(character_);
-        character_.LocationChangedSignal += () => OnLocationChanged(grid);
-        Position = position;
-        ConnectSignals(inputHandler);
-    }
-
-    private void ConnectSignals(InputHandler handler)
+    public void ConnectSignals(InputHandler handler)
     {
         handler.MoveRightSignal -= MoveRight;
         handler.MoveRightSignal += MoveRight;
@@ -52,6 +36,19 @@ public partial class CharacterNode : Node2D
         handler.AttackSignal -= Attack;
         handler.AttackSignal += Attack;
         // We remove and then add signals just to prevent duplication.
+    }
+
+    private readonly aban.entities.Character character_ = new();
+
+    private void Prepare(
+        Vector2I position,
+        aban.TheScalar scalar,
+        aban.Grid2D grid
+    )
+    {
+        scalar.Entities.Add(character_);
+        character_.LocationChangedSignal += () => OnLocationChanged(grid);
+        Position = position;
     }
 
     private void OnLocationChanged(aban.Grid2D grid)
