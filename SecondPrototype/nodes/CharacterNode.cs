@@ -1,6 +1,4 @@
 ﻿using Godot;
-using SecondPrototype.aban;
-using SecondPrototype.aban.entities;
 using SecondPrototype.extensions;
 
 namespace SecondPrototype.nodes;
@@ -10,12 +8,16 @@ public partial class CharacterNode : Node2D
     private static readonly StringName ScenePath = "res://scenes/character.tscn";
     private static readonly PackedScene Scene = GD.Load<PackedScene>(ScenePath);
 
-    public static CharacterNode Instantiate(Node parent, TheScalar scalar, Vector2I position)
+    public static CharacterNode Instantiate(
+        Node parent,
+        aban.TheScalar scalar,
+        aban.Grid2D grid,
+        Vector2I position
+    )
     {
         var node = Scene.Instantiate<CharacterNode>();
-        scalar.Entities.Add(node.character_);
+        node.Prepare(scalar, grid, position);
         parent.AddChild(node);
-        node.Position = position;
         return node;
     }
 
@@ -26,6 +28,20 @@ public partial class CharacterNode : Node2D
         this.AssertFiledSet(nameof(sprite2D_));
     }
 
-    private readonly Character character_ = new();
+    private readonly aban.entities.Character character_ = new();
+
+    private void Prepare(aban.TheScalar scalar, aban.Grid2D grid, Vector2I position)
+    {
+        scalar.Entities.Add(character_);
+        character_.LocationChangedSignal += () => OnLocationChanged(grid);
+        Position = position;
+    }
+
+    private void OnLocationChanged(aban.Grid2D grid)
+    {
+        var newPos = Position;
+        newPos.X = character_.Location * grid.CellSize.X;
+        Position = newPos;
+    }
 
 }
