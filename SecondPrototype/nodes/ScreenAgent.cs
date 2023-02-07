@@ -8,12 +8,17 @@ public partial class ScreenAgent : Node2D
 {
     private static readonly StringName NodeName = "ScreenAgent";
 
-    public static void Setup(Node parent)
+    public static ScreenAgent Instantiate(Node parent)
     {
-        var agent = new ScreenAgent();
-        parent.AddChild(agent);
-        agent.Name = NodeName;
+        var node = new ScreenAgent();
+        parent.AddChild(node);
+        node.Name = NodeName;
+        return node;
     }
+
+    public Vector2I Size => screen_.Size;
+    public Vector2I Center => screen_.Center;
+    public event Action? ScreenUpdatedSignal;
 
     public override void _Ready()
     {
@@ -21,8 +26,6 @@ public partial class ScreenAgent : Node2D
         GetRootViewport().SizeChanged += ResetScreen;
         ResetScreen();
     }
-
-    public event Action? ScreenUpdatedSignal;
 
     private aban.Screen screen_;
 

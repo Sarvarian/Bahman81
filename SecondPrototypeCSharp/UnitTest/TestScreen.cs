@@ -8,10 +8,17 @@ public class TestScreen : ClassTestBase
     [Fact]
     public void InitializeSizeCorrectly()
     {
-        Assert.Equal(Size, screen_.Size);
+        Assert.Equal(InitSize, screen_.Size);
     }
 
-    private static readonly Vector2I Size = RandomVector2I(10, 20, 40, 50);
-    private readonly Screen screen_ = new(Size);
+    [Fact]
+    public void CenterPoint()
+    {
+        Assert.Equal(InitSize / 2, screen_.Center);
+    }
+
+
+    private static readonly Vector2I InitSize = RandomVector2I(10, 20, 40, 50);
+    private readonly Screen screen_ = new(InitSize);
 
 }
