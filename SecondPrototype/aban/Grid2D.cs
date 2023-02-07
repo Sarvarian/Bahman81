@@ -2,7 +2,12 @@
 
 namespace SecondPrototype.aban;
 
-public readonly record struct Grid2D(Vector2I CellSize)
+public class Grid2D
 {
+    public Vector2I CellSize { get; }
 
+    public Grid2D(Vector2I cellSize)
+    {
+        CellSize = cellSize;
+    }
 }

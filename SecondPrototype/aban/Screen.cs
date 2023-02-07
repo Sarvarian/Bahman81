@@ -2,7 +2,15 @@
 
 namespace SecondPrototype.aban;
 
-public readonly record struct Screen(Vector2I Size)
+public class Screen
 {
-    public readonly Vector2I Center = Size / 2;
+    public Vector2I Center { get; }
+    public Vector2I Size { get; }
+
+    public Screen(Vector2I size)
+    {
+        Size = size;
+        Center = size / 2;
+    }
+
 }
