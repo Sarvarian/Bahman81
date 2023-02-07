@@ -22,7 +22,14 @@ public partial class CameraHandlerNode : Node2D
 
     public readonly CameraNode Camera;
 
+    public override void _PhysicsProcess(double delta)
+    {
+        base._PhysicsProcess(delta);
+        ApplyPan();
+    }
+
     private aban.Grid2D grid_;
+    private Vector2 panAmount_;
 
     private CameraHandlerNode(aban.Grid2D grid)
     {
@@ -46,7 +53,7 @@ public partial class CameraHandlerNode : Node2D
         // We remove and then add signals just to prevent duplication.
     }
 
-    private bool onPan_ = false;
+    private bool onPan_;
 
     private void GrabCamera()
     {
@@ -62,7 +69,16 @@ public partial class CameraHandlerNode : Node2D
     {
         if (onPan_)
         {
-            Position -= mouse.Relative;
+            panAmount_ -= mouse.Relative;
+        }
+    }
+
+    private void ApplyPan()
+    {
+        if (panAmount_ != Vector2.Zero)
+        {
+            Position += panAmount_ / Camera.Zoom;
+            panAmount_ = Vector2.Zero;
         }
     }
 

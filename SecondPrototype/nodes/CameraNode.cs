@@ -58,6 +58,7 @@ public partial class CameraNode : Camera2D
     {
         TargetZoom = TargetZoom.Clamp(MinZoom, MaxZoom);
         var tween = GetTree().CreateTween();
+        tween.SetProcessMode(Tween.TweenProcessMode.Physics);
         tween.TweenProperty(this, "zoom", TargetZoom, ZoomDuration);
     }
 
