@@ -32,6 +32,8 @@ public partial class DebugDrawNode : Node2D
     private readonly CameraNode camera_;
     private readonly CanvasLayer layer_;
     private Vector2 cameraOffset_;
+    private Vector2 cameraZoom_;
+    private float cameraZoomLength_;
 
     private DebugDrawNode(aban.Grid2D grid, CameraNode camera, CanvasLayer layer)
     {
@@ -54,6 +56,8 @@ public partial class DebugDrawNode : Node2D
     private void OnCameraUpdate()
     {
         cameraOffset_ = camera_.OffsetFromGlobalWorldCenter();
+        cameraZoom_ = camera_.TargetZoom;
+        cameraZoomLength_ = cameraZoom_.Length();
         QueueRedraw();
     }
 
@@ -88,6 +92,7 @@ public partial class DebugDrawNode : Node2D
     private void DrawSingleNumberLine(int location)
     {
         var start = grid_.LocationToPosition(location);
+        start.Y += cameraOffset_.Y;
         var end = start + (Vector2.Down * NumberLineLength);
         DrawLine(start, end);
     }
