@@ -13,7 +13,10 @@ public partial class Main : Node2D
 		var cameraHandler = CameraHandlerNode.Instantiate(this, gridHandler.Grid);
 		var player = CharacterNode.Instantiate(
 			this,
-			Vector2I.Zero, scalar_, gridHandler.Grid);
+			Vector2I.Zero,
+			scalar_,
+			gridHandler.Grid
+		);
 	}
 
 	private readonly aban.TheScalar scalar_ = new();
