@@ -10,6 +10,9 @@ public partial class Main : Node2D
 		Position = Vector2.Zero;
 		var gridHandler = GridHandlerNode.Instantiate(this);
 		var cameraHandler = CameraHandlerNode.Instantiate(this, gridHandler.Grid);
-		var player = CharacterNode.Instantiate(this, Vector2I.Zero);
+		var player = CharacterNode.Instantiate(this, scalar_, Vector2I.Zero);
 	}
+
+	private readonly aban.TheScalar scalar_ = new();
+
 }
