@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6hjiu8hfl111"]
+
+[ext_resource type="Script" path="res://nodes/RulerNumberLabelNode.cs" id="1_m3d4r"]
+
+[node name="Number" type="Control" node_paths=PackedStringArray("label_")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_m3d4r")
+label_ = NodePath("Label")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = -23.0
+offset_top = 11.0
+offset_right = 23.0
+offset_bottom = 37.0
+text = "99999"
+horizontal_alignment = 1
+autowrap_mode = 1
