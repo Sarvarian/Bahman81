@@ -10,8 +10,8 @@ public partial class Main : Node2D
         Position = Vector2.Zero;
         var inputHandler = InputHandlerNode.Instantiate(this);
         var gridHandler = GridHandlerNode.Instantiate(this);
-        var cameraHandler = CameraHandlerNode.Instantiate(this, gridHandler.Grid);
-        var debugDraw = DebugDrawNode.Instantiate(this);
+        var cameraHandler = CameraHandlerNode.Instantiate(this, gridHandler.Grid, inputHandler);
+        var debugDraw = DebugDrawNode.Instantiate(this, gridHandler.Grid, cameraHandler.Camera);
         player_ = CharacterNode.Instantiate(
             this,
             Vector2I.Zero,

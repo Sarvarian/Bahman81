@@ -18,6 +18,9 @@ public partial class InputHandlerNode : Node
     public event Action? AttackSignal;
     public event Action? ImplantEntitySignal;
     public event Action? RemoveEntitySignal;
+    public event Action? GrabCameraSignal;
+    public event Action? DropCameraSignal;
+    public event Action<InputEventMouseMotion>? MouseMovedSignal;
 
     public override void _UnhandledInput(InputEvent @event)
     {
@@ -42,6 +45,18 @@ public partial class InputHandlerNode : Node
         {
             RemoveEntitySignal?.Invoke();
         }
+        else if (@event.IsActionPressed(CameraPan))
+        {
+            GrabCameraSignal?.Invoke();
+        }
+        else if (@event.IsActionReleased(CameraPan))
+        {
+            DropCameraSignal?.Invoke();
+        }
+        else if (@event is InputEventMouseMotion mouseMotion)
+        {
+            MouseMovedSignal?.Invoke(mouseMotion);
+        }
     }
 
     private static readonly StringName MoveRight = "move_right";
@@ -49,5 +64,6 @@ public partial class InputHandlerNode : Node
     private static readonly StringName Attack = "attack";
     private static readonly StringName ImplantEntity = "implant_entity";
     private static readonly StringName RemoveEntity = "remove_entity";
+    private static readonly StringName CameraPan = "camera_pan";
 
 }
