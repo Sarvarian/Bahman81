@@ -15,7 +15,8 @@ public partial class Main : Node2D
 			this,
 			Vector2I.Zero,
 			scalar_,
-			gridHandler.Grid
+			gridHandler.Grid,
+			inputHandler
 		);
 	}
 
