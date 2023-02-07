@@ -24,6 +24,8 @@ public partial class DebugDrawNode : Node2D
         DrawScalar();
     }
 
+    private const float NumberLineLength = 10.0f;
+    private const float LineWidth = 2.0f;
     private readonly Color color_ = Colors.DarkRed;
     private readonly aban.Grid2D grid_;
     private readonly Camera2D camera_;
@@ -47,6 +49,7 @@ public partial class DebugDrawNode : Node2D
     private void DrawScalar()
     {
         DrawGroundLine();
+        DrawScalarNumberLines();
     }
 
     private void DrawGroundLine()
@@ -57,7 +60,31 @@ public partial class DebugDrawNode : Node2D
         DrawLine(
             new Vector2(start, 0),
             new Vector2(end, 0),
-            color_
+            color_,
+            LineWidth
+        );
+    }
+
+    private void DrawScalarNumberLines()
+    {
+        DrawScalarSingleNumberLine(0);
+        var maxStep = GetViewportRect().Size.X / grid_.CellSize.X;
+        for (var i = 1; i < maxStep; i++)
+        {
+            DrawScalarSingleNumberLine(i * 1);
+            DrawScalarSingleNumberLine(i * -1);
+        }
+    }
+
+    private void DrawScalarSingleNumberLine(int location)
+    {
+        var start = grid_.LocationToPosition(location);
+        var end = start + (Vector2.Down * NumberLineLength);
+        DrawLine(
+            start,
+            end,
+            color_,
+            LineWidth
         );
     }
 }
