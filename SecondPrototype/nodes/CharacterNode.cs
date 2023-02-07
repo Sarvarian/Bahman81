@@ -11,7 +11,8 @@ public partial class CharacterNode : Node2D
     public static CharacterNode Instantiate(Node parent,
         Vector2I position,
         aban.TheScalar scalar,
-        aban.Grid2D grid)
+        aban.Grid2D grid
+    )
     {
         var node = Scene.Instantiate<CharacterNode>();
         node.Prepare(scalar, grid, position);
