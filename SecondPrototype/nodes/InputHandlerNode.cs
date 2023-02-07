@@ -13,6 +13,7 @@ public partial class InputHandlerNode : Node
         return node;
     }
 
+    public event Action<InputEventMouseMotion>? MouseMovedSignal;
     public event Action? MoveRightSignal;
     public event Action? MoveLeftSignal;
     public event Action? AttackSignal;
@@ -20,12 +21,17 @@ public partial class InputHandlerNode : Node
     public event Action? RemoveEntitySignal;
     public event Action? GrabCameraSignal;
     public event Action? DropCameraSignal;
-    public event Action<InputEventMouseMotion>? MouseMovedSignal;
+    public event Action? CameraZoomInSignal;
+    public event Action? CameraZoomOutSignal;
 
     public override void _UnhandledInput(InputEvent @event)
     {
         base._UnhandledInput(@event);
-        if (@event.IsActionPressed(MoveRight))
+        if (@event is InputEventMouseMotion mouseMotion)
+        {
+            MouseMovedSignal?.Invoke(mouseMotion);
+        }
+        else if (@event.IsActionPressed(MoveRight))
         {
             MoveRightSignal?.Invoke();
         }
@@ -53,9 +59,13 @@ public partial class InputHandlerNode : Node
         {
             DropCameraSignal?.Invoke();
         }
-        else if (@event is InputEventMouseMotion mouseMotion)
+        else if (@event.IsActionReleased(CameraZoomIn))
         {
-            MouseMovedSignal?.Invoke(mouseMotion);
+            CameraZoomInSignal?.Invoke();
+        }
+        else if (@event.IsActionReleased(CameraZoomOut))
+        {
+            CameraZoomOutSignal?.Invoke();
         }
     }
 
@@ -65,5 +75,7 @@ public partial class InputHandlerNode : Node
     private static readonly StringName ImplantEntity = "implant_entity";
     private static readonly StringName RemoveEntity = "remove_entity";
     private static readonly StringName CameraPan = "camera_pan";
+    private static readonly StringName CameraZoomIn = "camera_zoom_in";
+    private static readonly StringName CameraZoomOut = "camera_zoom_out";
 
 }
