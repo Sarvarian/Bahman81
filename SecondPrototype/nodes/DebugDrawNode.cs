@@ -17,6 +17,7 @@ public partial class DebugDrawNode : Node2D
     {
         base._EnterTree();
         layer_.Offset = GetViewportRect().Size / 2;
+        layer_.Layer = -1;
     }
 
     public override void _Draw()
