@@ -44,7 +44,7 @@ public partial class DebugDrawNode : Node2D
     private void DrawScalar()
     {
         DrawGroundLine();
-        DrawScalarNumberLines();
+        DrawNumberLines();
     }
 
     private void DrawGroundLine()
@@ -55,18 +55,18 @@ public partial class DebugDrawNode : Node2D
         DrawLine(start, end);
     }
 
-    private void DrawScalarNumberLines()
+    private void DrawNumberLines()
     {
-        DrawScalarSingleNumberLine(0);
+        DrawSingleNumberLine(0);
         var maxStep = GetViewportRect().Size.X / grid_.CellSize.X / 2;
         for (var i = 1; i < maxStep; i++)
         {
-            DrawScalarSingleNumberLine(i * 1);
-            DrawScalarSingleNumberLine(i * -1);
+            DrawSingleNumberLine(i * 1);
+            DrawSingleNumberLine(i * -1);
         }
     }
 
-    private void DrawScalarSingleNumberLine(int location)
+    private void DrawSingleNumberLine(int location)
     {
         var start = grid_.LocationToPosition(location);
         var end = start + (Vector2.Down * NumberLineLength);
