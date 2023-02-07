@@ -47,6 +47,8 @@ public partial class CameraHandlerNode : Node2D
     }
 
     private const double ZoomDuration = 0.2d;
+    private static readonly Vector2 MinZoom = new Vector2(0.4f, 0.4f);
+    private static readonly Vector2 MaxZoom = new Vector2(2.0f, 2.0f);
     private static readonly Vector2 ZoomStep = new Vector2(0.1f, 0.1f);
     private Vector2 targetZoom_ = Vector2.One;
     private bool onPan_ = false;
@@ -83,6 +85,7 @@ public partial class CameraHandlerNode : Node2D
 
     private void ActZoom()
     {
+        targetZoom_ = targetZoom_.Clamp(MinZoom, MaxZoom);
         var tween = GetTree().CreateTween();
         tween.TweenProperty(Camera, "zoom", targetZoom_, ZoomDuration);
     }
