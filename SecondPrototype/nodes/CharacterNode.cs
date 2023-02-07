@@ -39,9 +39,7 @@ public partial class CharacterNode : Node2D
 
     private void OnLocationChanged(aban.Grid2D grid)
     {
-        var newPos = Position;
-        newPos.X = character_.Location * grid.CellSize.X;
-        Position = newPos;
+        Position = grid.LocationToPosition(character_.Location);
     }
 
 }

@@ -21,4 +21,9 @@ public class Grid2D
             CellSizeUpdatedSignal?.Invoke();
         }
     }
+
+    public Vector2 LocationToPosition(int location)
+    {
+        return new Vector2(location * CellSize.X, 0);
+    }
 }

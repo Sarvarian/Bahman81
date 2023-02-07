@@ -45,6 +45,18 @@ public class TestGrid2D : ClassTestBase
         Assert.Equal(NewCellSize, grid_.CellSize);
     }
 
+    [Fact]
+    public void LocationToPosition()
+    {
+        var randomLocation = 0;
+        while (randomLocation == 0) { randomLocation = Rng.Next(-10, 10); }
+        var expectedResult = new Vector2
+        {
+            X = randomLocation * grid_.CellSize.X,
+            Y = 0
+        };
+        Assert.Equal(expectedResult, grid_.LocationToPosition(randomLocation));
+    }
 
 
     private static readonly Vector2I InitCellSize = RandomVector2I(10, 20, 40, 50);
