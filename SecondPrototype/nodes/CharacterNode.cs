@@ -8,12 +8,10 @@ public partial class CharacterNode : Node2D
     private static readonly StringName ScenePath = "res://scenes/character.tscn";
     private static readonly PackedScene Scene = GD.Load<PackedScene>(ScenePath);
 
-    public static CharacterNode Instantiate(
-        Node parent,
+    public static CharacterNode Instantiate(Node parent,
+        Vector2I position,
         aban.TheScalar scalar,
-        aban.Grid2D grid,
-        Vector2I position
-    )
+        aban.Grid2D grid)
     {
         var node = Scene.Instantiate<CharacterNode>();
         node.Prepare(scalar, grid, position);
