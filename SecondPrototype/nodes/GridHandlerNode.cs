@@ -8,6 +8,7 @@ public partial class GridHandlerNode : Node2D
     public static GridHandlerNode Instantiate(Node parent)
     {
         var node = new GridHandlerNode();
+        node.Name = nameof(GridHandlerNode);
         parent.AddChild(node);
         return node;
     }
