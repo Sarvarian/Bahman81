@@ -1,5 +1,6 @@
 using Godot;
 using SecondPrototype.nodes;
+using SecondPrototype.nodes.just_hide_them;
 
 namespace SecondPrototype;
 
@@ -11,6 +12,11 @@ public partial class Main : Node2D
         var inputHandler = InputHandlerNode.Instantiate(this);
         var gridHandler = GridHandlerNode.Instantiate(this);
         var cameraHandler = CameraHandlerNode.Instantiate(this, gridHandler.Grid, inputHandler);
+        var numberMaster = MasterNodeOfRulerNumberLabelNodesAlsoANode.Instantiate(
+            this,
+            gridHandler.Grid,
+            cameraHandler.Camera
+        );
         var debugDraw = DebugDrawNode.Instantiate(this, gridHandler.Grid, cameraHandler.Camera);
         player_ = CharacterNode.Instantiate(
             this,
