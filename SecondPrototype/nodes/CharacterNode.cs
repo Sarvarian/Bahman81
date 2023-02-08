@@ -28,7 +28,7 @@ public partial class CharacterNode : Node2D
         this.AssertFiledSet(nameof(sprite2D_));
     }
 
-    public void ConnectSignals(InputHandlerNode handlerNode)
+    public void ConnectSignals(no_use_in_editor.InputHandlerNode handlerNode)
     {
         handlerNode.MoveRightSignal -= MoveRight;
         handlerNode.MoveRightSignal += MoveRight;

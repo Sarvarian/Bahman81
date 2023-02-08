@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace SecondPrototype.nodes;
+namespace SecondPrototype.nodes.no_use_in_editor;
 
 public partial class DebugDrawNode : Node2D
 {

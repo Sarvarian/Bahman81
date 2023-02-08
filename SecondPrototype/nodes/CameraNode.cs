@@ -5,6 +5,16 @@ namespace SecondPrototype.nodes;
 
 public partial class CameraNode : Camera2D
 {
+    private static readonly StringName ScenePath = "res://scenes/camera.tscn";
+    private static readonly PackedScene Scene = GD.Load<PackedScene>(ScenePath);
+
+    public static CameraNode Instantiate(Node parent)
+    {
+        var node = Scene.Instantiate<CameraNode>();
+        parent.AddChild(node);
+        return node;
+    }
+
     public Vector2 TargetZoom { get; private set; } = Vector2.One;
     public event Action? PositionChangedSignal;
     public event Action? ZoomChangedSignal;

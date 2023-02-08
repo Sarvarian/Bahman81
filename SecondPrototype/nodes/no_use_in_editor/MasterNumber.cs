@@ -1,7 +1,7 @@
 ﻿using Godot;
 using System.Collections.Generic;
 
-namespace SecondPrototype.nodes.just_hide_them;
+namespace SecondPrototype.nodes.no_use_in_editor;
 
 public partial class MasterNodeOfRulerNumberLabelNodesAlsoANode : Control
 {
@@ -30,7 +30,7 @@ public partial class MasterNodeOfRulerNumberLabelNodesAlsoANode : Control
 
     private readonly aban.Grid2D grid_;
     private readonly CameraNode camera_;
-    private readonly List<RulerNumberLabelNode> labels_ = new();
+    private readonly List<NumberNode> labels_ = new();
 
     private MasterNodeOfRulerNumberLabelNodesAlsoANode(aban.Grid2D grid, CameraNode camera)
     {
@@ -79,7 +79,7 @@ public partial class MasterNodeOfRulerNumberLabelNodesAlsoANode : Control
         var label = labels_.Find(label => label.IsInsideTree() == false);
         if (label == null)
         {
-            label = RulerNumberLabelNode.Instantiate(this);
+            label = NumberNode.Instantiate(this);
             labels_.Add(label);
         }
         label.NewLocation(location, grid_);

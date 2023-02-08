@@ -1,12 +1,9 @@
 ﻿using Godot;
 
-namespace SecondPrototype.nodes;
+namespace SecondPrototype.nodes.no_use_in_editor;
 
 public partial class CameraHandlerNode : Node2D
 {
-    private static readonly StringName ScenePath = "res://scenes/camera.tscn";
-    private static readonly PackedScene Scene = GD.Load<PackedScene>(ScenePath);
-
     public static CameraHandlerNode Instantiate(
         Node parent,
         aban.Grid2D grid,
@@ -34,7 +31,7 @@ public partial class CameraHandlerNode : Node2D
     private CameraHandlerNode(aban.Grid2D grid)
     {
         grid_ = grid;
-        Camera = Scene.Instantiate<CameraNode>();
+        Camera = CameraNode.Instantiate(this);
         AddChild(Camera);
     }
 

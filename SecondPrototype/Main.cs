@@ -1,6 +1,7 @@
 using Godot;
 using SecondPrototype.nodes;
-using SecondPrototype.nodes.just_hide_them;
+using SecondPrototype.nodes.no_use_in_editor;
+using MasterNodeOfRulerNumberLabelNodesAlsoANode = SecondPrototype.nodes.no_use_in_editor.MasterNodeOfRulerNumberLabelNodesAlsoANode;
 
 namespace SecondPrototype;
 

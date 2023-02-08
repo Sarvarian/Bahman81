@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 namespace SecondPrototype.nodes;
 
-public partial class RulerNumberLabelNode : Control
+public partial class NumberNode : Control
 {
     private static readonly StringName ScenePath = "res://scenes/number.tscn";
     private static readonly PackedScene Scene = GD.Load<PackedScene>(ScenePath);
 
-    public static RulerNumberLabelNode Instantiate(Node parent)
+    public static NumberNode Instantiate(Node parent)
     {
-        var node = Scene.Instantiate<RulerNumberLabelNode>();
+        var node = Scene.Instantiate<NumberNode>();
         return node;
     }
 

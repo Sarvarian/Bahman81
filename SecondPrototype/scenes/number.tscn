@@ -1,11 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://c6hjiu8hfl111"]
 
-[ext_resource type="Script" path="res://nodes/RulerNumberLabelNode.cs" id="1_m3d4r"]
+[ext_resource type="Script" path="res://nodes/NumberNode.cs" id="1_su0mw"]
 
 [node name="Number" type="Control" node_paths=PackedStringArray("label_")]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_m3d4r")
+script = ExtResource("1_su0mw")
 label_ = NodePath("Label")
 
 [node name="Label" type="Label" parent="."]

@@ -1,7 +1,7 @@
 ﻿using Godot;
 using System;
 
-namespace SecondPrototype.nodes;
+namespace SecondPrototype.nodes.no_use_in_editor;
 
 public partial class InputHandlerNode : Node
 {
