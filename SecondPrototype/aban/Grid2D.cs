@@ -1,4 +1,5 @@
 ﻿using Godot;
+using SecondPrototype.extensions;
 using System;
 
 namespace SecondPrototype.aban;
@@ -25,5 +26,15 @@ public class Grid2D
     public Vector2 LocationToPosition(int location)
     {
         return new Vector2(location * CellSize.X, 0);
+    }
+
+    public Vector2I HowManyFitsInScreen(Vector2 screenSize)
+    {
+        return (screenSize / CellSize).Floor().ToVec2I();
+    }
+
+    public Vector2I HowManyFitsInScreenConsideringCameraZoom(Vector2 screenSize, Vector2 cameraZoom)
+    {
+        return ((screenSize / cameraZoom) / CellSize).Floor().ToVec2I();
     }
 }

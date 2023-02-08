@@ -1,5 +1,6 @@
 ﻿using Godot;
 using SecondPrototype.aban;
+using SecondPrototype.extensions;
 
 namespace UnitTest;
 
@@ -56,6 +57,36 @@ public class TestGrid2D : ClassTestBase
             Y = 0
         };
         Assert.Equal(expectedResult, grid_.LocationToPosition(randomLocation));
+    }
+
+    [Fact]
+    public void HowManyFitsInScreen()
+    {
+        var screenSize = RandomVector2(100.0f, 200.0f, 400.0f, 500.0f);
+
+        var expected = new Vector2I
+        {
+            X = Mathf.FloorToInt(screenSize.X / grid_.CellSize.X),
+            Y = Mathf.FloorToInt(screenSize.Y / grid_.CellSize.Y)
+        };
+
+        Assert.Equal(expected, grid_.HowManyFitsInScreen(screenSize));
+    }
+
+    [Fact]
+    public void HowManyFitsInScreenConsideringCameraZoom()
+    {
+        var screenSize = RandomVector2(100, 200, 400, 500);
+        var cameraZoom = RandomVector2(0.1f, 2.0f, 0.1f, 2.0f);
+
+        var expectedF = new Vector2
+        {
+            X = (screenSize.X / cameraZoom.X) / grid_.CellSize.X,
+            Y = (screenSize.Y / cameraZoom.Y) / grid_.CellSize.Y
+        };
+
+        var expectedI = expectedF.Floor().ToVec2I();
+        Assert.Equal(expectedI, grid_.HowManyFitsInScreenConsideringCameraZoom(screenSize, cameraZoom));
     }
 
 

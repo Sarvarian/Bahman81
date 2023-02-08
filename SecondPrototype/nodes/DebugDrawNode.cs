@@ -82,7 +82,9 @@ public partial class DebugDrawNode : Node2D
     private void DrawNumberLines()
     {
         DrawSingleNumberLine(0);
-        var maxStep = ((GetViewportRect().Size.X / cameraZoom_.X) / grid_.CellSize.X / 2) + 1;
+        var screenSize = GetViewportRect().Size;
+        var area = grid_.HowManyFitsInScreenConsideringCameraZoom(screenSize, cameraZoom_);
+        var maxStep = (area.X / 2) + 2;
         for (var i = 1; i < maxStep; i++)
         {
             DrawSingleNumberLine(i * 1);
