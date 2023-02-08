@@ -2,13 +2,13 @@
 
 namespace SecondPrototype.nodes.no_use_in_editor;
 
-public partial class GridHandlerNode : Node2D
+public partial class GridHandler : Node2D
 {
 
-    public static GridHandlerNode Instantiate(Node parent)
+    public static GridHandler Instantiate(Node parent)
     {
-        var node = new GridHandlerNode();
-        node.Name = nameof(GridHandlerNode);
+        var node = new GridHandler();
+        node.Name = nameof(GridHandler);
         parent.AddChild(node);
         return node;
     }
@@ -16,7 +16,7 @@ public partial class GridHandlerNode : Node2D
     public readonly HighlighterNode Highlighter;
     public readonly aban.Grid2D Grid;
 
-    private GridHandlerNode()
+    private GridHandler()
     {
         Highlighter = HighlighterNode.Instantiate(this);
         Grid = new(CalculateCellSize());

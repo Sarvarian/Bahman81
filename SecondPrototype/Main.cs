@@ -1,7 +1,6 @@
 using Godot;
 using SecondPrototype.nodes;
 using SecondPrototype.nodes.no_use_in_editor;
-using MasterNodeOfRulerNumberLabelNodesAlsoANode = SecondPrototype.nodes.no_use_in_editor.MasterNodeOfRulerNumberLabelNodesAlsoANode;
 
 namespace SecondPrototype;
 
@@ -10,15 +9,15 @@ public partial class Main : Node2D
     public override void _Ready()
     {
         Position = Vector2.Zero;
-        var inputHandler = InputHandlerNode.Instantiate(this);
-        var gridHandler = GridHandlerNode.Instantiate(this);
-        var cameraHandler = CameraHandlerNode.Instantiate(this, gridHandler.Grid, inputHandler);
-        var numberMaster = MasterNodeOfRulerNumberLabelNodesAlsoANode.Instantiate(
+        var inputHandler = InputHandler.Instantiate(this);
+        var gridHandler = GridHandler.Instantiate(this);
+        var cameraHandler = CameraHandler.Instantiate(this, gridHandler.Grid, inputHandler);
+        var numberMaster = MasterNumber.Instantiate(
             this,
             gridHandler.Grid,
             cameraHandler.Camera
         );
-        var debugDraw = DebugDrawNode.Instantiate(this, gridHandler.Grid, cameraHandler.Camera);
+        var debugDraw = DebugDraw.Instantiate(this, gridHandler.Grid, cameraHandler.Camera);
         player_ = CharacterNode.Instantiate(
             this,
             Vector2I.Zero,

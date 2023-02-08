@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace SecondPrototype.nodes.no_use_in_editor;
 
-public partial class MasterNodeOfRulerNumberLabelNodesAlsoANode : Control
+public partial class MasterNumber : Control
 {
-    public static MasterNodeOfRulerNumberLabelNodesAlsoANode Instantiate(
+    public static MasterNumber Instantiate(
         Node parent,
         aban.Grid2D grid,
         CameraNode camera
     )
     {
-        var node = new MasterNodeOfRulerNumberLabelNodesAlsoANode(grid, camera);
+        var node = new MasterNumber(grid, camera);
         parent.AddChild(node);
         return node;
     }
@@ -32,7 +32,7 @@ public partial class MasterNodeOfRulerNumberLabelNodesAlsoANode : Control
     private readonly CameraNode camera_;
     private readonly List<NumberNode> labels_ = new();
 
-    private MasterNodeOfRulerNumberLabelNodesAlsoANode(aban.Grid2D grid, CameraNode camera)
+    private MasterNumber(aban.Grid2D grid, CameraNode camera)
     {
         grid_ = grid;
         camera_ = camera;

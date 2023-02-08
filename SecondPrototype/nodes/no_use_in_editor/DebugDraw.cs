@@ -2,13 +2,13 @@
 
 namespace SecondPrototype.nodes.no_use_in_editor;
 
-public partial class DebugDrawNode : Node2D
+public partial class DebugDraw : Node2D
 {
-    public static DebugDrawNode Instantiate(Node parent, aban.Grid2D grid, CameraNode camera)
+    public static DebugDraw Instantiate(Node parent, aban.Grid2D grid, CameraNode camera)
     {
         var layer = new CanvasLayer();
         parent.AddChild(layer, true);
-        var node = new DebugDrawNode(grid, camera, layer);
+        var node = new DebugDraw(grid, camera, layer);
         layer.AddChild(node);
         return node;
     }
@@ -36,9 +36,9 @@ public partial class DebugDrawNode : Node2D
     private Vector2 cameraZoom_;
     private float cameraZoomLength_;
 
-    private DebugDrawNode(aban.Grid2D grid, CameraNode camera, CanvasLayer layer)
+    private DebugDraw(aban.Grid2D grid, CameraNode camera, CanvasLayer layer)
     {
-        Name = nameof(DebugDrawNode);
+        Name = nameof(DebugDraw);
         grid_ = grid;
         camera_ = camera;
         layer_ = layer;

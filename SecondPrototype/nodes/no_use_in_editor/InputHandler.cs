@@ -3,12 +3,12 @@ using System;
 
 namespace SecondPrototype.nodes.no_use_in_editor;
 
-public partial class InputHandlerNode : Node
+public partial class InputHandler : Node
 {
-    public static InputHandlerNode Instantiate(Node parent)
+    public static InputHandler Instantiate(Node parent)
     {
-        var node = new InputHandlerNode();
-        node.Name = nameof(InputHandlerNode);
+        var node = new InputHandler();
+        node.Name = nameof(InputHandler);
         parent.AddChild(node);
         return node;
     }

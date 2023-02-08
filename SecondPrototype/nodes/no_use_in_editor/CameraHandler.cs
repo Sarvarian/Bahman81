@@ -2,17 +2,17 @@
 
 namespace SecondPrototype.nodes.no_use_in_editor;
 
-public partial class CameraHandlerNode : Node2D
+public partial class CameraHandler : Node2D
 {
-    public static CameraHandlerNode Instantiate(
+    public static CameraHandler Instantiate(
         Node parent,
         aban.Grid2D grid,
-        InputHandlerNode input
+        InputHandler input
     )
     {
-        var node = new CameraHandlerNode(grid);
+        var node = new CameraHandler(grid);
         node.ConnectSignals(input);
-        node.Name = nameof(CameraHandlerNode);
+        node.Name = nameof(CameraHandler);
         parent.AddChild(node);
         return node;
     }
@@ -28,13 +28,13 @@ public partial class CameraHandlerNode : Node2D
     private aban.Grid2D grid_;
     private Vector2 panAmount_;
 
-    private CameraHandlerNode(aban.Grid2D grid)
+    private CameraHandler(aban.Grid2D grid)
     {
         grid_ = grid;
         Camera = CameraNode.Instantiate(this);
     }
 
-    private void ConnectSignals(InputHandlerNode inputHandler)
+    private void ConnectSignals(InputHandler inputHandler)
     {
         inputHandler.GrabCameraSignal -= GrabCamera;
         inputHandler.GrabCameraSignal += GrabCamera;
