@@ -64,7 +64,7 @@ public partial class MasterNodeOfRulerNumberLabelNodesAlsoANode : Control
         var maxStep = (area.X / 2) + 2;
 
         var cameraPosition = camera_.GlobalPosition;
-        var locationOffset = Mathf.FloorToInt(cameraPosition.X / grid_.CellSize.X);
+        var locationOffset = grid_.PositionToLocation(cameraPosition);
 
         PutLabel(0 + locationOffset);
         for (var i = 1; i < maxStep; i++)
