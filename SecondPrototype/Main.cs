@@ -10,7 +10,7 @@ public partial class Main : Node2D
     {
         Position = Vector2.Zero;
         var inputHandler = InputHandler.Instantiate(this);
-        var gridHandler = GridHandler.Instantiate(this);
+        var gridHandler = GridHandler.Instantiate(this, scalar_, inputHandler);
         var cameraHandler = CameraHandler.Instantiate(this, gridHandler.Grid, inputHandler);
         var numberMaster = MasterNumber.Instantiate(
             this,
