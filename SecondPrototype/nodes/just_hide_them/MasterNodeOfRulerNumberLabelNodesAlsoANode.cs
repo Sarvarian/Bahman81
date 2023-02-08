@@ -16,7 +16,6 @@ public partial class MasterNodeOfRulerNumberLabelNodesAlsoANode : Control
         return node;
     }
 
-
     public override void _ExitTree()
     {
         base._ExitTree();
