@@ -16,6 +16,13 @@ public partial class MasterNodeOfRulerNumberLabelNodesAlsoANode : Control
         return node;
     }
 
+
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+        labels_.ForEach(label => label.QueueFree());
+    }
+
     public override void _EnterTree()
     {
         base._EnterTree();
