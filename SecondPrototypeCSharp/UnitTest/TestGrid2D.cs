@@ -93,9 +93,9 @@ public class TestGrid2D : ClassTestBase
     public void PositionToLocation()
     {
         var position = RandomVector2(10.0f, 20.0f, 40.0f, 50.0f);
-        var xFloat = position.X / (float)grid_.CellSize.X;
-        var xInt = Mathf.RoundToInt(xFloat);
-        var expected = xInt;
+        var locFloat = position / (Vector2)grid_.CellSize;
+        var locInt = locFloat.Round().ToVec2I();
+        var expected = locInt;
         Assert.Equal(expected, grid_.PositionToLocation(position));
     }
 

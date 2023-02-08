@@ -64,7 +64,7 @@ public partial class MasterNumber : Control
         var maxStep = (area.X / 2) + 2;
 
         var cameraPosition = camera_.GlobalPosition;
-        var locationOffset = grid_.PositionToLocation(cameraPosition);
+        var locationOffset = grid_.PositionToLocation(cameraPosition).X;
 
         PutLabel(0 + locationOffset);
         for (var i = 1; i < maxStep; i++)

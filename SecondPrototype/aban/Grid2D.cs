@@ -38,8 +38,8 @@ public class Grid2D
         return ((screenSize / cameraZoom) / CellSize).Floor().ToVec2I();
     }
 
-    public int PositionToLocation(Vector2 position)
+    public Vector2I PositionToLocation(Vector2 position)
     {
-        return Mathf.RoundToInt(position.X / (float)CellSize.X);
+        return (position / (Vector2)CellSize).Round().ToVec2I();
     }
 }
