@@ -89,6 +89,16 @@ public class TestGrid2D : ClassTestBase
         Assert.Equal(expectedI, grid_.HowManyFitsInScreenConsideringCameraZoom(screenSize, cameraZoom));
     }
 
+    [Fact]
+    public void PositionToLocation()
+    {
+        var position = RandomVector2(10.0f, 20.0f, 40.0f, 50.0f);
+        var xFloat = position.X / (float)grid_.CellSize.X;
+        var xInt = Mathf.RoundToInt(xFloat);
+        var expected = xInt;
+        Assert.Equal(expected, grid_.PositionToLocation(position));
+    }
+
 
     private static readonly Vector2I InitCellSize = RandomVector2I(10, 20, 40, 50);
     private static readonly Vector2I NewCellSize = RandomVector2I(70, 80, 100, 110);
