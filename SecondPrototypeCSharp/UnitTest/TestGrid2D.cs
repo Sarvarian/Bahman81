@@ -99,6 +99,19 @@ public class TestGrid2D : ClassTestBase
         Assert.Equal(expected, grid_.PositionToLocation(position));
     }
 
+    [Fact]
+    public void Vector2ILocationToPosition()
+    {
+        var randomLocation = RandomVector2I(10, 20, 40, 50);
+        var expected = new Vector2
+        {
+            X = randomLocation.X * grid_.CellSize.X,
+            Y = randomLocation.Y * grid_.CellSize.Y
+        };
+        Assert.Equal(expected, grid_.LocationToPosition(randomLocation));
+    }
+
+
 
     private static readonly Vector2I InitCellSize = RandomVector2I(10, 20, 40, 50);
     private static readonly Vector2I NewCellSize = RandomVector2I(70, 80, 100, 110);
