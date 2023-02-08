@@ -20,6 +20,10 @@ public class ClassTestBase
         return new Vector2(x, y);
     }
 
+}
+
+public class TestClassTestBase : ClassTestBase
+{
     [Fact]
     public void TestRandomVector2()
     {
@@ -35,6 +39,5 @@ public class ClassTestBase
         Assert.True(result.Y > minY);
         Assert.True(result.Y < maxY);
     }
-
 
 }
