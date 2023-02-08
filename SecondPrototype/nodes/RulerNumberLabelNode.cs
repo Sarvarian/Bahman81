@@ -6,7 +6,7 @@ namespace SecondPrototype.nodes;
 
 public partial class RulerNumberLabelNode : Control
 {
-    private static readonly StringName ScenePath = "res://scenes/camera.tscn";
+    private static readonly StringName ScenePath = "res://scenes/number.tscn";
     private static readonly PackedScene Scene = GD.Load<PackedScene>(ScenePath);
 
     public static RulerNumberLabelNode Instantiate(Node parent)
