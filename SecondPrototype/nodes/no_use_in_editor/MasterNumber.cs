@@ -37,6 +37,7 @@ public partial class MasterNumber : Control
         grid_ = grid;
         camera_ = camera;
         ConnectSignals(camera);
+        Name = nameof(MasterNumber);
     }
 
     private void ConnectSignals(CameraNode camera)
