@@ -32,7 +32,6 @@ public partial class CameraHandlerNode : Node2D
     {
         grid_ = grid;
         Camera = CameraNode.Instantiate(this);
-        AddChild(Camera);
     }
 
     private void ConnectSignals(InputHandlerNode inputHandler)
