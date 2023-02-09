@@ -2,12 +2,32 @@
 
 namespace UnitTest;
 
-public class TestCharacter : ClassTestDummyEntity
+public class TestCharacter : ClassTestBase
 {
     [Fact]
     public void CharacterIsAnEntity()
     {
         Assert.IsAssignableFrom<Entity>(character_);
+    }
+
+    [Fact]
+    public void HasTickFunction()
+    {
+        character_.SetToMoveRight();
+        character_.Tick();
+        Assert.Equal(1, character_.Location);
+    }
+
+    [Fact]
+    public void TickCallsPerCalls()
+    {
+        var reach = Rng.Next(5, 10);
+        for (var i = 1; i < reach; i++)
+        {
+            character_.SetToMoveRight();
+            character_.Tick();
+            Assert.Equal(i, character_.Location);
+        }
     }
 
     [Fact]

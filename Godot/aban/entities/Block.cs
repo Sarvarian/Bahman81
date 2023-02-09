@@ -6,8 +6,4 @@ public class Block : Switch
         : base(location)
     {
     }
-
-    public override void Tick()
-    {
-    }
 }

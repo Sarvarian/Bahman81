@@ -12,7 +12,7 @@ public class Character : Entity
         nextMove_ = restAction_;
     }
 
-    public override void Tick()
+    public void Tick()
     {
         nextMove_();
         nextMove_ = restAction_;

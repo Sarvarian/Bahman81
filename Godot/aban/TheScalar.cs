@@ -10,7 +10,13 @@ public class TheScalar
 
     public void Tick()
     {
-        Entities.ForEach(e => e.Tick());
+        Entities.ForEach(e =>
+        {
+            if (e is Character c)
+            {
+                c.Tick();
+            }
+        });
     }
 
     public Entity[] EntitiesAt(int location)

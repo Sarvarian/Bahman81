@@ -11,11 +11,6 @@ public class Switch : Entity
     {
     }
 
-
-    public override void Tick()
-    {
-    }
-
     public void DoSwitch()
     {
         ActionTrigger?.Invoke();

@@ -3,7 +3,7 @@ using Survival.aban.entities;
 
 namespace UnitTest;
 
-public class TestTheScalar : ClassTestDummyEntity
+public class TestTheScalar : ClassTestBase
 {
     [Fact]
     public void HasEntityList()
@@ -25,8 +25,9 @@ public class TestTheScalar : ClassTestDummyEntity
         var reach = Rng.Next(5, 10);
         for (var i = 1; i < reach; i++)
         {
+            character_.SetToMoveRight();
             scalar_.Tick();
-            Assert.Equal(i, TickCallCounter);
+            Assert.Equal(i, character_.Location);
         }
     }
 
@@ -34,16 +35,16 @@ public class TestTheScalar : ClassTestDummyEntity
     public void EntitiesInLocation()
     {
         AddDummyToWorld();
-        var expected = new[] { Dummy };
+        var expected = new Entity[] { character_ };
         Assert.Equal(expected, scalar_.EntitiesAt(0));
     }
 
-
     private readonly TheScalar scalar_ = new();
+    private readonly Character character_ = new();
 
     private void AddDummyToWorld()
     {
-        scalar_.Entities.Add(Dummy);
+        scalar_.Entities.Add(character_);
     }
 
 }
