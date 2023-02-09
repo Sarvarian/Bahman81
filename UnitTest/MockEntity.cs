@@ -2,9 +2,9 @@
 
 namespace UnitTest;
 
-public class DummyEntity : Entity
+public class MockEntity : Entity
 {
-    public DummyEntity(int location = 0)
+    public MockEntity(int location = 0)
         : base(location)
     {
     }
