@@ -24,5 +24,15 @@ public class TestBlock : ClassTestBase
         Assert.Equal(location, newBlock.Location);
     }
 
-    private readonly Block block_ = new();
+    [Fact]
+    public void Location0WillBeThrowException()
+    {
+        Assert.Throws<Survival.exceptions.Location0>(
+            () =>
+            {
+                var block = new Block(0);
+            });
+    }
+
+    private readonly Block block_ = new(Rng.Next(5, 10));
 }

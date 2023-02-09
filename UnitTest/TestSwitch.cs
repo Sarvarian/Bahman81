@@ -25,6 +25,15 @@ public class TestSwitch : ClassTestBase
         Assert.Equal(1, actionTriggerCounter_);
     }
 
+    [Fact]
+    public void Location0WillBeThrowException()
+    {
+        Assert.Throws<Survival.exceptions.Location0>(
+            () =>
+            {
+                var @switch = new Switch(0);
+            });
+    }
 
     private static readonly int InitLocation = Rng.Next(5, 10);
     private readonly Switch switch_ = new(InitLocation);
