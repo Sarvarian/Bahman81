@@ -10,6 +10,29 @@ public class TestSwitch : ClassTestBase
         Assert.IsAssignableFrom<Entity>(switch_);
     }
 
-    private readonly Switch switch_ = new();
+    [Fact]
+    public void InitializeLocation()
+    {
+        Assert.Equal(InitLocation, switch_.Location);
+    }
+
+    [Fact]
+    public void ActionTrigger()
+    {
+        switch_.ActionTrigger = MockActionTrigger;
+        Assert.Equal(0, actionTriggerCounter_);
+        switch_.DoSwitch();
+        Assert.Equal(1, actionTriggerCounter_);
+    }
+
+
+    private static readonly int InitLocation = Rng.Next(5, 10);
+    private readonly Switch switch_ = new(InitLocation);
+    private int actionTriggerCounter_;
+
+    private void MockActionTrigger()
+    {
+        actionTriggerCounter_ += 1;
+    }
 
 }

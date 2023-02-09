@@ -11,6 +11,12 @@ public class TestBlock : ClassTestBase
     }
 
     [Fact]
+    public void IsSwitch()
+    {
+        Assert.IsAssignableFrom<Switch>(block_);
+    }
+
+    [Fact]
     public void InitializeLocation()
     {
         var location = Rng.Next(1, 10);
