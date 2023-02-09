@@ -2,19 +2,19 @@
 
 public struct WhenTrueNeverFalse
 {
-    public static implicit operator bool(WhenTrueNeverFalse data)
-    {
-        return data.value_;
-    }
+	public static implicit operator bool(WhenTrueNeverFalse data)
+	{
+		return data.value_;
+	}
 
-    public WhenTrueNeverFalse()
-    {
-    }
+	public WhenTrueNeverFalse()
+	{
+	}
 
-    public void MakeTrue()
-    {
-        value_ = true;
-    }
+	public void MakeTrue()
+	{
+		value_ = true;
+	}
 
-    private bool value_ = false;
+	private bool value_ = false;
 }

@@ -2,27 +2,27 @@
 
 public class Character : Entity
 {
-    public enum ENextMove
-    {
-        Rest,
-        MoveRight,
-        MoveLeft
-    }
+	public enum ENextMove
+	{
+		Rest,
+		MoveRight,
+		MoveLeft
+	}
 
-    public ENextMove NextMove = ENextMove.Rest;
+	public ENextMove NextMove = ENextMove.Rest;
 
-    public void SetLocation(int location)
-    {
-        NewLocation(location);
-    }
+	public void SetLocation(int location)
+	{
+		NewLocation(location);
+	}
 
-    public void SetToMoveRight()
-    {
-        NextMove = ENextMove.MoveRight;
-    }
+	public void SetToMoveRight()
+	{
+		NextMove = ENextMove.MoveRight;
+	}
 
-    public void SetToMoveLeft()
-    {
-        NextMove = ENextMove.MoveLeft;
-    }
+	public void SetToMoveLeft()
+	{
+		NextMove = ENextMove.MoveLeft;
+	}
 }
