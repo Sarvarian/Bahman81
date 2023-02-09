@@ -1,49 +1,28 @@
-﻿using System;
-
-namespace Survival.aban.entities;
+﻿namespace Survival.aban.entities;
 
 public class Character : Entity
 {
-    public Character()
+    public enum ENextMove
     {
-        restAction_ = Rest;
-        moveRightAction_ = MoveRight;
-        moveLeftAction_ = MoveLeft;
-        nextMove_ = restAction_;
+        Rest,
+        MoveRight,
+        MoveLeft
     }
 
-    public void Tick()
+    public ENextMove NextMove = ENextMove.Rest;
+
+    public void SetLocation(int location)
     {
-        nextMove_();
-        nextMove_ = restAction_;
+        NewLocation(location);
     }
 
     public void SetToMoveRight()
     {
-        nextMove_ = moveRightAction_;
+        NextMove = ENextMove.MoveRight;
     }
 
     public void SetToMoveLeft()
     {
-        nextMove_ = moveLeftAction_;
-    }
-
-    private readonly Action restAction_;
-    private readonly Action moveRightAction_;
-    private readonly Action moveLeftAction_;
-    private Action nextMove_;
-
-    private void Rest()
-    {
-    }
-
-    private void MoveRight()
-    {
-        NewLocation(Location + 1);
-    }
-
-    private void MoveLeft()
-    {
-        NewLocation(Location - 1);
+        NextMove = ENextMove.MoveLeft;
     }
 }

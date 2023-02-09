@@ -14,7 +14,7 @@ public class TheScalar
         {
             if (e is Character c)
             {
-                c.Tick();
+                MoveCharacter(c);
             }
         });
     }
@@ -24,4 +24,23 @@ public class TheScalar
         return Entities.Where(e => e.Location == location).ToArray();
     }
 
+    private static void MoveCharacter(Character c)
+    {
+        switch (c.NextMove)
+        {
+            case Character.ENextMove.MoveRight:
+                c.SetLocation(c.Location + 1);
+                break;
+
+            case Character.ENextMove.MoveLeft:
+                c.SetLocation(c.Location - 1);
+                break;
+
+            case Character.ENextMove.Rest:
+            default:
+                break;
+        }
+
+        c.NextMove = Character.ENextMove.Rest;
+    }
 }

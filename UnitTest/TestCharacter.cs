@@ -11,66 +11,42 @@ public class TestCharacter : ClassTestBase
     }
 
     [Fact]
-    public void HasTickFunction()
+    public void SetLocation()
     {
-        character_.SetToMoveRight();
-        character_.Tick();
-        Assert.Equal(1, character_.Location);
+        Assert.Equal(0, character_.Location);
+        var newLocation = Rng.Next(5, 10);
+        character_.SetLocation(newLocation);
+        Assert.Equal(newLocation, character_.Location);
     }
 
-    [Fact]
-    public void TickCallsPerCalls()
-    {
-        var reach = Rng.Next(5, 10);
-        for (var i = 1; i < reach; i++)
-        {
-            character_.SetToMoveRight();
-            character_.Tick();
-            Assert.Equal(i, character_.Location);
-        }
-    }
 
     [Fact]
     public void SetToMoveRight()
     {
-        // On initial location is 0.
-        Assert.Equal(0, character_.Location);
-
-        // Calling Tick will not change location.
-        character_.Tick();
-        Assert.Equal(0, character_.Location);
-
-        // Calling MoveRight also will not change location.
+        Assert.Equal(
+            Character.ENextMove.Rest,
+            character_.NextMove
+        );
         character_.SetToMoveRight();
-        Assert.Equal(0, character_.Location);
-
-        // But calling Tick after MoveRight will change location.
-        character_.Tick();
-        Assert.Equal(1, character_.Location);
-
-        // Again calling Tick after tick will not change location.
-        character_.Tick();
-        Assert.Equal(1, character_.Location);
+        Assert.Equal(
+            Character.ENextMove.MoveRight,
+            character_.NextMove
+        );
     }
 
     [Fact]
     public void SetToMoveLeft()
     {
-        Assert.Equal(0, character_.Location);
-
-        character_.Tick();
-        Assert.Equal(0, character_.Location);
-
+        Assert.Equal(
+            Character.ENextMove.Rest,
+            character_.NextMove
+        );
         character_.SetToMoveLeft();
-        Assert.Equal(0, character_.Location);
-
-        character_.Tick();
-        Assert.Equal(-1, character_.Location);
-
-        character_.Tick();
-        Assert.Equal(-1, character_.Location);
+        Assert.Equal(
+            Character.ENextMove.MoveLeft,
+            character_.NextMove
+        );
     }
-
 
     private readonly Character character_ = new();
 }
