@@ -92,6 +92,38 @@ public class TestBlock : ClassTestBase
         );
     }
 
+    [Fact]
+    public void SettingRightTriggerMultipleTimesIsAnError()
+    {
+        block_.SetRightTrigger(rightSwitch_);
+
+        var random = Rng.Next(2, 10);
+        for (var i = 0; i < random; i++)
+        {
+            Assert.Throws<Survival.exceptions.MultipleSetTrigger>(() =>
+                {
+                    block_.SetRightTrigger(rightSwitch_);
+                }
+            );
+        }
+    }
+
+    [Fact]
+    public void SettingLeftTriggerMultipleTimesIsAnError()
+    {
+        block_.SetLeftTrigger(leftSwitch_);
+
+        var random = Rng.Next(2, 10);
+        for (var i = 0; i < random; i++)
+        {
+            Assert.Throws<Survival.exceptions.MultipleSetTrigger>(() =>
+                {
+                    block_.SetLeftTrigger(leftSwitch_);
+                }
+            );
+        }
+    }
+
     private readonly Block block_ = new(Rng.Next(11, 20));
     private readonly Switch rightSwitch_ = new(Rng.Next(21, 30));
     private readonly Switch leftSwitch_ = new(Rng.Next(5, 10));
