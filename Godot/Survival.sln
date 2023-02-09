@@ -1,0 +1,27 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Survival", "Survival.csproj", "{6A7C8988-FAF9-40F9-A16C-88A56EC1FF3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "..\UnitTest\UnitTest.csproj", "{356C046F-1CA4-4570-B03F-72161480EA18}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A7C8988-FAF9-40F9-A16C-88A56EC1FF3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A7C8988-FAF9-40F9-A16C-88A56EC1FF3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A7C8988-FAF9-40F9-A16C-88A56EC1FF3D}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{6A7C8988-FAF9-40F9-A16C-88A56EC1FF3D}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{6A7C8988-FAF9-40F9-A16C-88A56EC1FF3D}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{6A7C8988-FAF9-40F9-A16C-88A56EC1FF3D}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{356C046F-1CA4-4570-B03F-72161480EA18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{356C046F-1CA4-4570-B03F-72161480EA18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{356C046F-1CA4-4570-B03F-72161480EA18}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{356C046F-1CA4-4570-B03F-72161480EA18}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{356C046F-1CA4-4570-B03F-72161480EA18}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{356C046F-1CA4-4570-B03F-72161480EA18}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+EndGlobal
