@@ -5,7 +5,7 @@ namespace Survival.aban.entities;
 
 public class Switch : Entity
 {
-    public Action? ActionTrigger { private get; set; }
+    public Action? ActionTrigger;
 
     public Switch(int location)
         : base(location)

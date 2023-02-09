@@ -34,5 +34,65 @@ public class TestBlock : ClassTestBase
             });
     }
 
-    private readonly Block block_ = new(Rng.Next(5, 10));
+    [Fact]
+    public void SetRightTrigger()
+    {
+        Assert.Null(rightSwitch_.ActionTrigger);
+        block_.SetRightTrigger(rightSwitch_);
+        Assert.NotNull(rightSwitch_.ActionTrigger);
+        Assert.Equal(block_, rightSwitch_.ActionTrigger!.Target);
+    }
+
+    [Fact]
+    public void SetLeftTrigger()
+    {
+        Assert.Null(leftSwitch_.ActionTrigger);
+        block_.SetLeftTrigger(leftSwitch_);
+        Assert.NotNull(leftSwitch_.ActionTrigger);
+        Assert.Equal(block_, leftSwitch_.ActionTrigger!.Target);
+    }
+
+    [Fact]
+    public void SetRightTriggerWillThrowExceptionIfSwitchIsNotAtRightSide()
+    {
+        Assert.Throws<Survival.exceptions.WrongSide>(() =>
+            {
+                var leftSideRandomLocation = Rng.Next(
+                    block_.Location - 10,
+                    block_.Location
+                );
+                block_.SetRightTrigger(new Switch(leftSideRandomLocation));
+            }
+        );
+
+        Assert.Throws<Survival.exceptions.WrongSide>(() =>
+            {
+                block_.SetRightTrigger(new Switch(block_.Location));
+            }
+        );
+    }
+
+    [Fact]
+    public void SetLeftTriggerWillThrowExceptionIfSwitchIsNotAtLeftSide()
+    {
+        Assert.Throws<Survival.exceptions.WrongSide>(() =>
+            {
+                var rightSideRandomLocation = Rng.Next(
+                    block_.Location,
+                    block_.Location + 10
+                );
+                block_.SetLeftTrigger(new Switch(rightSideRandomLocation));
+            }
+        );
+
+        Assert.Throws<Survival.exceptions.WrongSide>(() =>
+            {
+                block_.SetLeftTrigger(new Switch(block_.Location));
+            }
+        );
+    }
+
+    private readonly Block block_ = new(Rng.Next(11, 20));
+    private readonly Switch rightSwitch_ = new(Rng.Next(21, 30));
+    private readonly Switch leftSwitch_ = new(Rng.Next(5, 10));
 }

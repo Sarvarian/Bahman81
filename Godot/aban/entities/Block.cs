@@ -12,4 +12,32 @@ public class Block : Switch
             throw new Location0();
         }
     }
+
+    public void SetRightTrigger(Switch rightSwitch)
+    {
+        rightSwitch.ActionTrigger = OnTrigger;
+#if DEBUG
+        if ((rightSwitch.Location > Location) == false)
+        {
+            throw new WrongSide();
+        }
+#endif
+    }
+
+    public void SetLeftTrigger(Switch leftSwitch)
+    {
+        leftSwitch.ActionTrigger = OnTrigger;
+#if DEBUG
+        if ((leftSwitch.Location < Location) == false)
+        {
+            throw new WrongSide();
+        }
+#endif
+    }
+
+    private void OnTrigger()
+    {
+
+    }
+
 }
