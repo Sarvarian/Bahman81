@@ -4,13 +4,13 @@ namespace UnitTest;
 
 public class MockEntity : Entity
 {
-    public MockEntity(int location = 0)
-        : base(location)
-    {
-    }
+	public MockEntity(int location = 0)
+		: base(location)
+	{
+	}
 
-    public new void NewLocation(int newLocation)
-    {
-        base.NewLocation(newLocation);
-    }
+	public new void NewLocation(int newLocation)
+	{
+		base.NewLocation(newLocation);
+	}
 }
