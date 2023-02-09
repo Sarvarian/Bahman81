@@ -31,7 +31,7 @@ public class TestSwitch : ClassTestBase
         Assert.Throws<Survival.exceptions.Location0>(
             () =>
             {
-                var @switch = new Switch(0);
+                var unused = new Switch(0);
             });
     }
 

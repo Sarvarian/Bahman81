@@ -30,7 +30,7 @@ public class TestBlock : ClassTestBase
         Assert.Throws<Survival.exceptions.Location0>(
             () =>
             {
-                var block = new Block(0);
+                var unused = new Block(0);
             });
     }
 
