@@ -25,6 +25,13 @@ public partial class Main : Node2D
             gridHandler.Grid
         );
         player_.ConnectSignals(inputHandler);
+        var blockMaster = BlockMaster.Instantiate(
+            this,
+            scalar_,
+            gridHandler.Grid,
+            gridHandler.Highlighter,
+            inputHandler
+        );
     }
 
     public override void _PhysicsProcess(double delta)

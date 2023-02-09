@@ -14,22 +14,22 @@ public partial class GridHandler : Node2D
     }
 
     public readonly aban.Grid2D Grid;
+    public readonly HighlighterNode Highlighter;
 
-    private readonly HighlighterNode highlighter_;
     private readonly aban.TheScalar scalar_;
 
     private GridHandler(aban.TheScalar scalar, InputHandler inputHandler)
     {
-        highlighter_ = HighlighterNode.Instantiate(this);
+        Highlighter = HighlighterNode.Instantiate(this);
         Grid = new(CalculateCellSize());
         scalar_ = scalar;
-        highlighter_.Hide();
+        Highlighter.Hide();
         ConnectSignals(inputHandler);
     }
 
     private Vector2I CalculateCellSize()
     {
-        var width = highlighter_.GetSize().X;
+        var width = Highlighter.GetSize().X;
         return new Vector2I(width, width);
     }
 
@@ -43,26 +43,26 @@ public partial class GridHandler : Node2D
     private void OnMouseMoved(InputEventMouseMotion mouse)
     {
         var position = GetGlobalMousePosition();
-        var height = highlighter_.GetSize().Y;
+        var height = Highlighter.GetSize().Y;
         var topAreaCheck = position.Y > -height;
         var bottomAreaCheck = position.Y < height;
         if (topAreaCheck && bottomAreaCheck)
         {
             var location = Grid.PositionToLocation(position);
-            highlighter_.Visible = true;
-            highlighter_.GlobalPosition = Grid.LocationToPosition(location.X);
+            Highlighter.Visible = true;
+            Highlighter.GlobalPosition = Grid.LocationToPosition(location.X);
             if (scalar_.EntitiesAt(location.X).Length == 0)
             {
-                highlighter_.GoFreeColor();
+                Highlighter.GoFreeColor();
             }
             else
             {
-                highlighter_.GoOccupiedColor();
+                Highlighter.GoOccupiedColor();
             }
         }
         else
         {
-            highlighter_.Hide();
+            Highlighter.Hide();
         }
     }
 
