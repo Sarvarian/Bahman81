@@ -29,16 +29,25 @@ public class TheScalar
 		return Entities.Where(e => e.Location == location).ToArray();
 	}
 
-	private static void ProcessCharacter(Character c)
+	private void ProcessCharacter(Character c)
 	{
+		int futureLocation;
 		switch (c.NextMove)
 		{
 			case Character.ENextMove.MoveRight:
-				c.SetLocation(c.Location + 1);
+				futureLocation = c.Location + 1;
+				if (EntitiesAt(futureLocation).Length == 0)
+				{
+					c.SetLocation(futureLocation);
+				}
 				break;
 
 			case Character.ENextMove.MoveLeft:
-				c.SetLocation(c.Location - 1);
+				futureLocation = c.Location - 1;
+				if (EntitiesAt(futureLocation).Length == 0)
+				{
+					c.SetLocation(futureLocation);
+				}
 				break;
 
 			case Character.ENextMove.Rest:
