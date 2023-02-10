@@ -153,6 +153,32 @@ public class TestTheScalar : ClassTestBase
         Assert.Equal(location, character_.Location);
     }
 
+    [Fact]
+    public void CharacterCanMoveRightOnSwitch()
+    {
+        AddCharacterToScalar();
+        AddSwitchToScalar();
+        var location = switch_.Location - 1;
+        character_.SetLocation(location);
+        Assert.Equal(location, character_.Location);
+        character_.SetToMoveRight();
+        scalar_.Tick();
+        Assert.Equal(location + 1, character_.Location);
+    }
+
+    [Fact]
+    public void CharacterCanMoveLeftOnSwitch()
+    {
+        AddCharacterToScalar();
+        AddSwitchToScalar();
+        var location = switch_.Location + 1;
+        character_.SetLocation(location);
+        Assert.Equal(location, character_.Location);
+        character_.SetToMoveLeft();
+        scalar_.Tick();
+        Assert.Equal(location - 1, character_.Location);
+    }
+
     private readonly TheScalar scalar_ = new();
     private readonly Character character_ = new();
     private readonly Block block_ = new(Rng.Next(11, 20));
