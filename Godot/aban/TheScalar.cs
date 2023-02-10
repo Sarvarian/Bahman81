@@ -97,9 +97,12 @@ public class TheScalar
             var entities = EntitiesAt(targetLocation);
             foreach (var entity in entities)
             {
-                if (entity is Block block && block.WireLayer == @switch.WireLayer)
+                switch (entity)
                 {
-                    return block;
+                    case Block block when block.WireLayer == @switch.WireLayer:
+                        return block;
+                    case Switch other when other.WireLayer == @switch.WireLayer:
+                        return null;
                 }
             }
         }

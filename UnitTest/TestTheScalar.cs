@@ -245,11 +245,92 @@ public class TestTheScalar : ClassTestBase
         Assert.Equal(block_, scalar_.FindLeftTargetFor(rightSwitch_));
     }
 
+    [Fact]
+    public void FindRightTargetForSwitchWillOverlookBlocksAndSwitchesInAnotherLayer()
+    {
+        AddBlockToScalar();
+        var layer = (byte)Rng.Next(1, 5);
+        block_.WireLayer = layer;
+
+        var firstLoc = block_.Location - Rng.Next(5, 10);
+        var first = new Switch(firstLoc);
+        scalar_.Entities.Add(first);
+        Assert.Null(scalar_.FindRightTargetFor(first));
+        first.WireLayer = layer;
+        Assert.Equal(block_, scalar_.FindRightTargetFor(first));
+
+        var secondLoc = firstLoc - Rng.Next(5, 10);
+        var second = new Switch(secondLoc);
+        scalar_.Entities.Add(second);
+        Assert.Null(scalar_.FindRightTargetFor(second));
+        second.WireLayer = layer;
+        Assert.Null(scalar_.FindRightTargetFor(second));
+        first.WireLayer = (byte)(layer + 1);
+        Assert.Equal(block_, scalar_.FindRightTargetFor(second));
+    }
+    [Fact]
+    public void FindLeftTargetForSwitchWillOverlookBlocksAndSwitchesInAnotherLayer()
+    {
+        AddBlockToScalar();
+        var layer = (byte)Rng.Next(1, 5);
+        block_.WireLayer = layer;
+
+        var firstLoc = block_.Location + Rng.Next(5, 10);
+        var first = new Switch(firstLoc);
+        scalar_.Entities.Add(first);
+        Assert.Null(scalar_.FindLeftTargetFor(first));
+        first.WireLayer = layer;
+        Assert.Equal(block_, scalar_.FindLeftTargetFor(first));
+
+        var secondLoc = firstLoc + Rng.Next(5, 10);
+        var second = new Switch(secondLoc);
+        scalar_.Entities.Add(second);
+        Assert.Null(scalar_.FindLeftTargetFor(second));
+        second.WireLayer = layer;
+        Assert.Null(scalar_.FindLeftTargetFor(second));
+        first.WireLayer = (byte)(layer + 1);
+        Assert.Equal(block_, scalar_.FindLeftTargetFor(second));
+    }
+
+    [Fact]
+    public void FindRightTargetForSwitchWillNullIfHitAnotherSwitch()
+    {
+        AddBlockToScalar();
+        AddLeftSwitchToScalar();
+
+        var firstLoc = leftSwitch_.Location - Rng.Next(5, 10);
+        var first = new Switch(firstLoc);
+        scalar_.Entities.Add(first);
+        Assert.Null(scalar_.FindRightTargetFor(first));
+
+        var secondLoc = leftSwitch_.Location + Rng.Next(2, 8);
+        var second = new Switch(secondLoc);
+        scalar_.Entities.Add(second);
+        Assert.Equal(block_, scalar_.FindRightTargetFor(second));
+    }
+
+    [Fact]
+    public void FindLeftTargetForSwitchWillNullIfHitAnotherSwitch()
+    {
+        AddBlockToScalar();
+        AddRightSwitchToScalar();
+
+        var firstLoc = rightSwitch_.Location + Rng.Next(5, 10);
+        var first = new Switch(firstLoc);
+        scalar_.Entities.Add(first);
+        Assert.Null(scalar_.FindLeftTargetFor(first));
+
+        var secondLoc = rightSwitch_.Location - Rng.Next(2, 8);
+        var second = new Switch(secondLoc);
+        scalar_.Entities.Add(second);
+        Assert.Equal(block_, scalar_.FindLeftTargetFor(second));
+    }
+
     private readonly TheScalar scalar_ = new();
     private readonly Character character_ = new();
-    private readonly Block block_ = new(Rng.Next(11, 20));
-    private readonly Switch rightSwitch_ = new(Rng.Next(21, 30));
-    private readonly Switch leftSwitch_ = new(Rng.Next(5, 10));
+    private readonly Block block_ = new(Rng.Next(110, 200));
+    private readonly Switch rightSwitch_ = new(Rng.Next(210, 300));
+    private readonly Switch leftSwitch_ = new(Rng.Next(50, 100));
     private int actionTriggerCounter_;
 
     private void MockActionTrigger()
