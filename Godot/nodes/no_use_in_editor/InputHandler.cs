@@ -17,8 +17,8 @@ public partial class InputHandler : Node
 	public event Action? MoveRightSignal;
 	public event Action? MoveLeftSignal;
 	public event Action? AttackSignal;
-	public event Action? ImplantEntitySignal;
-	public event Action? RemoveEntitySignal;
+	public event Action? ImplantRemoveBlockSignal;
+	public event Action? ImplantRemoveSwitchSignal;
 	public event Action? GrabCameraSignal;
 	public event Action? DropCameraSignal;
 	public event Action? CameraZoomInSignal;
@@ -43,13 +43,13 @@ public partial class InputHandler : Node
 		{
 			AttackSignal?.Invoke();
 		}
-		else if (@event.IsActionPressed(ImplantEntity))
+		else if (@event.IsActionPressed(ImplantRemoveBlock))
 		{
-			ImplantEntitySignal?.Invoke();
+			ImplantRemoveBlockSignal?.Invoke();
 		}
-		else if (@event.IsActionPressed(RemoveEntity))
+		else if (@event.IsActionPressed(ImplantRemoveSwitch))
 		{
-			RemoveEntitySignal?.Invoke();
+			ImplantRemoveSwitchSignal?.Invoke();
 		}
 		else if (@event.IsActionPressed(CameraPan))
 		{
@@ -72,8 +72,8 @@ public partial class InputHandler : Node
 	private static readonly StringName MoveRight = "move_right";
 	private static readonly StringName MoveLeft = "move_left";
 	private static readonly StringName Attack = "attack";
-	private static readonly StringName ImplantEntity = "implant_entity";
-	private static readonly StringName RemoveEntity = "remove_entity";
+	private static readonly StringName ImplantRemoveBlock = "implant_remove_block";
+	private static readonly StringName ImplantRemoveSwitch = "implant_remove_switch";
 	private static readonly StringName CameraPan = "camera_pan";
 	private static readonly StringName CameraZoomIn = "camera_zoom_in";
 	private static readonly StringName CameraZoomOut = "camera_zoom_out";
