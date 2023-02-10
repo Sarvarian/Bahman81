@@ -74,4 +74,36 @@ public class TheScalar
         s.ShouldSwitchInNextTick = false;
     }
 
+    public Block? FindLeftTargetFor(Switch rightSwitch, int iterationTime = 200)
+    {
+        return FindTargetFor(rightSwitch, iterationTime, -1);
+    }
+
+    public Block? FindRightTargetFor(Switch leftSwitch, int iterationTime = 200)
+    {
+        return FindTargetFor(leftSwitch, iterationTime, 1);
+    }
+
+    private Block? FindTargetFor(
+        Switch @switch,
+        int iterationTime,
+        int direction
+    )
+    {
+        var switchLocation = @switch.Location;
+        for (var i = 1; i <= iterationTime; i++)
+        {
+            var targetLocation = switchLocation + (i * direction);
+            var entities = EntitiesAt(targetLocation);
+            foreach (var entity in entities)
+            {
+                if (entity is Block block && block.WireLayer == @switch.WireLayer)
+                {
+                    return block;
+                }
+            }
+        }
+        return null;
+    }
+
 }

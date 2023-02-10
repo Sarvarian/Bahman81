@@ -88,10 +88,10 @@ public class TestTheScalar : ClassTestBase
     [Fact]
     public void ActionTrigger()
     {
-        AddSwitchToScalar();
-        switch_.ActionTrigger = MockActionTrigger;
+        AddRightSwitchToScalar();
+        rightSwitch_.ActionTrigger = MockActionTrigger;
         Assert.Equal(0, actionTriggerCounter_);
-        switch_.DoSwitch();
+        rightSwitch_.DoSwitch();
         Assert.Equal(0, actionTriggerCounter_);
         scalar_.Tick();
         Assert.Equal(1, actionTriggerCounter_);
@@ -157,8 +157,8 @@ public class TestTheScalar : ClassTestBase
     public void CharacterCanMoveRightOnSwitch()
     {
         AddCharacterToScalar();
-        AddSwitchToScalar();
-        var location = switch_.Location - 1;
+        AddRightSwitchToScalar();
+        var location = leftSwitch_.Location - 1;
         character_.SetLocation(location);
         Assert.Equal(location, character_.Location);
         character_.SetToMoveRight();
@@ -170,8 +170,8 @@ public class TestTheScalar : ClassTestBase
     public void CharacterCanMoveLeftOnSwitch()
     {
         AddCharacterToScalar();
-        AddSwitchToScalar();
-        var location = switch_.Location + 1;
+        AddRightSwitchToScalar();
+        var location = leftSwitch_.Location + 1;
         character_.SetLocation(location);
         Assert.Equal(location, character_.Location);
         character_.SetToMoveLeft();
@@ -179,10 +179,51 @@ public class TestTheScalar : ClassTestBase
         Assert.Equal(location - 1, character_.Location);
     }
 
+    [Fact]
+    public void FindLeftTargetForSwitch()
+    {
+        AddBlockToScalar();
+        AddRightSwitchToScalar();
+        var result = scalar_.FindLeftTargetFor(rightSwitch_);
+        Assert.Equal(block_, result);
+    }
+
+    [Fact]
+    public void FindLeftTargetForSwitchIterationNumberTest()
+    {
+        AddBlockToScalar();
+        var iterTime = Rng.Next(20, 100);
+        var mySwitch1 = new Switch(block_.Location + iterTime + 1);
+        Assert.Null(scalar_.FindLeftTargetFor(mySwitch1, iterTime));
+        var mySwitch2 = new Switch(block_.Location + iterTime);
+        Assert.NotNull(scalar_.FindLeftTargetFor(mySwitch2, iterTime));
+    }
+
+    [Fact]
+    public void FindRightTargetForSwitch()
+    {
+        AddBlockToScalar();
+        AddLeftSwitchToScalar();
+        var result = scalar_.FindRightTargetFor(leftSwitch_);
+        Assert.Equal(block_, result);
+    }
+
+    [Fact]
+    public void FindRightTargetForSwitchIterationNumberTest()
+    {
+        AddBlockToScalar();
+        var iterTime = Rng.Next(20, 100);
+        var mySwitch1 = new Switch(block_.Location - iterTime - 1);
+        Assert.Null(scalar_.FindRightTargetFor(mySwitch1, iterTime));
+        var mySwitch2 = new Switch(block_.Location - iterTime);
+        Assert.NotNull(scalar_.FindRightTargetFor(mySwitch2, iterTime));
+    }
+
     private readonly TheScalar scalar_ = new();
     private readonly Character character_ = new();
     private readonly Block block_ = new(Rng.Next(11, 20));
-    private readonly Switch switch_ = new(Rng.Next(5, 10));
+    private readonly Switch rightSwitch_ = new(Rng.Next(21, 30));
+    private readonly Switch leftSwitch_ = new(Rng.Next(5, 10));
     private int actionTriggerCounter_;
 
     private void MockActionTrigger()
@@ -200,9 +241,14 @@ public class TestTheScalar : ClassTestBase
         scalar_.Entities.Add(block_);
     }
 
-    private void AddSwitchToScalar()
+    private void AddRightSwitchToScalar()
     {
-        scalar_.Entities.Add(switch_);
+        scalar_.Entities.Add(rightSwitch_);
+    }
+
+    private void AddLeftSwitchToScalar()
+    {
+        scalar_.Entities.Add(leftSwitch_);
     }
 
 }

@@ -7,6 +7,7 @@ public class Switch : Entity
 {
 	public Action? ActionTrigger;
 	public bool ShouldSwitchInNextTick;
+	public byte WireLayer;
 
 	public Switch(int location)
 		: base(location)

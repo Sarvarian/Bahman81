@@ -34,6 +34,13 @@ public class TestSwitch : ClassTestBase
 		Assert.True(switch_.ShouldSwitchInNextTick);
 	}
 
+	[Fact]
+	public void HasWireLayerDefaultedOnZero()
+	{
+		Assert.Equal(0, switch_.WireLayer);
+	}
+
+
 	private static readonly int InitLocation = Rng.Next(5, 10);
 	private readonly Switch switch_ = new(InitLocation);
 
