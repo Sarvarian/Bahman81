@@ -20,7 +20,7 @@ public class TestTheScalar : ClassTestBase
 	[Fact]
 	public void HasTick()
 	{
-		AddCharacterToWorld();
+		AddCharacterToScalar();
 
 		var reach = Rng.Next(5, 10);
 		for (var i = 1; i < reach; i++)
@@ -34,7 +34,7 @@ public class TestTheScalar : ClassTestBase
 	[Fact]
 	public void EntitiesInLocation()
 	{
-		AddCharacterToWorld();
+		AddCharacterToScalar();
 		var expected = new Entity[] { character_ };
 		Assert.Equal(expected, scalar_.EntitiesAt(0));
 	}
@@ -43,7 +43,7 @@ public class TestTheScalar : ClassTestBase
 	[Fact]
 	public void SetToMoveRight()
 	{
-		AddCharacterToWorld();
+		AddCharacterToScalar();
 
 		// On initial location is 0.
 		Assert.Equal(0, character_.Location);
@@ -68,7 +68,7 @@ public class TestTheScalar : ClassTestBase
 	[Fact]
 	public void SetToMoveLeft()
 	{
-		AddCharacterToWorld();
+		AddCharacterToScalar();
 
 		Assert.Equal(0, character_.Location);
 
@@ -85,12 +85,38 @@ public class TestTheScalar : ClassTestBase
 		Assert.Equal(-1, character_.Location);
 	}
 
+	[Fact]
+	public void ActionTrigger()
+	{
+		AddSwitchToScalar();
+		switch_.ActionTrigger = MockActionTrigger;
+		Assert.Equal(0, actionTriggerCounter_);
+		switch_.DoSwitch();
+		Assert.Equal(0, actionTriggerCounter_);
+		scalar_.Tick();
+		Assert.Equal(1, actionTriggerCounter_);
+		scalar_.Tick();
+		Assert.Equal(1, actionTriggerCounter_);
+	}
+
 	private readonly TheScalar scalar_ = new();
 	private readonly Character character_ = new();
+	private readonly Switch switch_ = new(Rng.Next(5, 10));
+	private int actionTriggerCounter_;
 
-	private void AddCharacterToWorld()
+	private void MockActionTrigger()
+	{
+		actionTriggerCounter_ += 1;
+	}
+
+	private void AddCharacterToScalar()
 	{
 		scalar_.Entities.Add(character_);
+	}
+
+	private void AddSwitchToScalar()
+	{
+		scalar_.Entities.Add(switch_);
 	}
 
 }

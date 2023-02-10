@@ -12,9 +12,14 @@ public class TheScalar
 	{
 		Entities.ForEach(e =>
 		{
-			if (e is Character c)
+			switch (e)
 			{
-				MoveCharacter(c);
+				case Character c:
+					ProcessCharacter(c);
+					break;
+				case Switch s:
+					ProcessSwitch(s);
+					break;
 			}
 		});
 	}
@@ -24,7 +29,7 @@ public class TheScalar
 		return Entities.Where(e => e.Location == location).ToArray();
 	}
 
-	private static void MoveCharacter(Character c)
+	private static void ProcessCharacter(Character c)
 	{
 		switch (c.NextMove)
 		{
@@ -43,4 +48,15 @@ public class TheScalar
 
 		c.NextMove = Character.ENextMove.Rest;
 	}
+
+	private static void ProcessSwitch(Switch s)
+	{
+		if (s.ShouldSwitchInNextTick)
+		{
+			s.ActionTrigger?.Invoke();
+		}
+
+		s.ShouldSwitchInNextTick = false;
+	}
+
 }

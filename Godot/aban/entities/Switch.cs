@@ -6,6 +6,7 @@ namespace Survival.aban.entities;
 public class Switch : Entity
 {
 	public Action? ActionTrigger;
+	public bool ShouldSwitchInNextTick;
 
 	public Switch(int location)
 		: base(location)
@@ -18,6 +19,6 @@ public class Switch : Entity
 
 	public void DoSwitch()
 	{
-		ActionTrigger?.Invoke();
+		ShouldSwitchInNextTick = true;
 	}
 }
