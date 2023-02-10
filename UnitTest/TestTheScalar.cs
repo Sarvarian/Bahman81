@@ -268,6 +268,7 @@ public class TestTheScalar : ClassTestBase
         first.WireLayer = (byte)(layer + 1);
         Assert.Equal(block_, scalar_.FindRightTargetFor(second));
     }
+
     [Fact]
     public void FindLeftTargetForSwitchWillOverlookBlocksAndSwitchesInAnotherLayer()
     {
