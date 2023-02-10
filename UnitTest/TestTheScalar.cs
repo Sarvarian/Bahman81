@@ -180,12 +180,32 @@ public class TestTheScalar : ClassTestBase
     }
 
     [Fact]
+    public void FindRightTargetForSwitch()
+    {
+        AddBlockToScalar();
+        AddLeftSwitchToScalar();
+        var result = scalar_.FindRightTargetFor(leftSwitch_);
+        Assert.Equal(block_, result);
+    }
+
+    [Fact]
     public void FindLeftTargetForSwitch()
     {
         AddBlockToScalar();
         AddRightSwitchToScalar();
         var result = scalar_.FindLeftTargetFor(rightSwitch_);
         Assert.Equal(block_, result);
+    }
+
+    [Fact]
+    public void FindRightTargetForSwitchIterationNumberTest()
+    {
+        AddBlockToScalar();
+        var iterTime = Rng.Next(20, 100);
+        var mySwitch1 = new Switch(block_.Location - iterTime - 1);
+        Assert.Null(scalar_.FindRightTargetFor(mySwitch1, iterTime));
+        var mySwitch2 = new Switch(block_.Location - iterTime);
+        Assert.NotNull(scalar_.FindRightTargetFor(mySwitch2, iterTime));
     }
 
     [Fact]
@@ -200,23 +220,29 @@ public class TestTheScalar : ClassTestBase
     }
 
     [Fact]
-    public void FindRightTargetForSwitch()
+    public void FindRightTargetForSwitchConsiderDifferentWireLayer()
     {
         AddBlockToScalar();
-        AddLeftSwitchToScalar();
-        var result = scalar_.FindRightTargetFor(leftSwitch_);
-        Assert.Equal(block_, result);
+        AddRightSwitchToScalar();
+        var layer = (byte)Rng.Next(1, 5);
+        block_.WireLayer = layer;
+        leftSwitch_.WireLayer = (byte)(layer + 1);
+        Assert.Null(scalar_.FindRightTargetFor(leftSwitch_));
+        leftSwitch_.WireLayer = layer;
+        Assert.Equal(block_, scalar_.FindRightTargetFor(leftSwitch_));
     }
 
     [Fact]
-    public void FindRightTargetForSwitchIterationNumberTest()
+    public void FindLeftTargetForSwitchConsiderDifferentWireLayer()
     {
         AddBlockToScalar();
-        var iterTime = Rng.Next(20, 100);
-        var mySwitch1 = new Switch(block_.Location - iterTime - 1);
-        Assert.Null(scalar_.FindRightTargetFor(mySwitch1, iterTime));
-        var mySwitch2 = new Switch(block_.Location - iterTime);
-        Assert.NotNull(scalar_.FindRightTargetFor(mySwitch2, iterTime));
+        AddRightSwitchToScalar();
+        var layer = (byte)Rng.Next(1, 5);
+        block_.WireLayer = layer;
+        rightSwitch_.WireLayer = (byte)(layer + 1);
+        Assert.Null(scalar_.FindLeftTargetFor(rightSwitch_));
+        rightSwitch_.WireLayer = layer;
+        Assert.Equal(block_, scalar_.FindLeftTargetFor(rightSwitch_));
     }
 
     private readonly TheScalar scalar_ = new();
