@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://kkcmfssnhsng"]
+
+[ext_resource type="Texture2D" uid="uid://bptsffb5vblpw" path="res://assets/switch.svg" id="1_ysq8u"]
+
+[node name="Switch" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -60)
+texture = ExtResource("1_ysq8u")

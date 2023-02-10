@@ -8,5 +8,5 @@ script = ExtResource("1_oysx7")
 sprite2D_ = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -30)
+position = Vector2(0, -61)
 texture = ExtResource("2_l7wrx")

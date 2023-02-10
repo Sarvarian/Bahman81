@@ -51,7 +51,7 @@ public partial class GridHandler : Node2D
 			var location = Grid.PositionToLocation(position);
 			Highlighter.Visible = true;
 			Highlighter.GlobalPosition = Grid.LocationToPosition(location.X);
-			if (scalar_.EntitiesAt(location.X).Length == 0)
+			if (scalar_.EntitiesAt(location.X).Length == 0 && location.X != 0)
 			{
 				Highlighter.GoFreeColor();
 			}

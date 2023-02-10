@@ -48,7 +48,7 @@ public partial class BlockMaster : Node2D
 		if (highlighter_.IsVisibleInTree())
 		{
 			var location = grid_.PositionToLocation(highlighter_.Position).X;
-			if (scalar_.EntitiesAt(location).Length == 0)
+			if (scalar_.EntitiesAt(location).Length == 0 && location != 0)
 			{
 				var node = BlockNode.Instantiate(
 					this,
