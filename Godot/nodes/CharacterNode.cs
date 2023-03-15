@@ -32,7 +32,7 @@ public partial class CharacterNode : Node2D, aban.IEntityNode
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        MoveIfRequireMovement();
+        MoveIfRequireMovement(delta);
         CheckIfActivityIsDone();
     }
 
@@ -129,13 +129,13 @@ public partial class CharacterNode : Node2D, aban.IEntityNode
         }
     }
 
-    private void MoveIfRequireMovement()
+    private void MoveIfRequireMovement(double delta)
     {
         if (isRequireMovement_)
         {
             if (toCurrent_ < 1.0f)
             {
-                toCurrent_ += 0.025f;
+                toCurrent_ += (float)(2.5d * delta);
                 Position = CalculatePosition();
             }
         }
