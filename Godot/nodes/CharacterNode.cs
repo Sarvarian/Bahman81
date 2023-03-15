@@ -1,9 +1,10 @@
 ﻿using Godot;
+using Survival.aban;
 using Survival.extensions;
 
 namespace Survival.nodes;
 
-public partial class CharacterNode : Node2D
+public partial class CharacterNode : Node2D, IEntityNode
 {
     private static readonly StringName ScenePath = "res://scenes/character.tscn";
     private static readonly PackedScene Scene = GD.Load<PackedScene>(ScenePath);
@@ -25,7 +26,15 @@ public partial class CharacterNode : Node2D
 
     public override void _Ready()
     {
+        base._Ready();
         this.AssertFiledSet(nameof(sprite2D_));
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        base._PhysicsProcess(delta);
+        MoveIfRequireMovement();
+        CheckIfActivityIsDone();
     }
 
     public void ConnectSignals(no_use_in_editor.InputHandler handler)
@@ -39,7 +48,34 @@ public partial class CharacterNode : Node2D
         // We remove and then add signals just to prevent duplication.
     }
 
+    public void ConnectWorldOffset(GameWorld world)
+    {
+        world.OffsetUpdatedSignal += OnWorldOffsetUpdated;
+    }
+
+    bool IEntityNode.IsActive()
+    {
+        return stateL1_ == StateL1.Active;
+    }
+
+    bool IEntityNode.IsIdle()
+    {
+        return stateL1_ == StateL1.Idle;
+    }
+
+    private enum StateL1
+    {
+        Active,
+        Idle,
+    }
+
     private readonly aban.entities.Character character_ = new();
+    private Grid2D? grid_;
+    private StateL1 stateL1_ = StateL1.Idle;
+    private bool isRequireMovement_;
+    private int previousLocation_;
+    private int currentLocation_;
+    private float toCurrent_ = 1.0f;
 
     private void Prepare(
         Vector2I position,
@@ -48,31 +84,85 @@ public partial class CharacterNode : Node2D
     )
     {
         scalar.Entities.Add(character_);
-        character_.LocationChangedSignal += () => OnLocationChanged(grid);
+        character_.LocationChangedSignal += OnLocationChanged;
         Position = position;
+        grid_ = grid;
     }
 
-    private void OnLocationChanged(aban.Grid2D grid)
+    private void OnLocationChanged()
     {
-        Position = grid.LocationToPosition(character_.Location);
+        stateL1_ = StateL1.Active;
+        isRequireMovement_ = true;
+        previousLocation_ = currentLocation_;
+        currentLocation_ = character_.Location;
+        toCurrent_ = 0.0f;
+    }
+
+    private void OnWorldOffsetUpdated()
+    {
+        Position = CalculatePosition();
     }
 
     private void MoveRight()
     {
-        character_.SetToMoveRight();
-        IsGotInputEvent = true;
+        if (stateL1_ == StateL1.Idle)
+        {
+            character_.SetToMoveRight();
+            IsGotInputEvent = true;
+        }
     }
 
     private void MoveLeft()
     {
-        character_.SetToMoveLeft();
-        IsGotInputEvent = true;
+        if (stateL1_ == StateL1.Idle)
+        {
+            character_.SetToMoveLeft();
+            IsGotInputEvent = true;
+        }
     }
 
     private void Attack()
     {
-        IsGotInputEvent = true;
-        // TODO: To Be Implemented.
+        if (stateL1_ == StateL1.Idle)
+        {
+            IsGotInputEvent = true;
+            // TODO: To Be Implemented.
+        }
+    }
+
+    private void MoveIfRequireMovement()
+    {
+        if (isRequireMovement_)
+        {
+            if (toCurrent_ < 1.0f)
+            {
+                toCurrent_ += 0.025f;
+                Position = CalculatePosition();
+            }
+        }
+    }
+
+    private Vector2 CalculatePosition()
+    {
+        var current = grid_!.LocationToPosition(currentLocation_);
+        var previous = grid_!.LocationToPosition(previousLocation_);
+        var position = previous.Lerp(current, toCurrent_);
+        return position;
+    }
+
+    private void CheckIfActivityIsDone()
+    {
+        if (stateL1_ == StateL1.Active)
+        {
+            if (isRequireMovement_)
+            {
+                if (toCurrent_ >= 1.0f)
+                {
+                    isRequireMovement_ = false;
+                    stateL1_ = StateL1.Idle;
+                }
+            }
+        }
     }
 
 }

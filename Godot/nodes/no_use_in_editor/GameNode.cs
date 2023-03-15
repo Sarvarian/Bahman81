@@ -78,9 +78,27 @@ public partial class GameNode : CanvasLayer
     {
         if (player_!.IsGotInputEvent)
         {
-            scalar_.Tick();
-            player_.IsGotInputEvent = false;
+            if (IsAnyEntityActive() == false)
+            {
+                scalar_.Tick();
+                player_.IsGotInputEvent = false;
+            }
         }
+    }
+
+    private bool IsAnyEntityActive()
+    {
+        foreach (var node in GetChildren())
+        {
+            if (node is IEntityNode entity)
+            {
+                if (entity.IsActive())
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }
