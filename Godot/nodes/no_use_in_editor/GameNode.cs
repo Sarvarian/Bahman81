@@ -18,7 +18,7 @@ public partial class GameNode : CanvasLayer
         base._Ready();
         GetViewport().SizeChanged += UpdateScreenSize;
         UpdateScreenSize();
-        world_.SetNewOffset(screen_.Center);
+        InitiateWorldOffset();
         SpawnCharacter();
     }
 
@@ -52,6 +52,11 @@ public partial class GameNode : CanvasLayer
     private void UpdateScreenSize()
     {
         screen_.SetNewSize(GetViewport().GetVisibleRect().Size.ToVec2I());
+    }
+
+    private void InitiateWorldOffset()
+    {
+        world_.SetNewOffset(screen_.Center);
     }
 
     private void SpawnCharacter()

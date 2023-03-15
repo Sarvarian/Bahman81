@@ -37,12 +37,14 @@ public partial class TilesNode : TileMap
     private void Update()
     {
         Clear();
-        var positionOffset = world_.Offset % TileSet.TileSize.Y;
+        var positionOffset = world_.Offset % TileSet.TileSize;
+        positionOffset.X -= TileSet.TileSize.X / 2;
         Position = positionOffset;
         origin_ = world_.Offset - Position.ToVec2I();
         start_ = screen_.Start - Position.ToVec2I();
         end_ = screen_.End - Position.ToVec2I();
         TileGround();
+        Tile(LocalToMap(origin_) + Vector2I.Up, Vector2I.Zero);
     }
 
     private void Tile(Vector2I coords, Vector2I tile)
