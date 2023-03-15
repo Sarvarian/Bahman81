@@ -1,10 +1,9 @@
 ﻿using Godot;
-using Survival.aban;
 using Survival.extensions;
 
 namespace Survival.nodes;
 
-public partial class CharacterNode : Node2D, IEntityNode
+public partial class CharacterNode : Node2D, aban.IEntityNode
 {
     private static readonly StringName ScenePath = "res://scenes/character.tscn";
     private static readonly PackedScene Scene = GD.Load<PackedScene>(ScenePath);
@@ -48,17 +47,17 @@ public partial class CharacterNode : Node2D, IEntityNode
         // We remove and then add signals just to prevent duplication.
     }
 
-    public void ConnectWorldOffset(GameWorld world)
+    public void ConnectWorldOffset(aban.GameWorld world)
     {
         world.OffsetUpdatedSignal += OnWorldOffsetUpdated;
     }
 
-    bool IEntityNode.IsActive()
+    bool aban.IEntityNode.IsActive()
     {
         return stateL1_ == StateL1.Active;
     }
 
-    bool IEntityNode.IsIdle()
+    bool aban.IEntityNode.IsIdle()
     {
         return stateL1_ == StateL1.Idle;
     }
@@ -70,7 +69,7 @@ public partial class CharacterNode : Node2D, IEntityNode
     }
 
     private readonly aban.entities.Character character_ = new();
-    private Grid2D? grid_;
+    private aban.Grid2D? grid_;
     private StateL1 stateL1_ = StateL1.Idle;
     private bool isRequireMovement_;
     private int previousLocation_;
