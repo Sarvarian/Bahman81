@@ -62,7 +62,7 @@ public partial class TilesNode : TileMap
         var endTile = LocalToMap(end_);
 
         var i = startTile.X;
-        var j = 0; // Either StartTile.Y or originTile.Y .
+        int j; // Either StartTile.Y or originTile.Y .
         CalculateJ();
 
         for (; i <= endTile.X; i++)
