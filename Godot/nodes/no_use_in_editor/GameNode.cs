@@ -19,7 +19,7 @@ public partial class GameNode : CanvasLayer
         GetViewport().SizeChanged += UpdateScreenSize;
         UpdateScreenSize();
         InitiateWorldOffset();
-        SpawnCharacter();
+        SpawnPlayerCharacter();
     }
 
     public override void _Process(double delta)
@@ -30,6 +30,7 @@ public partial class GameNode : CanvasLayer
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
+        DoTheTick();
     }
 
     private GameNode(InputHandler input)
@@ -48,6 +49,7 @@ public partial class GameNode : CanvasLayer
     private readonly Grid2D grid_;
     private readonly InputHandler input_;
     private readonly TilesNode tiles_;
+    private CharacterNode? player_;
 
     private void UpdateScreenSize()
     {
@@ -63,9 +65,19 @@ public partial class GameNode : CanvasLayer
         world_.SetNewOffset(newOffset);
     }
 
-    private void SpawnCharacter()
+    private void SpawnPlayerCharacter()
     {
+        player_ = CharacterNode.Instantiate(this, world_.Offset, scalar_, grid_);
+        player_.ConnectSignals(input_);
+    }
 
+    private void DoTheTick()
+    {
+        if (player_!.IsGotInputEvent)
+        {
+            scalar_.Tick();
+            player_.IsGotInputEvent = false;
+        }
     }
 
 }
