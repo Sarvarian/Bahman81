@@ -56,7 +56,11 @@ public partial class GameNode : CanvasLayer
 
     private void InitiateWorldOffset()
     {
-        world_.SetNewOffset(screen_.Center);
+        var newOffset = screen_.Center;
+        newOffset.Y = grid_.CellSize.Y * 5;
+        // 1 for characters and playground and
+        // 4 for showing pulley and rope connection between gates and switches.
+        world_.SetNewOffset(newOffset);
     }
 
     private void SpawnCharacter()

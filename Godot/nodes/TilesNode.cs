@@ -44,7 +44,6 @@ public partial class TilesNode : TileMap
         start_ = screen_.Start - Position.ToVec2I();
         end_ = screen_.End - Position.ToVec2I();
         TileGround();
-        Tile(LocalToMap(origin_) + Vector2I.Up, Vector2I.Zero);
     }
 
     private void Tile(Vector2I coords, Vector2I tile)
