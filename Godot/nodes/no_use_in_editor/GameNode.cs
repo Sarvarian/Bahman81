@@ -38,7 +38,10 @@ public partial class GameNode : CanvasLayer
         screen_ = new(Vector2I.Zero, Vector2I.Zero);
         world_ = new(Vector2I.Zero);
         scalar_ = new();
-        grid_ = new Grid2D(new Vector2I(HardCoded.TileWidth, HardCoded.TileHeight));
+        grid_ = new Grid2D(new Vector2I(HardCoded.TileWidth, HardCoded.TileHeight))
+        {
+            World = world_
+        };
         input_ = input;
         tiles_ = TilesNode.Instantiate(this, screen_, world_);
     }
