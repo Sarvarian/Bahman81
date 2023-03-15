@@ -28,6 +28,12 @@ public class TestGameScreen : ClassTestBase
     }
 
     [Fact]
+    public void SizeRelateToStartAndEnd()
+    {
+        Assert.Equal(screen_.Size, screen_.End - screen_.Start);
+    }
+
+    [Fact]
     public void SameValueForPosition()
     {
         var position = new Vector2I(screen_.X, screen_.Y);
