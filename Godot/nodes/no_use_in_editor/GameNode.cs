@@ -18,6 +18,8 @@ public partial class GameNode : CanvasLayer
         base._Ready();
         GetViewport().SizeChanged += UpdateScreenSize;
         UpdateScreenSize();
+        world_.SetNewOffset(screen_.Center);
+        SpawnCharacter();
     }
 
     public override void _Process(double delta)
@@ -38,7 +40,6 @@ public partial class GameNode : CanvasLayer
         grid_ = new Grid2D(new Vector2I(HardCoded.TileWidth, HardCoded.TileHeight));
         input_ = input;
         tiles_ = TilesNode.Instantiate(this, screen_, world_);
-        SpawnCharacter();
     }
 
     private readonly GameScreen screen_;
