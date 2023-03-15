@@ -12,15 +12,25 @@ public partial class TilesNode : TileMap
     {
         var node = Scene.Instantiate<TilesNode>();
         parent.AddChild(node);
-        node.screen_ = screen;
-        node.world_ = world;
+        node.Initiate(screen, world);
         return node;
     }
 
     private GameScreen screen_ = new(Vector2I.Zero, Vector2I.Zero);
     private GameWorld world_ = new(Vector2I.Zero);
 
+    private void Initiate(GameScreen screen, GameWorld world)
+    {
+        screen_ = screen;
+        world_ = world;
+        screen_.SizeUpdatedSignal += Update;
+        screen_.PositionUpdatedSignal += Update;
+        world_.OffsetUpdatedSignal += Update;
+    }
 
+    private void Update()
+    {
 
+    }
 
 }
