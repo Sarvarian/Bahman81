@@ -26,11 +26,12 @@ public partial class TilesNode : TileMap
         screen_.SizeUpdatedSignal += Update;
         screen_.PositionUpdatedSignal += Update;
         world_.OffsetUpdatedSignal += Update;
+        Update();
     }
 
     private void Update()
     {
-
+        Clear();
     }
 
 }
