@@ -4,7 +4,7 @@ using Survival.nodes.no_use_in_editor;
 
 namespace Survival;
 
-public partial class Main : Node2D
+public partial class MainDesigner : Node2D
 {
 	public override void _Ready()
 	{

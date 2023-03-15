@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://xmbtvw1d8m6u"]
+
+[ext_resource type="TileSet" uid="uid://dcgv7g2taxb5a" path="res://assets/tiles.tres" id="1_4udf5"]
+[ext_resource type="Script" path="res://nodes/TilesNode.cs" id="2_m18f6"]
+
+[node name="Tiles" type="TileMap"]
+tile_set = ExtResource("1_4udf5")
+format = 2
+layer_0/tile_data = PackedInt32Array(327686, 0, 9, 327685, 0, 9, 327684, 0, 9, 327683, 0, 9, 327682, 0, 9, 327681, 0, 9, 327680, 0, 9, 393215, 0, 9, 393214, 0, 9, 327687, 0, 9, 327688, 0, 9, 327689, 0, 9, 327690, 0, 9, 327691, 0, 9, 327692, 0, 9, 327693, 0, 9, 327694, 0, 9, 327695, 0, 9, 327696, 0, 9, 327697, 0, 9, 327698, 0, 9, 262151, 0, 0)
+script = ExtResource("2_m18f6")
