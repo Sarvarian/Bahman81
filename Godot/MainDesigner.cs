@@ -18,10 +18,11 @@ public partial class MainDesigner : Node2D
 			cameraHandler.Camera
 		);
 		var debugDraw = DebugDraw.Instantiate(this, gridHandler.Grid, cameraHandler.Camera);
+		var master = new aban.GameMaster(scalar_);
 		player_ = CharacterNode.Instantiate(
 			this,
 			Vector2I.Zero,
-			scalar_,
+			master.GetPlayer(),
 			gridHandler.Grid
 		);
 		player_.ConnectSignals(inputHandler);

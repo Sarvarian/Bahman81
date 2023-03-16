@@ -10,12 +10,12 @@ public partial class CharacterNode : Node2D, aban.IEntityNode
 
     public static CharacterNode Instantiate(Node parent,
         Vector2I position,
-        aban.TheScalar scalar,
+        aban.entities.Character character,
         aban.Grid2D grid
     )
     {
         var node = Scene.Instantiate<CharacterNode>();
-        node.Prepare(position, scalar, grid);
+        node.Prepare(position, character, grid);
         parent.AddChild(node);
         return node;
     }
@@ -68,7 +68,7 @@ public partial class CharacterNode : Node2D, aban.IEntityNode
         Idle,
     }
 
-    private readonly aban.entities.Character character_ = new();
+    private aban.entities.Character character_ = new();
     private aban.Grid2D? grid_;
     private StateL1 stateL1_ = StateL1.Idle;
     private bool isRequireMovement_;
@@ -78,11 +78,11 @@ public partial class CharacterNode : Node2D, aban.IEntityNode
 
     private void Prepare(
         Vector2I position,
-        aban.TheScalar scalar,
+        aban.entities.Character character,
         aban.Grid2D grid
     )
     {
-        scalar.Entities.Add(character_);
+        character_ = character;
         character_.LocationChangedSignal += OnLocationChanged;
         Position = position;
         grid_ = grid;

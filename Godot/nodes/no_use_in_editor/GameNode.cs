@@ -38,6 +38,7 @@ public partial class GameNode : CanvasLayer
         screen_ = new(Vector2I.Zero, Vector2I.Zero);
         world_ = new(Vector2I.Zero);
         scalar_ = new();
+        master_ = new(scalar_);
         grid_ = new Grid2D(new Vector2I(HardCoded.TileWidth, HardCoded.TileHeight))
         {
             World = world_
@@ -49,6 +50,7 @@ public partial class GameNode : CanvasLayer
     private readonly GameScreen screen_;
     private readonly GameWorld world_;
     private readonly TheScalar scalar_;
+    private readonly GameMaster master_;
     private readonly Grid2D grid_;
     private readonly InputHandler input_;
     private readonly TilesNode tiles_;
@@ -70,7 +72,7 @@ public partial class GameNode : CanvasLayer
 
     private void SpawnPlayerCharacter()
     {
-        player_ = CharacterNode.Instantiate(this, world_.Offset, scalar_, grid_);
+        player_ = CharacterNode.Instantiate(this, world_.Offset, master_.GetPlayer(), grid_);
         player_.ConnectSignals(input_);
     }
 
