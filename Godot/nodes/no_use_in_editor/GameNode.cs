@@ -102,3 +102,27 @@ public partial class GameNode : CanvasLayer
     }
 
 }
+
+/*
+ * 
+class GameMaster
+{
+
+    public GameMaster(TheScalar scalar)
+    {
+        scalar.PostTick += Tick;
+        InitiatePlay();
+    }
+
+    void InitiatePlay()
+    {
+        
+    }
+
+    void Tick()
+    {
+        
+    }
+    
+}
+ */
