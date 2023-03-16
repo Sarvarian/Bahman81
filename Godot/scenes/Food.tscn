@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dru1p36y6i8kn"]
+
+[ext_resource type="Texture2D" uid="uid://bd8rq6asbq84a" path="res://assets/food.tres" id="1_dmba5"]
+
+[node name="Food" type="Sprite2D"]
+position = Vector2(0, -61)
+texture = ExtResource("1_dmba5")
