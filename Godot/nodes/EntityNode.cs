@@ -39,8 +39,11 @@ public abstract partial class EntityNode<T> : Node2D, aban.IEntityNode
         Entity.LocationChangedSignal += OnLocationChanged;
         Position = position;
         grid_ = grid;
-        grid_.World!.OffsetUpdatedSignal -= OnWorldOffsetUpdated;
-        grid_.World!.OffsetUpdatedSignal += OnWorldOffsetUpdated;
+        if (grid_.World != null)
+        {
+            grid_.World.OffsetUpdatedSignal -= OnWorldOffsetUpdated;
+            grid_.World.OffsetUpdatedSignal += OnWorldOffsetUpdated;
+        }
     }
 
     protected virtual void OnLocationChanged()
