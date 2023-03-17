@@ -28,7 +28,6 @@ public abstract partial class EntityNode<T> : Node2D, aban.IEntityNode
     protected float ToCurrent = 1.0f;
     protected bool IsRequireMovement;
 
-
     protected void PrepareEntity(
         Vector2I position,
         T character,

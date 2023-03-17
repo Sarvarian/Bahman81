@@ -19,8 +19,4 @@ public partial class FoodNode : EntityNode<aban.entities.Food>
 		return node;
 	}
 
-	protected override void OnLocationChanged()
-	{
-	}
-
 }
