@@ -48,24 +48,6 @@ public partial class CharacterNode : EntityNode<aban.entities.Character>
     }
 
     private aban.entities.Character Character => Entity;
-    private bool isRequireMovement_;
-    private int previousLocation_;
-    private int currentLocation_;
-    private float toCurrent_ = 1.0f;
-
-    protected override void OnLocationChanged()
-    {
-        StateL1 = EStateL1.Active;
-        isRequireMovement_ = true;
-        previousLocation_ = currentLocation_;
-        currentLocation_ = Character.Location;
-        toCurrent_ = 0.0f;
-    }
-
-    protected override void OnWorldOffsetUpdated()
-    {
-        Position = CalculatePosition();
-    }
 
     private void MoveRight()
     {
@@ -96,33 +78,25 @@ public partial class CharacterNode : EntityNode<aban.entities.Character>
 
     private void MoveIfRequireMovement(double delta)
     {
-        if (isRequireMovement_)
+        if (IsRequireMovement)
         {
-            if (toCurrent_ < 1.0f)
+            if (ToCurrent < 1.0f)
             {
-                toCurrent_ += (float)(2.5d * delta);
+                ToCurrent += (float)(2.5d * delta);
                 Position = CalculatePosition();
             }
         }
-    }
-
-    private Vector2 CalculatePosition()
-    {
-        var current = Grid.LocationToPosition(currentLocation_);
-        var previous = Grid.LocationToPosition(previousLocation_);
-        var position = previous.Lerp(current, toCurrent_);
-        return position;
     }
 
     private void CheckIfActivityIsDone()
     {
         if (StateL1 == EStateL1.Active)
         {
-            if (isRequireMovement_)
+            if (IsRequireMovement)
             {
-                if (toCurrent_ >= 1.0f)
+                if (ToCurrent >= 1.0f)
                 {
-                    isRequireMovement_ = false;
+                    IsRequireMovement = false;
                     StateL1 = EStateL1.Idle;
                 }
             }

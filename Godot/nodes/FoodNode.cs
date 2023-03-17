@@ -23,7 +23,4 @@ public partial class FoodNode : EntityNode<aban.entities.Food>
 	{
 	}
 
-	protected override void OnWorldOffsetUpdated()
-	{
-	}
 }

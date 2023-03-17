@@ -22,7 +22,12 @@ public abstract partial class EntityNode<T> : Node2D, aban.IEntityNode
     }
     protected EStateL1 StateL1 = EStateL1.Idle;
     protected T Entity = new();
-    protected aban.Grid2D Grid = new(Vector2I.Zero);
+    private aban.Grid2D grid_ = new(Vector2I.Zero);
+    private int previousLocation_;
+    private int currentLocation_;
+    protected float ToCurrent = 1.0f;
+    protected bool IsRequireMovement;
+
 
     protected void PrepareEntity(
         Vector2I position,
@@ -34,12 +39,31 @@ public abstract partial class EntityNode<T> : Node2D, aban.IEntityNode
         Entity.LocationChangedSignal -= OnLocationChanged;
         Entity.LocationChangedSignal += OnLocationChanged;
         Position = position;
-        Grid = grid;
-        Grid.World!.OffsetUpdatedSignal -= OnWorldOffsetUpdated;
-        Grid.World!.OffsetUpdatedSignal += OnWorldOffsetUpdated;
+        grid_ = grid;
+        grid_.World!.OffsetUpdatedSignal -= OnWorldOffsetUpdated;
+        grid_.World!.OffsetUpdatedSignal += OnWorldOffsetUpdated;
     }
 
-    protected abstract void OnLocationChanged();
-    protected abstract void OnWorldOffsetUpdated();
+    protected virtual void OnLocationChanged()
+    {
+        StateL1 = EStateL1.Active;
+        IsRequireMovement = true;
+        previousLocation_ = currentLocation_;
+        currentLocation_ = Entity.Location;
+        ToCurrent = 0.0f;
+    }
+
+    protected virtual void OnWorldOffsetUpdated()
+    {
+        Position = CalculatePosition();
+    }
+
+    protected virtual Vector2 CalculatePosition()
+    {
+        var current = grid_.LocationToPosition(currentLocation_);
+        var previous = grid_.LocationToPosition(previousLocation_);
+        var position = previous.Lerp(current, ToCurrent);
+        return position;
+    }
 
 }
