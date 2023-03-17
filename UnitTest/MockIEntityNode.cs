@@ -2,7 +2,7 @@
 
 namespace UnitTest;
 
-public class MockIsEntityNode : IEntityNode
+public class MockIEntityNode : IEntityNode
 {
 	public bool IsActive()
 	{
