@@ -10,7 +10,8 @@ public class TestFood : ClassTestBase
         Assert.IsAssignableFrom<Entity>(food_);
     }
 
-    private static readonly int DefaultLocation = Rng.Next(5, 10);
-    private readonly Food food_ = new(DefaultLocation);
+    //private static readonly int DefaultLocation = Rng.Next(5, 10);
+    //private readonly Food food_ = new(DefaultLocation);
+    private readonly Food food_ = new();
 
 }

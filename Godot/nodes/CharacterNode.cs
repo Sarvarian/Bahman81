@@ -3,7 +3,7 @@ using Survival.extensions;
 
 namespace Survival.nodes;
 
-public partial class CharacterNode : Node2D, aban.IEntityNode
+public partial class CharacterNode : EntityNode<aban.entities.Character>
 {
     private static readonly StringName ScenePath = "res://scenes/character.tscn";
     private static readonly PackedScene Scene = GD.Load<PackedScene>(ScenePath);
@@ -15,7 +15,7 @@ public partial class CharacterNode : Node2D, aban.IEntityNode
     )
     {
         var node = Scene.Instantiate<CharacterNode>();
-        node.Prepare(position, character, grid);
+        node.PrepareEntity(position, character, grid);
         parent.AddChild(node);
         return node;
     }
@@ -47,82 +47,47 @@ public partial class CharacterNode : Node2D, aban.IEntityNode
         // We remove and then add signals just to prevent duplication.
     }
 
-    public void ConnectWorldOffset(aban.GameWorld world)
-    {
-        world.OffsetUpdatedSignal += OnWorldOffsetUpdated;
-    }
-
-    bool aban.IEntityNode.IsActive()
-    {
-        return stateL1_ == StateL1.Active;
-    }
-
-    bool aban.IEntityNode.IsIdle()
-    {
-        return stateL1_ == StateL1.Idle;
-    }
-
-    private enum StateL1
-    {
-        Active,
-        Idle,
-    }
-
-    private aban.entities.Character character_ = new();
-    private aban.Grid2D? grid_;
-    private StateL1 stateL1_ = StateL1.Idle;
+    private aban.entities.Character Character => Entity;
     private bool isRequireMovement_;
     private int previousLocation_;
     private int currentLocation_;
     private float toCurrent_ = 1.0f;
 
-    private void Prepare(
-        Vector2I position,
-        aban.entities.Character character,
-        aban.Grid2D grid
-    )
+    protected override void OnLocationChanged()
     {
-        character_ = character;
-        character_.LocationChangedSignal += OnLocationChanged;
-        Position = position;
-        grid_ = grid;
-    }
-
-    private void OnLocationChanged()
-    {
-        stateL1_ = StateL1.Active;
+        StateL1 = EStateL1.Active;
         isRequireMovement_ = true;
         previousLocation_ = currentLocation_;
-        currentLocation_ = character_.Location;
+        currentLocation_ = Character.Location;
         toCurrent_ = 0.0f;
     }
 
-    private void OnWorldOffsetUpdated()
+    protected override void OnWorldOffsetUpdated()
     {
         Position = CalculatePosition();
     }
 
     private void MoveRight()
     {
-        if (stateL1_ == StateL1.Idle)
+        if (StateL1 == EStateL1.Idle)
         {
-            character_.SetToMoveRight();
+            Character.SetToMoveRight();
             IsGotInputEvent = true;
         }
     }
 
     private void MoveLeft()
     {
-        if (stateL1_ == StateL1.Idle)
+        if (StateL1 == EStateL1.Idle)
         {
-            character_.SetToMoveLeft();
+            Character.SetToMoveLeft();
             IsGotInputEvent = true;
         }
     }
 
     private void Attack()
     {
-        if (stateL1_ == StateL1.Idle)
+        if (StateL1 == EStateL1.Idle)
         {
             IsGotInputEvent = true;
             // TODO: To Be Implemented.
@@ -143,22 +108,22 @@ public partial class CharacterNode : Node2D, aban.IEntityNode
 
     private Vector2 CalculatePosition()
     {
-        var current = grid_!.LocationToPosition(currentLocation_);
-        var previous = grid_!.LocationToPosition(previousLocation_);
+        var current = Grid.LocationToPosition(currentLocation_);
+        var previous = Grid.LocationToPosition(previousLocation_);
         var position = previous.Lerp(current, toCurrent_);
         return position;
     }
 
     private void CheckIfActivityIsDone()
     {
-        if (stateL1_ == StateL1.Active)
+        if (StateL1 == EStateL1.Active)
         {
             if (isRequireMovement_)
             {
                 if (toCurrent_ >= 1.0f)
                 {
                     isRequireMovement_ = false;
-                    stateL1_ = StateL1.Idle;
+                    StateL1 = EStateL1.Idle;
                 }
             }
         }
