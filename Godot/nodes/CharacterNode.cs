@@ -82,7 +82,7 @@ public partial class CharacterNode : EntityNode<aban.entities.Character>
         {
             if (ToCurrent < 1.0f)
             {
-                ToCurrent += (float)(2.5d * delta);
+                ToCurrent += (float)(5.0d * delta);
                 Position = CalculatePosition();
             }
         }
