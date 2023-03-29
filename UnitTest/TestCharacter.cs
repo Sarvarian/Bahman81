@@ -1,4 +1,5 @@
-﻿using Survival.aban.entities;
+﻿using Survival.aban;
+using Survival.aban.entities;
 
 namespace UnitTest;
 
@@ -48,5 +49,12 @@ public class TestCharacter : ClassTestBase
 		);
 	}
 
+	public TestCharacter()
+	{
+		scalar_.Entities.Add(character_);
+	}
+
 	private readonly Character character_ = new();
+	private readonly TheScalar scalar_ = new();
+
 }
