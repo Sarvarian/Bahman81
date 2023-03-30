@@ -10,6 +10,7 @@ public class Character : Entity
 	}
 
 	public ENextMove NextMove = ENextMove.Rest;
+	public int Health { get; private set; } = 10;
 
 	public void SetLocation(int location)
 	{

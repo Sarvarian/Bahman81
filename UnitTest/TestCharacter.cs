@@ -49,6 +49,12 @@ public class TestCharacter : ClassTestBase
 		);
 	}
 
+	[Fact]
+	public void HasHealth()
+	{
+		Assert.IsAssignableFrom<int>(character_.Health);
+	}
+
 	public TestCharacter()
 	{
 		scalar_.Entities.Add(character_);
