@@ -20,7 +20,6 @@ public class TestCharacter : ClassTestBase
 		Assert.Equal(newLocation, character_.Location);
 	}
 
-
 	[Fact]
 	public void SetToMoveRight()
 	{
