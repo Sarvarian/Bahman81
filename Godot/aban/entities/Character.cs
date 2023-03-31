@@ -26,4 +26,9 @@ public class Character : Entity
 	{
 		NextMove = ENextMove.MoveLeft;
 	}
+
+	public void SetHealth(int newHealth)
+	{
+		Health = newHealth;
+	}
 }

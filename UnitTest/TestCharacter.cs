@@ -54,6 +54,21 @@ public class TestCharacter : ClassTestBase
 		Assert.IsAssignableFrom<int>(character_.Health);
 	}
 
+	[Fact]
+	public void CanSetHealth()
+	{
+		var healthInitialValue = character_.Health;
+		Assert.Equal(healthInitialValue, character_.Health);
+		var i = Rng.Next(5, 10);
+		for (; i > 0; i--)
+		{
+			var newHealth = Rng.Next(100, 1000);
+			character_.SetHealth(newHealth);
+			Assert.Equal(newHealth, character_.Health);
+		}
+	}
+
+
 	public TestCharacter()
 	{
 		scalar_.Entities.Add(character_);
