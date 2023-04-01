@@ -35,6 +35,7 @@ public class Location : MonoBehaviour
 		var myTransform = transform;
 		var newPos = myTransform.position;
 		newPos.x = value_ * HardCoded.CellSize.x;
+		newPos.x += HardCoded.WorldOrigin.x;
 		myTransform.position = newPos;
 	}
 	

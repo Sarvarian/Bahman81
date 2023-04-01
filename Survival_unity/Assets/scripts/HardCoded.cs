@@ -12,7 +12,21 @@ public static class HardCoded
 	private const int TileWidth = 70;
 	private const int TileHeight = 122;
 	private const float PixelPerUnit = 100;
+	private const float WorldOriginX = 0.0f;
+	private const float WorldOriginY = 0.0f;
 
+	public static Vector2 WorldOrigin
+	{
+		get
+		{
+			return new Vector2()
+			{
+				x = WorldOriginX,
+				y = WorldOriginY
+			};
+		}
+	}
+	
 	public static Vector2 CellSize
 	{
 		get
