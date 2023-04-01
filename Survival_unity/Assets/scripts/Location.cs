@@ -6,7 +6,7 @@ public class Location : MonoBehaviour
 	{
 		get
 		{
-			return value_;
+			return Get;
 		}
 		set
 		{
