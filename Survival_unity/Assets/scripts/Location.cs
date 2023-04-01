@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Location : MonoBehaviour
 {
@@ -34,8 +32,10 @@ public class Location : MonoBehaviour
 
 	private void UpdateLocation()
 	{
-		var newPos = transform.position;
+		var myTransform = transform;
+		var newPos = myTransform.position;
 		newPos.x = value_ * HardCoded.CellSize.x;
+		myTransform.position = newPos;
 	}
 	
 }
