@@ -2,15 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Location : MonoBehaviour {
+public class Location : MonoBehaviour
+{
+	public int Value
+	{
+		get
+		{
+			return value_;
+		}
+		set
+		{
+			Set(value);
+		}
+	}
 
-	// Use this for initialization
-	void Start () {
-		
+	public int Get
+	{
+		get
+		{
+			return value_;
+		}
+	}
+
+	public void Set(int newValue)
+	{
+		value_ = newValue;
+		UpdateLocation();
+	}
+
+	private int value_;
+
+	private void UpdateLocation()
+	{
+		var newPos = transform.position;
+		newPos.x = value_ * HardCoded.CellSize.x;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
