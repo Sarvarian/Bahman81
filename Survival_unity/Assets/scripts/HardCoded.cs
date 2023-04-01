@@ -11,13 +11,13 @@ public static class HardCoded
 	// 3) Tileset and TileMap.
 	private const int TileWidth = 70;
 	private const int TileHeight = 122;
-	private const int PixelPerUnit = 100;
+	private const float PixelPerUnit = 100;
 
-	public static Vector2Int CellSize
+	public static Vector2 CellSize
 	{
 		get
 		{
-			return new Vector2Int(TileWidth, TileHeight)
+			return new Vector2(TileWidth, TileHeight)
 			{
 				x = TileWidth / PixelPerUnit,
 				y = TileHeight / PixelPerUnit
