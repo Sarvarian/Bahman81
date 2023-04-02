@@ -236,3 +236,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterPrefab: {fileID: 1222581120609318, guid: 41a73088daabc0748a4e7e6d0e4bb2a8,
     type: 2}
+  barPrefab: {fileID: 1128381590865496, guid: 9f713454be1d0ff4c951821736829a6c, type: 2}
