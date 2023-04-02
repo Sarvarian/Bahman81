@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[DisallowMultipleComponent]
 [RequireComponent(typeof(Location))]
 public class PlayerController : MonoBehaviour
 {

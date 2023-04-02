@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [DisallowMultipleComponent]
-public class Health : MonoBehaviour
+public class Hunger : MonoBehaviour
 {
 	public int Value
 	{
@@ -34,5 +34,4 @@ public class Health : MonoBehaviour
 	}
 
 	private int value_ = 10;
-
 }
